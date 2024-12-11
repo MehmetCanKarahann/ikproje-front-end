@@ -1,0 +1,11 @@
+.custom-green-banner {
+    background-color: #256f45; 
+    width: 100%; 
+    height: 500px; 
+    position: relative;
+    top: 60px;
+    color: white; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

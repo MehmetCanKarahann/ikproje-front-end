@@ -1,0 +1,33 @@
+.card {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  
+  .card.slide-out {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  
+  .card.slide-in {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  
+  .card.active {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+
+  .swal-button {
+    background-color: #4caf50;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.swal-button:hover {
+    background-color: #45a049;
+}

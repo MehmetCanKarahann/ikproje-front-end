@@ -1,0 +1,71 @@
+.navbar {
+    background-color: #205e3b;
+    z-index: 1000; 
+    position: fixed; 
+    width: 100%; 
+}
+
+.navbar-logo {
+    width: 200px;
+    height: 45px;
+}
+
+.nav-link {
+    color: white !important;
+    font-size: large;
+}
+
+.nav-link:hover {
+    color: #ddd !important;
+    text-decoration: underline !important;
+    text-underline-offset: 8px;
+}
+
+.navbar-collapse{
+    margin-right: 100px;
+}
+
+.navbar-brand{
+    margin-left: 120px;
+}
+
+.custom-btn-filled {
+    background-color: #fff !important; 
+    color: #256f45; 
+    border: 2px solid #fff !important; 
+    font-weight: bold;
+    font-size: medium;
+    padding: 10px 15px;
+    border-radius: 20px; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    width: 120px;
+    height: 45px;
+}
+
+.custom-btn-filled:hover {
+    transform: scale(1.1); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    background-color: #fff !important;
+    color: #256f45 !important;
+}
+
+.custom-btn-outlined {
+    background-color: transparent;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+    font-weight: bold;
+    font-size: medium;
+    padding: 10px 15px;
+    border-radius: 20px; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 120px;
+    height: 45px;
+}
+
+.custom-btn-outlined:hover {
+    transform: scale(1.1); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    background-color: #256f45 !important;
+    color: #fff !important;
+  
+}
