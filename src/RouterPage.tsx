@@ -1,9 +1,9 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage'
-import Register from './pages/Admin/Register'
+import Register from './pages/AdminCompany/Register'
 import MultiStepForm from './pages/MultiStepForm'
-import Login from './pages/Admin/Login'
+import Login from './pages/AdminCompany/Login'
 
 function RouterPage() {
   return (
