@@ -2,18 +2,18 @@ import React from 'react'
 
 interface IStepSixProps {
     companyEmail: string
-    password: string
-    rePassword: string
+    companyPassword: string
+    companyRePassword: string
     setCompanyEmail: (value: string) => void;
-    setPassword: (value: string) => void;
-    setRePassword: (value: string) => void;
+    setCompanyPassword: (value: string) => void;
+    setCompanyRePassword: (value: string) => void;
     handlePrevious: () => void;
     registerHandle: () => void;
 }
 
 function Step6(props: IStepSixProps) {
 
-    const {companyEmail,password,rePassword,setCompanyEmail, setPassword, setRePassword, handlePrevious, registerHandle} = props;
+    const {companyEmail,companyPassword,companyRePassword,setCompanyEmail, setCompanyPassword, setCompanyRePassword, handlePrevious, registerHandle} = props;
 
     return (
         <>
@@ -22,10 +22,10 @@ function Step6(props: IStepSixProps) {
                 <input type="email" className="form-control" value={companyEmail} onChange={evt => { setCompanyEmail(evt.target.value) }} placeholder="Şirket Email Adresi" style={{ fontSize: '18px' }} />
             </div>
             <div className="form-group">
-                <input type="password" className="form-control" value={password} onChange={evt => { setPassword(evt.target.value) }} placeholder="Şifreniz" style={{ fontSize: '18px' }} />
+                <input type="password" className="form-control" value={companyPassword} onChange={evt => { setCompanyPassword(evt.target.value) }} placeholder="Şifreniz" style={{ fontSize: '18px' }} />
             </div>
             <div className="form-group">
-                <input type="password" className="form-control" value={rePassword} onChange={evt => { setRePassword(evt.target.value) }} placeholder="Şifre Yeniden" style={{ fontSize: '18px' }} />
+                <input type="password" className="form-control" value={companyRePassword} onChange={evt => { setCompanyRePassword(evt.target.value) }} placeholder="Şifre Yeniden" style={{ fontSize: '18px' }} />
             </div>
             <div className="row">
                 <div className="col-6 text-center">

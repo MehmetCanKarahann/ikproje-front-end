@@ -21,8 +21,8 @@ function Register() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [rePassword, setRePassword] = useState('');
+    const [companyPassword, setCompanyPassword] = useState('');
+    const [companyRePassword, setCompanyRePassword] = useState('');
     const [phone, setPhone] = useState('');
     const [tcNo, setTcNo] = useState('');
     const [sgkNo, setSgkNo] = useState('');
@@ -84,9 +84,8 @@ function Register() {
         const register: IRegisterRequest = {
             firstName: firstName,
             lastName: lastName,
-            email: email,
-            password: password,
-            rePassword: rePassword,
+            companyPassword: companyPassword,
+            companyRePassword: companyRePassword,
             phone: phone,
             hireDate: hireDate,
             tcNo: tcNo,
@@ -179,11 +178,9 @@ function Register() {
                                                             <Step1
                                                             firstName={firstName}
                                                             lastName={lastName}
-                                                            email={email}
                                                             phone={phone}
                                                                 setFirstName={setFirstName}
                                                                 setLastName={setLastName}
-                                                                setEmail={setEmail}
                                                                 birthDate={birthDate}
                                                                 setBirthDate={setBirthDate}
                                                                 setPhone={setPhone}
@@ -266,11 +263,11 @@ function Register() {
                                                         <>
                                                             <Step6 
                                                             companyEmail={companyEmail}
-                                                            password={password}
-                                                            rePassword={rePassword}
+                                                            companyPassword={companyPassword}
+                                                            companyRePassword={companyRePassword}
                                                             setCompanyEmail={setCompanyEmail} 
-                                                            setPassword={setPassword} 
-                                                            setRePassword={setRePassword} 
+                                                            setCompanyPassword={setCompanyPassword} 
+                                                            setCompanyRePassword={setCompanyRePassword} 
                                                             handlePrevious={handlePrevious} 
                                                             registerHandle={registerHandle} />
                                                         </>

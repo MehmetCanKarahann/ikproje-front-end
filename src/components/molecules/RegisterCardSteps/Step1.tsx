@@ -5,8 +5,6 @@ interface IStepOneProps{
     setFirstName: (value: string) => void;
     lastName: string;
     setLastName: (value: string) => void;
-    email: string;
-    setEmail: (value: string) => void;
     phone: string;
     setPhone: (value: string) => void;
     birthDate: string;
@@ -16,7 +14,7 @@ interface IStepOneProps{
 
 function Step1(props: IStepOneProps) {
 
-    const {firstName,lastName,email,phone,setFirstName, setLastName, setEmail, setPhone, setBirthDate, handleNext, birthDate} = props;
+    const {firstName,lastName,phone,setFirstName, setLastName, setPhone, setBirthDate, handleNext, birthDate} = props;
 
     return (
         <>
@@ -27,9 +25,7 @@ function Step1(props: IStepOneProps) {
             <div className="mb-3">
                 <input type="text" className="form-control" value={lastName} onChange={evt => { setLastName(evt.target.value) }} placeholder="Soyadınız" style={{ fontSize: '18px' }} />
             </div>
-            <div className="mb-3">
-                <input type="email" className="form-control" value={email} onChange={evt => { setEmail(evt.target.value) }} placeholder="Email Adresi" style={{ fontSize: '18px' }} />
-            </div>
+           
             <div className="form-group">
                 <input type="text" className="form-control" value={phone} onChange={evt => { setPhone(evt.target.value) }} placeholder="Telefon Numaranız" style={{ fontSize: '18px' }} />
             </div>

@@ -1,9 +1,8 @@
 export interface IRegisterRequest{
     firstName: string,
     lastName: string,
-    email: string,
-    password: string,
-    rePassword: string,
+    companyPassword: string,
+    companyRePassword: string,
     phone: string,
     hireDate: string,
     tcNo: string,

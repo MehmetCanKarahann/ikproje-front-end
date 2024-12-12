@@ -15,7 +15,6 @@ const initialAuthState = {
 }
 
 //fetch işlemleri
-
 export const fecthRegister = createAsyncThunk(
     'auth/fetchRegister',
     async (payload: IRegisterRequest) => {
