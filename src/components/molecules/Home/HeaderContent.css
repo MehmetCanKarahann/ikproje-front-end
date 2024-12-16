@@ -1,0 +1,22 @@
+
+
+
+/* Resim kapsayıcısının çerçevesi */
+.image-container {
+    width: 300px;  /* Çerçevenin boyutunu belirleyin */
+    height: 300px; /* Çerçevenin boyutunu belirleyin */
+    border: 20px solid #a7ea80; /* Çerçeve kalınlığı ve rengi (mavi) */
+    border-radius: 50%; /* Daire şekli */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;  /* Resmin dışarı taşmasını engelle */
+}
+
+/* Resmin boyutu */
+.image {
+    width: 400;
+    height: 350;
+    object-fit: cover; /* Resmin boyutunu çerçeveye uyacak şekilde ayarlar */
+
+}

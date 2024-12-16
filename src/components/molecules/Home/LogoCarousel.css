@@ -1,0 +1,44 @@
+
+.logos-carousel-container {
+    text-align: center;
+    padding: 50px 0;
+    background-color: #f9f9f9; /* Arka plan rengini ihtiyacınıza göre ayarlayın */
+}
+
+.carousel-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.slick-slide {
+    padding: 0; /* Slide içindeki padding sıfırlanır */
+    margin: 0; /* Slide'lar arası margin sıfırlanır */
+    display: flex; /* Logoları hizalamak için flex kullanılır */
+    justify-content: center;
+    align-items: center;
+}
+
+
+.slick-list {
+    padding: 0;
+    margin: 0 auto; /* Ortalanmış görünüm için */
+}
+
+/* Logo resimleri için max-width ve alignment */
+.logo-slide {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    padding: 5; /* Slide'ın iç boşluğunu kaldır */
+    margin: 0; 
+}
+
+
+
+.logo-image:hover {
+    transform: scale(1.1); /* Hover animasyonu */
+}
+
+
+

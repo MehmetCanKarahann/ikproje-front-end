@@ -5,7 +5,8 @@ const server = devUrl;
 
 const apis = {
     authService: server + '/user',
-    usernService: server + '/user'
+    userService: server + '/user',
+    adminService: server + '/admin'
 }
 
 export default apis;

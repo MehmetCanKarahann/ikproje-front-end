@@ -10,8 +10,7 @@ import { stat } from "fs"
 const initialAuthState = {
     isAuth: false,
     isLoginLoading: false,
-    isRegisterLoading: false,
-    user: {}
+    isRegisterLoading: false
 }
 
 //fetch işlemleri

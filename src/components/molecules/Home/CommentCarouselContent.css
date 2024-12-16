@@ -1,0 +1,56 @@
+/* Swiper slide container stilleri */
+.swiper-slide-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 450px;
+    height: 250px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 70px;
+    margin-left: 30%;
+  }
+  
+  .swiper-slide-container:hover {
+    transform: translateY(-10px); /* Hover efektiyle hafif yukarı kayma */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); /* Hover efektiyle daha belirgin gölge */
+  }
+  
+  /* İçerik metni */
+  .content-text {
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    color: #555;
+    text-align: center;
+    line-height: 1.6;
+  
+    
+  }
+  
+  /* Pagination ve Navigation Stillendirme */
+  .swiper-pagination-bullet {
+    background-color: #088b3a !important;
+    opacity: 0.7;
+    transition: background-color 0.3s ease;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background-color: #088b3a !important;
+    opacity: 1;
+  }
+  
+  .swiper-button-next, .swiper-button-prev {
+    color: white;
+    transition: color 0.3s ease;
+    background-color: #088b3a;
+    padding: 25px;
+  }
+  
+  .swiper-button-next:hover, .swiper-button-prev:hover {
+    color: white;
+  }
+  

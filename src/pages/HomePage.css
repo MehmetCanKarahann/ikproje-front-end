@@ -1,11 +1,32 @@
 .custom-green-banner {
-    background-color: #256f45; 
-    width: 100%; 
-    height: 500px; 
-    position: relative;
-    top: 60px;
-    color: white; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #256f45;
+  width: 100%;
+  height: 500px;
+  position: relative;
+  top: 60px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.background-blur {
+    background-image: url('../img/bg.png'); /* Resim yolu */
+    background-size: cover; /* Resmi tam kapla */
+    background-position: center; /* Ortala */
+    background-repeat: no-repeat; /* Tekrarlama */
+    filter: blur(3px); /* Bulanıklık */
+    height: 100%; /* Tüm alanı kapla */
+    width: 100%;
+    position: absolute; /* İçerik katmanından ayrı olsun */
+    top: 0;
+    left: 0;
+    z-index: -1; /* İçerik katmanının arkasında */
+    overflow: hidden;
+  }
+  
+  /* İçerik kısmı */
+  .content {
+    position: relative; /* İçeriğin düzgün konumlanması */
+    z-index: 1; /* İçeriği önde göster */
+  }

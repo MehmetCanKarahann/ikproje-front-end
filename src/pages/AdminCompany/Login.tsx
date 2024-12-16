@@ -36,7 +36,7 @@ function Login() {
                 if (data.payload.code === 200)
                     swal('Başarı', 'Giriş işlemi başarılı!', 'success').then(() => {
                         // SweetAlert kapandıktan sonra yönlendirme yapılıyor.
-                        navigate('/'); //anasayfa ya değil admin paneline yönlenecek.
+                        navigate('/companyadmin'); //anasayfa ya değil admin paneline yönlenecek.
                     });
                 else {
                     swal('Hata', data.payload.message, 'error');
