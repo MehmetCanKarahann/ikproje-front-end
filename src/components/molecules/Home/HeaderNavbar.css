@@ -8,9 +8,8 @@
 }
 
 .header-navbar.scrolled {
-    background-color: white !important; /* Scroll sonrası renk */
+    background-color: white !important; 
     color: black !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
 }
 
 .navbar-logo {
@@ -18,9 +17,6 @@
     height: auto;
 }
 
-.header-navbar.scrolled .navbar-logo{
-    transform: scale(0.9);
-}
 
 .nav-link {
     color: white !important;

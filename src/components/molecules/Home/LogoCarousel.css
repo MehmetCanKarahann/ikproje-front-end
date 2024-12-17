@@ -34,13 +34,9 @@
     margin: 0; 
 }
 
-
-
 .logo-image:hover {
     transform: scale(1.1); 
 }
-
-
 
 .slick-prev, .slick-next {
     padding: 50px;
