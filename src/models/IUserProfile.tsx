@@ -1,5 +1,7 @@
 export interface IUserProfile{
     avatarUrl: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    userRole: string,
+    companyName: string
 }

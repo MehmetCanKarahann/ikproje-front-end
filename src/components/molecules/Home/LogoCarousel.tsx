@@ -23,21 +23,21 @@ function LogoCarousel() {
         dots: false,
         infinite: true,
         speed: 2000,
-        slidesToShow: 4, // Aynı anda 4 logo gösteriliyor
+        slidesToShow: 4, 
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 0,
-        cssEase: "linear",
+        autoplaySpeed: 2000, // Daha yavaş döngü
+        cssEase: "ease-in-out", // Daha yumuşak geçiş
         pauseOnHover: true,
         arrows: true,
-        centerMode: true, // Ortalanmış görünüm
-        centerPadding: "10px", // Slide'lar arasındaki boşluğu kontrol eder
+        centerMode: true, 
+        centerPadding: "10px", 
         responsive: [
             {
                 breakpoint: 1024,
                 settings: {
                     slidesToShow: 3,
-                    centerPadding: "5px", // Daha dar ekranlar için daha az padding
+                    centerPadding: "5px", 
                 }
             },
             {

@@ -36,7 +36,6 @@ const userSlice = createSlice({
             state.isProfileLoading = false;
             if(action.payload.code === 200){
                 state.profile = action.payload.data;
-                console.log(action.payload.data);
             }
         })
     }

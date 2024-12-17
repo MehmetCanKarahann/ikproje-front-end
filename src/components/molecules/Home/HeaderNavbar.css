@@ -1,18 +1,34 @@
-.navbar {
-    background-color: #205e3b !important;
+.header-navbar {
+    background-color: #256f45 !important;
+    color: white !important;
+    transition: background-color 0.3s ease, color 0.3s ease; 
     z-index: 1000; 
     position: fixed; 
     width: 100%; 
 }
 
+.header-navbar.scrolled {
+    background-color: white !important; /* Scroll sonrası renk */
+    color: black !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+}
+
 .navbar-logo {
     width: 200px;
-    height: 45px;
+    height: auto;
+}
+
+.header-navbar.scrolled .navbar-logo{
+    transform: scale(0.9);
 }
 
 .nav-link {
     color: white !important;
     font-size: large;
+}
+
+.header-navbar.scrolled .nav-link {
+    color: black !important;
 }
 
 .nav-link:hover {
@@ -42,6 +58,11 @@
     height: 45px;
 }
 
+.header-navbar.scrolled .custom-btn-filled{
+    color: black !important;
+    border: 1px solid #256f45 !important;
+}
+
 .custom-btn-filled:hover {
     transform: scale(1.1); 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
@@ -60,6 +81,12 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100px;
     height: 45px;
+}
+
+.header-navbar.scrolled .custom-btn-outlined{
+    color: black !important;   
+    border: 1px solid #205e3b !important;
+    background-color: #fff !important;
 }
 
 .custom-btn-outlined:hover {

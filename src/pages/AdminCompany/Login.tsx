@@ -14,6 +14,8 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [showPassword, setShowPassword] = useState(false);
+
 
     const [isEmailEmpty, setIsEmailEmpty] = useState(false);
     const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
@@ -24,14 +26,14 @@ function Login() {
         setIsEmailEmpty(email === '');
         setIsPasswordEmpty(password === '');
 
-       
+
         if (email !== '' || password !== '') {
 
             const loginModel: ILoginRequest = {
                 email: email,
                 password: password
             }
-    
+
             dispatch(fetchLogin(loginModel)).then(data => {
                 if (data.payload.code === 200)
                     swal('Başarı', 'Giriş işlemi başarılı!', 'success').then(() => {
@@ -44,6 +46,11 @@ function Login() {
             });
         }
     }
+
+    //showPassword state değişkeninin durumunu günceller.
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+      };
 
 
     return (
@@ -75,13 +82,47 @@ function Login() {
                                                 {
                                                     isPasswordEmpty
                                                         ? <div className="form-group mb-5">
-                                                            <input type="password" className="form-control" onChange={evt => (setPassword(evt.target.value))} placeholder="Şifreniz" style={{ fontSize: '18px', borderColor: 'red'  }} />
+                                                            <input type={showPassword ? 'text' : 'password'} className="form-control" onChange={evt => (setPassword(evt.target.value))} placeholder="Şifreniz" style={{ fontSize: '18px', borderColor: 'red' }} />
+                                                            <button type="button" onClick={togglePasswordVisibility}
+                                                              style={{
+                                                                position: 'absolute',
+                                                                right: '55px',
+                                                                top: '50%',
+                                                                transform: 'translateY(65%)',
+                                                                background: 'transparent',
+                                                                border: 'none',
+                                                                cursor: 'pointer',
+                                                              }}
+                                                            >
+                                                                {showPassword ? (
+                                                                    <i className="material-icons">visibility_off</i> // Şifre gizliyse
+                                                                ) : (
+                                                                    <i className="material-icons">visibility</i> // Şifre gösteriliyorsa
+                                                                )}
+                                                            </button>
                                                         </div>
                                                         : <div className="form-group mb-5">
-                                                            <input type="password" className="form-control" onChange={evt => (setPassword(evt.target.value))} placeholder="Şifreniz" style={{ fontSize: '18px'}} />
+                                                            <input type={showPassword ? 'text' : 'password'}  className="form-control" onChange={evt => (setPassword(evt.target.value))} placeholder="Şifreniz" style={{ fontSize: '18px' }} />
+                                                            <button type="button"  onClick={togglePasswordVisibility}
+                                                              style={{
+                                                                position: 'absolute',
+                                                                right: '55px',
+                                                                top: '50%',
+                                                                transform: 'translateY(65%)',
+                                                                background: 'transparent',
+                                                                border: 'none',
+                                                                cursor: 'pointer',
+                                                              }}
+                                                            >
+                                                                {showPassword ? (
+                                                                    <i className="material-icons">visibility</i> // Şifre gizliyse
+                                                                ) : (
+                                                                    <i className="material-icons">visibility_off</i> // Şifre gösteriliyorsa
+                                                                )}
+                                                            </button>
                                                         </div>
                                                 }
-                                                
+
                                                 <div className="col">
                                                     <button type="submit" className="btn btn-primary btn-block btn-submit " style={{ width: '550px', fontSize: '17px', marginLeft: '15px' }} onClick={Login} > Giriş Yap</button>
                                                 </div>

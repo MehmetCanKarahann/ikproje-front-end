@@ -15,6 +15,8 @@ function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const [isEmailEmpty, setIsEmailEmpty] = useState(false);
   const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
 
@@ -33,12 +35,18 @@ function AdminLogin() {
       dispatch(fetchAdminLogin(loginModel)).then(data => {
         if (data.payload.code === 200) {
           swal('Başarı', 'Giriş işlemi başarılı!', 'success').then(() => {
-            navigate('/admin'); 
-        });
+            navigate('/admin');
+          });
         }
       })
     }
   }
+
+  //showPassword state değişkeninin durumunu günceller.
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  }
+
 
   return (
     <div className='container' id='login-content'>
@@ -61,10 +69,44 @@ function AdminLogin() {
           {
             isPasswordEmpty
               ? <div className="mb-4">
-                <input type="password" style={{ borderColor: 'red' }} onChange={evt => setPassword(evt.target.value)} className='form-control input-color' placeholder='Şifrenizi Giriniz...' />
+                <input type={showPassword ? 'text' : 'password'} style={{ borderColor: 'red' }} onChange={evt => setPassword(evt.target.value)} className='form-control input-color' placeholder='Şifrenizi Giriniz...' />
+                <button type="button" onClick={togglePasswordVisibility}
+                  style={{
+                    position: 'absolute',
+                    right: '55px',
+                    top: '50%',
+                    transform: 'translateY(65%)',
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {showPassword ? (
+                    <i className="material-icons">visibility_off</i> // Şifre gizliyse
+                  ) : (
+                    <i className="material-icons">visibility</i> // Şifre gösteriliyorsa
+                  )}
+                </button>
               </div>
               : <div className="mb-4">
-                <input type="password" onChange={evt => setPassword(evt.target.value)} className='form-control input-color' placeholder='Şifrenizi Giriniz...' />
+                <input type={showPassword ? 'text' : 'password'} onChange={evt => setPassword(evt.target.value)} className='form-control input-color' placeholder='Şifrenizi Giriniz...' />
+                <button type="button" onClick={togglePasswordVisibility}
+                  style={{
+                    position: 'absolute',
+                    right: '30px',
+                    top: '50%',
+                    transform: 'translateY(320%)',
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {showPassword ? (
+                    <i className="material-icons">visibility</i> // Şifre gizliyse
+                  ) : (
+                    <i className="material-icons">visibility_off</i> // Şifre gösteriliyorsa
+                  )}
+                </button>
               </div>
           }
 

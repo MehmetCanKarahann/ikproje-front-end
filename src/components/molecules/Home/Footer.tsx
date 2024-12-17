@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../../../img/logo.png'
+import logo from '../../../img/logo-dark1.png'
 
 function Footer() {
     return (
@@ -8,33 +8,31 @@ function Footer() {
             {/* Logo Bölümü */}
             <div className='col-md-7 mb-3'>
                 <img src={logo} alt='Logo' style={{ width: 150, marginLeft: '15%' }} />
-                <p className='' style={{marginLeft: '14%'}}>
-                    Şirketinizin kısa açıklaması burada yer alabilir. Misyon ve vizyon cümlelerinizi yazabilirsiniz.
-                </p>
+                
             </div>
 
             {/* Hızlı Linkler Bölümü */}
             <div className='col-md-2 mb-3'>
-                <h5>Hızlı Linkler</h5>
+                <h5 style={{color: 'black'}}> Hızlı Linkler</h5>
                 <ul className='list-unstyled'>
-                    <li><a href='#' className='text-white text-decoration-none' style={{color: 'black'}}>Ana Sayfa</a></li>
-                    <li><a href='#' className='text-white text-decoration-none'>Hakkımızda</a></li>
-                    <li><a href='#' className='text-white text-decoration-none'>Hizmetler</a></li>
-                    <li><a href='#' className='text-white text-decoration-none'>İletişim</a></li>
+                    <li><a href='#' className='text-decoration-none' style={{color: 'gray'}}>Ana Sayfa</a></li>
+                    <li><a href='#' className='text-decoration-none' style={{color: 'gray'}}>Hakkımızda</a></li>
+                    <li><a href='#' className='text-decoration-none' style={{color: 'gray'}}>Hizmetler</a></li>
+                    <li><a href='#' className='text-decoration-none' style={{color: 'gray'}}>İletişim</a></li>
                 </ul>
             </div>
 
             {/* İletişim Bilgileri Bölümü */}
             <div className='col-md-3 mb-3'>
-                <h5>İletişim</h5>
+                <h5 style={{color: 'black'}}>İletişim</h5>
                 <p>
-                    <i className='fa fa-map-marker-alt'></i> Adres: İstanbul, Türkiye
+                    <i className='fa fa-map-marker-alt me-2'></i> Adres: İstanbul, Türkiye
                 </p>
                 <p>
-                    <i className='fa fa-phone'></i> Telefon: +90 555 555 55 55
+                    <i className='fa fa-phone me-2'></i> Telefon: +90 555 555 55 55
                 </p>
                 <p>
-                    <i className='fa fa-envelope'></i> Email: info@ornek.com
+                    <i className='fa fa-envelope me-2'></i> Email: info@ornek.com
                 </p>
             </div>
         </div>

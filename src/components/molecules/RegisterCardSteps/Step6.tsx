@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 interface IStepSixProps {
     companyEmail: string
@@ -13,7 +13,18 @@ interface IStepSixProps {
 
 function Step6(props: IStepSixProps) {
 
-    const {companyEmail,companyPassword,companyRePassword,setCompanyEmail, setCompanyPassword, setCompanyRePassword, handlePrevious, registerHandle} = props;
+    const { companyEmail, companyPassword, companyRePassword, setCompanyEmail, setCompanyPassword, setCompanyRePassword, handlePrevious, registerHandle } = props;
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showRePassword, setShowRePassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    }
+
+    const toggleRePasswordVisibility = () => {
+        setShowRePassword(!showRePassword);
+    }
 
     return (
         <>
@@ -22,12 +33,46 @@ function Step6(props: IStepSixProps) {
                 <input type="email" className="form-control" value={companyEmail} onChange={evt => { setCompanyEmail(evt.target.value) }} placeholder="Şirket Email Adresi" style={{ fontSize: '18px' }} />
             </div>
             <div className="form-group">
-                <input type="password" className="form-control" value={companyPassword} onChange={evt => { setCompanyPassword(evt.target.value) }} placeholder="Şifreniz" style={{ fontSize: '18px' }} />
+                <input type={showPassword ? 'text' : 'password'}  className="form-control" value={companyPassword} onChange={evt => { setCompanyPassword(evt.target.value) }} placeholder="Şifreniz" style={{ fontSize: '18px' }} />
+                <button type="button" onClick={togglePasswordVisibility}
+                  style={{
+                    position: 'absolute',
+                    right: '45px',
+                    top: '50%',
+                    transform: 'translateY(-105%)',
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                    {showPassword ? (
+                    <i className="material-icons">visibility</i> // Şifre gizliyse
+                  ) : (
+                    <i className="material-icons">visibility_off</i> // Şifre gösteriliyorsa
+                  )}
+                </button>
             </div>
             <div className="form-group">
-                <input type="password" className="form-control" value={companyRePassword} onChange={evt => { setCompanyRePassword(evt.target.value) }} placeholder="Şifre Yeniden" style={{ fontSize: '18px' }} />
+                <input type={showRePassword ? 'text' : 'password'}  className="form-control" value={companyRePassword} onChange={evt => { setCompanyRePassword(evt.target.value) }} placeholder="Şifre Yeniden" style={{ fontSize: '18px' }} />
+                <button type="button" onClick={toggleRePasswordVisibility}
+                  style={{
+                    position: 'absolute',
+                    right: '45px',
+                    top: '50%',
+                    transform: 'translateY(95%)',
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                    {showRePassword ? (
+                    <i className="material-icons">visibility</i> // Şifre gizliyse
+                  ) : (
+                    <i className="material-icons">visibility_off</i> // Şifre gösteriliyorsa
+                  )}
+                </button>
             </div>
-            <select className="form-select mb-3 p-3"  style={{ height: '60px', borderRadius: '30px', fontSize: '17px', color: 'gray', fontWeight: 'bold' }} aria-label="Default select example">
+            <select className="form-select mb-3 p-3" style={{ height: '60px', borderRadius: '30px', fontSize: '17px', color: 'gray', fontWeight: 'bold' }} aria-label="Default select example">
                 <option selected>Ne Kadar Süre Üye Olmak İstiyorsunuz?</option>
                 <option value="3">3 Ay</option>
                 <option value="6">6 Ay</option>

@@ -4,6 +4,7 @@ import { IKDispatch, IKUseSelector } from '../../../store';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { userLogout } from '../../../store/feature/authSlice';
 import { fetchGetProfileByToken } from '../../../store/feature/userSlice';
+import './Header.css';
 
 function Header() {
 
@@ -27,7 +28,7 @@ function Header() {
 
   return (
     <>
-          <nav className="navbar navbar-expand" style={{backgroundColor: 'transparent', position: 'sticky'}}>
+          <nav className="navbar navbar-expand navbar-bg-color" >
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
@@ -38,7 +39,7 @@ function Header() {
                             <li className="nav-item nav-profile dropdown">
                                 <a className="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="../../assets/images/avatars/profile-image-1.png" alt="profile image" />
-                                    <span style={{color: 'gray'}}> {profile?.firstName} {profile?.lastName} </span><i className="material-icons dropdown-icon">keyboard_arrow_down</i>
+                                    <span style={{color: 'gray'}}> {profile?.firstName} {profile?.lastName} - {profile?.companyName} </span><i className="material-icons dropdown-icon">keyboard_arrow_down</i>
                                 </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a style={{cursor: 'pointer'}} onClick={logout} className="dropdown-item" >Log out</a>

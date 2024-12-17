@@ -1,4 +1,4 @@
-/* Swiper slide container stilleri */
+
 .swiper-slide-container {
     position: relative;
     display: flex;
@@ -16,11 +16,11 @@
   }
   
   .swiper-slide-container:hover {
-    transform: translateY(-10px); /* Hover efektiyle hafif yukarı kayma */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); /* Hover efektiyle daha belirgin gölge */
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); 
   }
   
-  /* İçerik metni */
+
   .content-text {
     font-size: 16px;
     font-family: 'Arial', sans-serif;
@@ -31,7 +31,7 @@
     
   }
   
-  /* Pagination ve Navigation Stillendirme */
+
   .swiper-pagination-bullet {
     background-color: #088b3a !important;
     opacity: 0.7;

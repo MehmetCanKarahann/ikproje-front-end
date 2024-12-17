@@ -1,5 +1,6 @@
 import React from 'react'
 import './ApplicationContent.css'
+import { Fade, Slide } from 'react-awesome-reveal';
 
 function ApplicationContent() {
 
@@ -44,18 +45,24 @@ function ApplicationContent() {
     return (
         <div className='row'>
             <div className="applications-container">
-                <h2 className="applications-title">UYGULAMALAR</h2>
-               
+                <Slide direction="up" duration={1000}>
+                    <h2 className="applications-title">UYGULAMALAR</h2>
+                </Slide>
+
+
+                <Fade direction="up" duration={3000} triggerOnce>
                 <div className="applications-grid mt-4">
                     {applicationData.map((app, index) => (
                         <div key={index} className="application-card">
                             <div className="application-icon">{app.icon}</div>
                             <h3 className="application-title">{app.title}</h3>
                             <p className="application-description">{app.description}</p>
-                            
+
                         </div>
                     ))}
                 </div>
+                </Fade>
+                
             </div>
         </div>
     )

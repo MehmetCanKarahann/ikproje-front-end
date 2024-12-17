@@ -2,7 +2,7 @@
 .logos-carousel-container {
     text-align: center;
     padding: 50px 0;
-    background-color: #f9f9f9; /* Arka plan rengini ihtiyacınıza göre ayarlayın */
+    background-color: #f9f9f9; 
 }
 
 .carousel-title {
@@ -12,9 +12,9 @@
 }
 
 .slick-slide {
-    padding: 0; /* Slide içindeki padding sıfırlanır */
-    margin: 0; /* Slide'lar arası margin sıfırlanır */
-    display: flex; /* Logoları hizalamak için flex kullanılır */
+    padding: 0; 
+    margin: 0; 
+    display: flex; 
     justify-content: center;
     align-items: center;
 }
@@ -22,23 +22,38 @@
 
 .slick-list {
     padding: 0;
-    margin: 0 auto; /* Ortalanmış görünüm için */
+    margin: 0 auto; 
 }
 
-/* Logo resimleri için max-width ve alignment */
+
 .logo-slide {
     display: flex !important;
     justify-content: center;
     align-items: center;
-    padding: 5; /* Slide'ın iç boşluğunu kaldır */
+    padding: 5;
     margin: 0; 
 }
 
 
 
 .logo-image:hover {
-    transform: scale(1.1); /* Hover animasyonu */
+    transform: scale(1.1); 
 }
 
 
 
+.slick-prev, .slick-next {
+    padding: 50px;
+    z-index: 10;
+    background-color: gray !important; 
+    border-radius: 50%;
+    color: black; 
+    transition: all 0.3s ease;
+}
+
+.slick-prev:hover, .slick-next:hover {
+    background-color: #fff; 
+    color: #205e3b; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+   
+}

@@ -1,5 +1,5 @@
 .custom-green-banner {
-  background-color: #256f45;
+  background: linear-gradient(135deg, #256f45 0%, #3ca65c 100%) !important;
   width: 100%;
   height: 500px;
   position: relative;
@@ -11,22 +11,22 @@
 }
 
 .background-blur {
-    background-image: url('../img/bg.png'); /* Resim yolu */
-    background-size: cover; /* Resmi tam kapla */
-    background-position: center; /* Ortala */
-    background-repeat: no-repeat; /* Tekrarlama */
-    filter: blur(3px); /* Bulanıklık */
-    height: 100%; /* Tüm alanı kapla */
+    background-image: url('../img/bg.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    filter: blur(3px); 
+    height: 100%;
     width: 100%;
-    position: absolute; /* İçerik katmanından ayrı olsun */
+    position: absolute; 
     top: 0;
     left: 0;
-    z-index: -1; /* İçerik katmanının arkasında */
+    z-index: -1;
     overflow: hidden;
   }
   
-  /* İçerik kısmı */
+ 
   .content {
-    position: relative; /* İçeriğin düzgün konumlanması */
-    z-index: 1; /* İçeriği önde göster */
+    position: relative; 
+    z-index: 1; 
   }

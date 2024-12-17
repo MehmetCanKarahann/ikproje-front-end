@@ -4,7 +4,7 @@ import './HeaderContent.css'
 
 function HeaderContent() {
     return (
-        <div className='container'>
+        <div className='container banner-container'>
 
             <div className="row">
                 <div className="col-8 mt-5">
