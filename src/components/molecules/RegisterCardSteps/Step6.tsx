@@ -4,16 +4,18 @@ interface IStepSixProps {
     companyEmail: string
     companyPassword: string
     companyRePassword: string
+    membershipType: string
     setCompanyEmail: (value: string) => void;
     setCompanyPassword: (value: string) => void;
     setCompanyRePassword: (value: string) => void;
+    setMembershipType: (value: string) => void;
     handlePrevious: () => void;
     registerHandle: () => void;
 }
 
 function Step6(props: IStepSixProps) {
 
-    const { companyEmail, companyPassword, companyRePassword, setCompanyEmail, setCompanyPassword, setCompanyRePassword, handlePrevious, registerHandle } = props;
+    const { companyEmail, companyPassword, companyRePassword, membershipType,setCompanyEmail, setCompanyPassword, setCompanyRePassword, handlePrevious, registerHandle, setMembershipType } = props;
 
     const [showPassword, setShowPassword] = useState(false);
     const [showRePassword, setShowRePassword] = useState(false);
@@ -72,11 +74,12 @@ function Step6(props: IStepSixProps) {
                   )}
                 </button>
             </div>
-            <select className="form-select mb-3 p-3" style={{ height: '60px', borderRadius: '30px', fontSize: '17px', color: 'gray', fontWeight: 'bold' }} aria-label="Default select example">
+            <select className="form-select mb-3 p-3" value={membershipType} onChange={evt => {setMembershipType(evt.target.value) }} style={{ height: '60px', borderRadius: '30px', fontSize: '17px', color: 'gray', fontWeight: 'bold' }} aria-label="Default select example">
                 <option selected>Ne Kadar Süre Üye Olmak İstiyorsunuz?</option>
-                <option value="3">3 Ay</option>
-                <option value="6">6 Ay</option>
-                <option value="1">1 Yıl</option>
+                <option value="ONE_MONTH">1 Ay</option>
+                <option value="THREE_MONTHS">3 Ay</option>
+                <option value="SIX_MONTHS">6 Ay</option>
+                <option value="TWELVE_MONTHS">12 Ay</option>
             </select>
             <div className="row">
                 <div className="col-6 text-center">

@@ -28,5 +28,6 @@ export interface IRegisterRequest{
     companyPhone: string,
     companyEmail: string,
     foundationDate: string,
-    companyIndustry: string
+    companyIndustry: string,
+    membershipType: string
 }

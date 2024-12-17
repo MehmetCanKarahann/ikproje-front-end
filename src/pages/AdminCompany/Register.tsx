@@ -49,6 +49,7 @@ function Register() {
     const [companyEmail, setCompanyEmail] = useState('');
     const [foundationDate, setFoundationDate] = useState('');
     const [companyIndustry, setCompanyIndustry] = useState('');
+    const [membershipType, setMembershipType] = useState('');
 
     const navigate = useNavigate();
 
@@ -60,7 +61,7 @@ function Register() {
         setTimeout(() => {
             setStep((prev) => prev + 1);
             setAnimationClass('slide-in');
-        }, 500); // Animasyon süresine göre ayar
+        }, 500); 
     };
 
     const handlePrevious = () => {
@@ -111,7 +112,8 @@ function Register() {
             companyPhone: companyPhone,
             companyEmail: companyEmail,
             foundationDate: foundationDate,
-            companyIndustry: companyIndustry
+            companyIndustry: companyIndustry,
+            membershipType: membershipType
         }
 
         dispatch(fecthRegister(register)).then(data => {
@@ -133,8 +135,7 @@ function Register() {
                         },
                     },
                 }).then(() => {
-                    // SweetAlert kapandıktan sonra yönlendirme yapılacak
-                    navigate('/'); // login ekranına yönlendirme yapılabilir
+                    navigate('/login'); 
                 });
             else {
                 swal('Hata', data.payload.message, 'error');
@@ -265,9 +266,11 @@ function Register() {
                                                             companyEmail={companyEmail}
                                                             companyPassword={companyPassword}
                                                             companyRePassword={companyRePassword}
+                                                            membershipType = {membershipType}
                                                             setCompanyEmail={setCompanyEmail} 
                                                             setCompanyPassword={setCompanyPassword} 
                                                             setCompanyRePassword={setCompanyRePassword} 
+                                                            setMembershipType={setMembershipType}
                                                             handlePrevious={handlePrevious} 
                                                             registerHandle={registerHandle} />
                                                         </>
