@@ -13,6 +13,7 @@ interface IUserState{
     isProfileLoading: boolean,
     isForgotPasswordByEmailLoading: boolean,
     isCompanyManagementProfileLoading: boolean,
+    isResetPasswordLoading: boolean,
     companyManagementProfile: ICompanyManagementProfile | null,
     isCompanyLogoLoading: boolean,
     isCompanyManagementUpdateProfileLoading: boolean
@@ -22,6 +23,7 @@ const initialUserState: IUserState = {
     isProfileLoading: false,
     isForgotPasswordByEmailLoading: false,
     isCompanyManagementProfileLoading: false,
+    isResetPasswordLoading: false,
     companyManagementProfile: null,
     isCompanyLogoLoading: false,
     isCompanyManagementUpdateProfileLoading: false
@@ -51,6 +53,20 @@ export const fetchForgotPasswordByEmail = createAsyncThunk(
         return response;
     }
 )
+
+export const fetchResetPassword = createAsyncThunk(
+    'user/fetchResetPassword',
+    async ({ token, password, rePassword }: { token: string; password: string; rePassword: string }) => {
+        const response = await fetch(`${apis.userService}/reset-password?token=${token}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ password, rePassword }),
+        }).then((data) => data.json());
+        return response;
+    }
+);
 
 //şirket logosu eklemek için kullanılıyor.
 export const fetchAddLogoToCompany = createAsyncThunk(
@@ -122,6 +138,12 @@ const userSlice = createSlice({
         })
         build.addCase(fetchUpdateCompanyManagerProfile.fulfilled, (state, action) => {
             state.isCompanyManagementUpdateProfileLoading = false;
+        })
+        build.addCase(fetchResetPassword.pending, (state)=>{
+            state.isResetPasswordLoading = true
+        })
+        build.addCase(fetchResetPassword.fulfilled, (state, action: PayloadAction<IBaseResponse>) =>{
+            state.isResetPasswordLoading=false           
         })
     }
 })
