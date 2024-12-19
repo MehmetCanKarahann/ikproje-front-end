@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
 interface IStepSixProps {
-    companyEmail: string
-    companyPassword: string
-    companyRePassword: string
+    email: string
+    password: string
+    rePassword: string
     membershipType: string
-    setCompanyEmail: (value: string) => void;
-    setCompanyPassword: (value: string) => void;
-    setCompanyRePassword: (value: string) => void;
+    setEmail: (value: string) => void;
+    setPassword: (value: string) => void;
+    setRePassword: (value: string) => void;
     setMembershipType: (value: string) => void;
     handlePrevious: () => void;
     registerHandle: () => void;
@@ -15,7 +15,7 @@ interface IStepSixProps {
 
 function Step6(props: IStepSixProps) {
 
-    const { companyEmail, companyPassword, companyRePassword, membershipType,setCompanyEmail, setCompanyPassword, setCompanyRePassword, handlePrevious, registerHandle, setMembershipType } = props;
+    const { email, password, rePassword, membershipType,setEmail, setPassword, setRePassword, handlePrevious, registerHandle, setMembershipType } = props;
 
     const [showPassword, setShowPassword] = useState(false);
     const [showRePassword, setShowRePassword] = useState(false);
@@ -32,10 +32,10 @@ function Step6(props: IStepSixProps) {
         <>
             <div className="logo-box"><a href="#" className="logo-text">Üyelik Bilgileriniz</a></div>
             <div className="form-group">
-                <input type="email" className="form-control" value={companyEmail} onChange={evt => { setCompanyEmail(evt.target.value) }} placeholder="Şirket Email Adresi" style={{ fontSize: '18px' }} />
+                <input type="email" className="form-control" value={email} onChange={evt => { setEmail(evt.target.value) }} placeholder="Şirket Email Adresi" style={{ fontSize: '18px' }} />
             </div>
             <div className="form-group">
-                <input type={showPassword ? 'text' : 'password'}  className="form-control" value={companyPassword} onChange={evt => { setCompanyPassword(evt.target.value) }} placeholder="Şifreniz" style={{ fontSize: '18px' }} />
+                <input type={showPassword ? 'text' : 'password'}  className="form-control" value={password} onChange={evt => { setPassword(evt.target.value) }} placeholder="Şifreniz" style={{ fontSize: '18px' }} />
                 <button type="button" onClick={togglePasswordVisibility}
                   style={{
                     position: 'absolute',
@@ -48,14 +48,14 @@ function Step6(props: IStepSixProps) {
                   }}
                 >
                     {showPassword ? (
-                    <i className="material-icons">visibility</i> // Şifre gizliyse
+                    <i className="material-icons">visibility</i> 
                   ) : (
-                    <i className="material-icons">visibility_off</i> // Şifre gösteriliyorsa
+                    <i className="material-icons">visibility_off</i> 
                   )}
                 </button>
             </div>
             <div className="form-group">
-                <input type={showRePassword ? 'text' : 'password'}  className="form-control" value={companyRePassword} onChange={evt => { setCompanyRePassword(evt.target.value) }} placeholder="Şifre Yeniden" style={{ fontSize: '18px' }} />
+                <input type={showRePassword ? 'text' : 'password'}  className="form-control" value={rePassword} onChange={evt => { setRePassword(evt.target.value) }} placeholder="Şifre Yeniden" style={{ fontSize: '18px' }} />
                 <button type="button" onClick={toggleRePasswordVisibility}
                   style={{
                     position: 'absolute',
@@ -68,9 +68,9 @@ function Step6(props: IStepSixProps) {
                   }}
                 >
                     {showRePassword ? (
-                    <i className="material-icons">visibility</i> // Şifre gizliyse
+                    <i className="material-icons">visibility</i> 
                   ) : (
-                    <i className="material-icons">visibility_off</i> // Şifre gösteriliyorsa
+                    <i className="material-icons">visibility_off</i> 
                   )}
                 </button>
             </div>

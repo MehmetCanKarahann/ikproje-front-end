@@ -1,8 +1,8 @@
 export interface IRegisterRequest{
     firstName: string,
     lastName: string,
-    companyPassword: string,
-    companyRePassword: string,
+    password: string,
+    rePassword: string,
     phone: string,
     hireDate: string,
     tcNo: string,
@@ -26,7 +26,7 @@ export interface IRegisterRequest{
     companyAptNumber: string,
     companyName: string,
     companyPhone: string,
-    companyEmail: string,
+    email: string,
     foundationDate: string,
     companyIndustry: string,
     membershipType: string

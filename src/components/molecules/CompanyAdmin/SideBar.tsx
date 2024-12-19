@@ -7,12 +7,8 @@ import state from 'sweetalert/typings/modules/state';
 
 function SideBar() {
 
-    const profile = IKUseSelector(state => state.user.profile);
+    const profile = IKUseSelector(state => state.user.companyManagementProfile);
 
-
-    useEffect(() => {
-        console.log(profile);
-    }, [])
 
     return (
         <>

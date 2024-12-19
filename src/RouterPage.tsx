@@ -8,10 +8,13 @@ import CompanyAdminPage from './pages/AdminCompany/CompanyAdminPage'
 import { useDispatch } from 'react-redux'
 import { IKDispatch, IKUseSelector } from './store'
 import { userLogin } from './store/feature/authSlice'
-import { fetchGetProfileByToken } from './store/feature/userSlice'
+import { fetchGetCompanyManagerProfileByToken } from './store/feature/userSlice'
 import AdminPage from './pages/Admin/AdminPage'
 import AdminLogin from './pages/Admin/AdminLogin'
 import { userAdminLogin } from './store/feature/adminSlice'
+import ForgotPassword from './pages/AdminCompany/ForgotPassword'
+import ResetPassword from './pages/AdminCompany/ResetPassword'
+import CompanyManagementProfile from './pages/AdminCompany/CompanyManagementProfile'
 
 function RouterPage() {
 
@@ -24,7 +27,7 @@ function RouterPage() {
     const adminToken = localStorage.getItem('adminToken');
     if (token) {
       dispatch(userLogin())
-      dispatch(fetchGetProfileByToken())
+      dispatch(fetchGetCompanyManagerProfileByToken())
     }
     if(adminToken){
       dispatch(userAdminLogin())
@@ -39,7 +42,10 @@ function RouterPage() {
             <Route path='/login' element={<Login />} />
             <Route path='/companyadmin' element={ isLogin ? <CompanyAdminPage /> : <Login /> } />
             <Route path='/admin' element={ isAdminLogin ? <AdminPage /> : <AdminLogin />   } />
-            <Route path='/adminlogin' element={   <AdminLogin /> } />
+            <Route path='/adminlogin' element={ <AdminLogin /> } />
+            <Route path='/forgotpassword' element={ <ForgotPassword /> } />
+            <Route path='/resetPassword' element={ <ResetPassword /> } />
+            <Route path='/company-management-profile' element={ <CompanyManagementProfile /> } />
 
         </Routes>
     </BrowserRouter>

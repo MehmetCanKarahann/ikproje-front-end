@@ -20,9 +20,8 @@ function Register() {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [companyPassword, setCompanyPassword] = useState('');
-    const [companyRePassword, setCompanyRePassword] = useState('');
+    const [password, setPassword] = useState('');
+    const [rePassword, setRePassword] = useState('');
     const [phone, setPhone] = useState('');
     const [tcNo, setTcNo] = useState('');
     const [sgkNo, setSgkNo] = useState('');
@@ -46,7 +45,7 @@ function Register() {
     const [companyAptNumber, setCompanyAptNumber] = useState('');
     const [companyName, setCompanyName] = useState('');
     const [companyPhone, setCompanyPhone] = useState('');
-    const [companyEmail, setCompanyEmail] = useState('');
+    const [email, setEmail] = useState('');
     const [foundationDate, setFoundationDate] = useState('');
     const [companyIndustry, setCompanyIndustry] = useState('');
     const [membershipType, setMembershipType] = useState('');
@@ -85,8 +84,8 @@ function Register() {
         const register: IRegisterRequest = {
             firstName: firstName,
             lastName: lastName,
-            companyPassword: companyPassword,
-            companyRePassword: companyRePassword,
+            password: password,
+            rePassword: rePassword,
             phone: phone,
             hireDate: hireDate,
             tcNo: tcNo,
@@ -110,7 +109,7 @@ function Register() {
             companyAptNumber: companyAptNumber,
             companyName: companyName,
             companyPhone: companyPhone,
-            companyEmail: companyEmail,
+            email: email,
             foundationDate: foundationDate,
             companyIndustry: companyIndustry,
             membershipType: membershipType
@@ -263,13 +262,13 @@ function Register() {
                                                     {step === 6 && (
                                                         <>
                                                             <Step6 
-                                                            companyEmail={companyEmail}
-                                                            companyPassword={companyPassword}
-                                                            companyRePassword={companyRePassword}
+                                                            email={email}
+                                                            password={password}
+                                                            rePassword={rePassword}
                                                             membershipType = {membershipType}
-                                                            setCompanyEmail={setCompanyEmail} 
-                                                            setCompanyPassword={setCompanyPassword} 
-                                                            setCompanyRePassword={setCompanyRePassword} 
+                                                            setEmail={setEmail} 
+                                                            setPassword={setPassword} 
+                                                            setRePassword={setRePassword} 
                                                             setMembershipType={setMembershipType}
                                                             handlePrevious={handlePrevious} 
                                                             registerHandle={registerHandle} />
