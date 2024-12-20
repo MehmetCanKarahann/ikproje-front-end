@@ -1,12 +1,14 @@
 export interface ICompanyManagerUpdateRequest {
+    id: number,
     token: string,
     firstName: string,
     lastName: string,
-    companyPhone: string,
     email: string,
     tcNo: string,
     sgkNo: string,
+    phone: string,
     birthdate: string,
+    companyName: string,
     companyRegion: string,
     companyCity: string,
     companyDistrict: string,
@@ -14,4 +16,5 @@ export interface ICompanyManagerUpdateRequest {
     companyStreet: string,
     companyPostalCode: string,
     companyAptNumber: string
+    companyPhone: string
 }
