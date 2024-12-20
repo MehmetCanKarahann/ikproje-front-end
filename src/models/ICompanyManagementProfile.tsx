@@ -1,13 +1,12 @@
 export interface ICompanyManagementProfile {
     id: number,
+    companyId: number,
     firstName: string,
     lastName: string,
     email: string,
-    companyName: string,
     phone: string,
     avatarUrl: string,
-    companyLogoUrl: string,
-    userRole: string
+    userRole: string,
     region: string,
     city: string,
     district: string,
@@ -18,6 +17,8 @@ export interface ICompanyManagementProfile {
     tcNo: string,
     sgkNo: string,
     birthDate: string,
+    hireDate: string,
+    userDepartmentType: string,
     companyRegion: string,
     companyCity: string,
     companyDistrict: string,
@@ -25,6 +26,8 @@ export interface ICompanyManagementProfile {
     companyStreet: string,
     companyPostalCode: string,
     companyAptNumber: string,
+    companyLogoUrl: string,
+    companyName: string,
     companyPhone: string,
     companyFoundationDate: string,
     companyIndustry: string

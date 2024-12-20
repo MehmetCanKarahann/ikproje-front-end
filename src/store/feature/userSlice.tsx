@@ -90,7 +90,7 @@ export const fetchUpdateCompanyManagerProfile = createAsyncThunk(
     'user/fetchUpdateCompanyManagerProfile',
     async (payload: ICompanyManagerUpdateRequest) => {
         return await fetch(apis.userService + "/update-company-manager-profile", {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
