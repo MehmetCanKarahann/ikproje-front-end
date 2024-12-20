@@ -40,8 +40,9 @@ export const fetchGetUnapprovedCompanies = createAsyncThunk(
     async () => {
         const token = localStorage.getItem('adminToken');
         return await fetch(apis.adminService + '/get-unapproved-companies', {
+            method: 'GET',
             headers: {
-                'Authorization': 'Bearer ' + token,
+                'Authorization': `Bearer ${token}`,
             }
         }).then(data => data.json())
     }
