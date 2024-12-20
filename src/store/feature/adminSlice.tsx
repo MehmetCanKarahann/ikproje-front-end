@@ -3,15 +3,20 @@ import { IAdminLoginRequest } from "../../models/IAdminLoginRequest"
 import apis from "../../constant/RestApis"
 import { IBaseResponse } from "../../models/IBaseResponse"
 import swal from "sweetalert"
+import { IUnapprovedCompaniesResponse } from "../../models/IUnapprovedCompaniesResponse"
 
 interface IAdminState{
     isAuth: boolean,
-    isLoginLoading: boolean
+    isLoginLoading: boolean,
+    unapprovedCompanyList: IUnapprovedCompaniesResponse[]
+    isUnapprovedCompanyListLoading: boolean
 }
 
 const initialAdminState: IAdminState = {
     isAuth: false,
-    isLoginLoading: false
+    isLoginLoading: false,
+    unapprovedCompanyList: [],
+    isUnapprovedCompanyListLoading: false
 }
 
 export const fetchAdminLogin = createAsyncThunk(
@@ -26,6 +31,19 @@ export const fetchAdminLogin = createAsyncThunk(
                 body: JSON.stringify(payload)
             }).then(data => data.json())
         return response;
+    }
+)
+
+//onaylanmamış şirket listesini getirir.
+export const fetchGetUnapprovedCompanies = createAsyncThunk(
+    'admin/fetchGetUnapprovedCompanies',
+    async () => {
+        const token = localStorage.getItem('adminToken');
+        return await fetch(apis.adminService + '/get-unapproved-companies', {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            }
+        }).then(data => data.json())
     }
 )
 
@@ -53,6 +71,15 @@ const adminSlice = createSlice({
             }
             else {
                 swal('Hata!', action.payload.message, 'error');
+            }
+        })
+        build.addCase(fetchGetUnapprovedCompanies.pending, (state) => {
+            state.isUnapprovedCompanyListLoading = true;
+        })
+        build.addCase(fetchGetUnapprovedCompanies.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
+            state.isUnapprovedCompanyListLoading = false;
+            if(action.payload.code === 200){
+                state.unapprovedCompanyList = action.payload.data;
             }
         })
     }

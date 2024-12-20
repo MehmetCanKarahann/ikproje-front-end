@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUserProfile } from "../../models/IUserProfile";
 import apis from "../../constant/RestApis";
 import { data } from "react-router-dom";
 import state from "sweetalert/typings/modules/state";

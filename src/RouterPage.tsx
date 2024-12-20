@@ -15,6 +15,7 @@ import { userAdminLogin } from './store/feature/adminSlice'
 import ForgotPassword from './pages/AdminCompany/ForgotPassword'
 import ResetPassword from './pages/AdminCompany/ResetPassword'
 import CompanyManagementProfile from './pages/AdminCompany/CompanyManagementProfile'
+import UnapprovedCompanyList from './pages/Admin/UnapprovedCompanyList'
 
 function RouterPage() {
 
@@ -40,12 +41,18 @@ function RouterPage() {
             <Route path='/' element={<HomePage />} />
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
+           
             <Route path='/companyadmin' element={ isLogin ? <CompanyAdminPage /> : <Login /> } />
+            <Route path='/company-management-profile' element={ <CompanyManagementProfile /> } />
+
+
             <Route path='/admin' element={ isAdminLogin ? <AdminPage /> : <AdminLogin />   } />
             <Route path='/adminlogin' element={ <AdminLogin /> } />
+            <Route path='/unapproved-compay-list' element={ <UnapprovedCompanyList /> } />
+           
             <Route path='/forgotpassword' element={ <ForgotPassword /> } />
             <Route path='/resetPassword' element={ <ResetPassword /> } />
-            <Route path='/company-management-profile' element={ <CompanyManagementProfile /> } />
+           
 
         </Routes>
     </BrowserRouter>
