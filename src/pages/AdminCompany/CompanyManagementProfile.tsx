@@ -3,11 +3,12 @@ import SideBar from '../../components/molecules/CompanyAdmin/SideBar'
 import Header from '../../components/molecules/CompanyAdmin/Header'
 import { useDispatch } from 'react-redux';
 import { IKDispatch, IKUseSelector } from '../../store';
-import { fetchGetCompanyManagerProfileByToken, fetchUpdateCompanyManagerProfile } from '../../store/feature/userSlice';
 import { ICompanyManagerUpdateRequest } from '../../models/ICompanyManagerUpdateRequest';
 import { log } from 'console';
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
+import { fetchGetCompanyManagerProfileByToken, fetchUpdateCompanyManagerProfile } from '../../store/feature/companyManagerSlice';
+import { isAction } from '@reduxjs/toolkit';
 
 function CompanyManagementProfile() {
 
@@ -54,7 +55,7 @@ function CompanyManagementProfile() {
     }, [dispatch]);
 
 
-    const managementProfile = IKUseSelector(state => state.user.companyManagementProfile);
+    const managementProfile = IKUseSelector(state => state.companyManagement.companyManagementProfile);
     const navigate = useNavigate();
 
 

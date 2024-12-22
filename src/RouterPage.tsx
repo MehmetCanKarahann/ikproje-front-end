@@ -8,7 +8,6 @@ import CompanyAdminPage from './pages/AdminCompany/CompanyAdminPage'
 import { useDispatch } from 'react-redux'
 import { IKDispatch, IKUseSelector } from './store'
 import { userLogin } from './store/feature/authSlice'
-import { fetchGetCompanyManagerProfileByToken } from './store/feature/userSlice'
 import AdminPage from './pages/Admin/AdminPage'
 import AdminLogin from './pages/Admin/AdminLogin'
 import { userAdminLogin } from './store/feature/adminSlice'
@@ -16,6 +15,7 @@ import ForgotPassword from './pages/AdminCompany/ForgotPassword'
 import ResetPassword from './pages/AdminCompany/ResetPassword'
 import CompanyManagementProfile from './pages/AdminCompany/CompanyManagementProfile'
 import UnapprovedCompanyList from './pages/Admin/UnapprovedCompanyList'
+import { fetchGetCompanyManagerProfileByToken } from './store/feature/companyManagerSlice'
 
 function RouterPage() {
 

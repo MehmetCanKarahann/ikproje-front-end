@@ -3,15 +3,15 @@ import { useDispatch } from 'react-redux';
 import { IKDispatch, IKUseSelector } from '../../../store';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { userLogout } from '../../../store/feature/authSlice';
-import { fetchAddLogoToCompany, fetchGetCompanyManagerProfileByToken } from '../../../store/feature/userSlice';
 import './Header.css';
 import swal from 'sweetalert';
+import { fetchAddLogoToCompany, fetchGetCompanyManagerProfileByToken } from '../../../store/feature/companyManagerSlice';
 
 function Header() {
 
 
     const dispatch = useDispatch<IKDispatch>();
-    const profile = IKUseSelector(state => state.user.companyManagementProfile);
+    const profile = IKUseSelector(state => state.companyManagement.companyManagementProfile);
     const navigate = useNavigate();
 
     const [file, setFile] = useState<File | null>(null);
@@ -30,6 +30,7 @@ function Header() {
         navigate('/login');
     }
 
+    
     const handleChange = (evt: any) => {
         const selectedFile = evt.target.files?.[0];
         if (selectedFile) {

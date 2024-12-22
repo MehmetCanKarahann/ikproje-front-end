@@ -2,15 +2,14 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { IKDispatch } from '../../store'
 import { useNavigate } from 'react-router-dom';
-import { fetchForgotPasswordByEmail } from '../../store/feature/userSlice';
 import swal from 'sweetalert';
+import { fetchForgotPasswordByEmail } from '../../store/feature/authSlice';
 
 function ForgotPassword() {
 
     const dispatch = useDispatch<IKDispatch>();
 
     const [forgotEmail, setForgotEmail] = useState('');
-
     const [isForgotEmailEmpty, setIsForgotEmailEmpty] = useState(false);
 
     const navigate = useNavigate();

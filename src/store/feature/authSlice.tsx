@@ -5,12 +5,21 @@ import state from "sweetalert/typings/modules/state"
 import { IBaseResponse } from "../../models/IBaseResponse"
 import swal from "sweetalert"
 import { ILoginRequest } from "../../models/ILoginRequest"
-import { stat } from "fs"
 
-const initialAuthState = {
+interface IAuthState {
+    isAuth: boolean,
+    isLoginLoading: boolean,
+    isRegisterLoading: boolean,
+    isForgotPasswordByEmailLoading: boolean,
+    isResetPasswordLoading: boolean
+}
+
+const initialAuthState: IAuthState = {
     isAuth: false,
     isLoginLoading: false,
-    isRegisterLoading: false
+    isRegisterLoading: false,
+    isForgotPasswordByEmailLoading: false,
+    isResetPasswordLoading: false
 }
 
 //fetch işlemleri
@@ -44,16 +53,46 @@ export const fetchLogin = createAsyncThunk(
     }
 )
 
+export const fetchForgotPasswordByEmail = createAsyncThunk(
+    'auth/fetchForgotPasswordByEmail',
+    async (email: string) => {
+        const response = await fetch(apis.authService + '/forgot-password?email=' + email, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+        }).then(data => data.json())
+        return response;
+    }
+)
+
+
+export const fetchResetPassword = createAsyncThunk(
+    'auth/fetchResetPassword',
+    async ({ token, password, rePassword }: { token: string; password: string; rePassword: string }) => {
+        const response = await fetch(`${apis.authService}/reset-password?token=${token}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ password, rePassword }),
+        }).then((data) => data.json());
+        return response;
+    }
+);
+
+
 
 
 const authSlice = createSlice({
     name: 'auth',
     initialState: initialAuthState,
     reducers: {
-        userLogout(state){
-            state.isAuth = false;   
+        userLogout(state) {
+            state.isAuth = false;
         },
-        userLogin(state){
+        userLogin(state) {
             state.isAuth = true;
         }
     },
@@ -77,7 +116,7 @@ const authSlice = createSlice({
         build.addCase(fetchLogin.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
             state.isLoginLoading = false;
 
-            if(action.payload.code === 200){
+            if (action.payload.code === 200) {
                 localStorage.setItem('token', action.payload.data);
                 state.isAuth = true;
             }
@@ -85,9 +124,29 @@ const authSlice = createSlice({
                 swal('Hata!', action.payload.message, 'error');
             }
         })
+        build.addCase(fetchForgotPasswordByEmail.pending, (state) => {
+            state.isForgotPasswordByEmailLoading = true;
+        })
+
+        build.addCase(fetchForgotPasswordByEmail.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
+            state.isForgotPasswordByEmailLoading = false;
+            if (action.payload.code === 200) {
+                swal('Başarı', action.payload.message, 'success');
+            }
+            else {
+                swal('Hata!', action.payload.message, 'error');
+            }
+        })
+        build.addCase(fetchResetPassword.pending, (state) => {
+            state.isResetPasswordLoading = true
+        })
+        
+        build.addCase(fetchResetPassword.fulfilled, (state, action) => {
+            state.isResetPasswordLoading=false           
+        })
     }
 })
-export const{
+export const {
     userLogout, userLogin
 } = authSlice.actions;
 export default authSlice.reducer;

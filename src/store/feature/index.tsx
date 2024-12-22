@@ -1,9 +1,9 @@
 import authSlice from './authSlice'
-import userSlice from './userSlice'
 import adminSlice from './adminSlice'
+import companyManagementSlice from './companyManagerSlice'
 
 export{
     authSlice,
-    userSlice,
+    companyManagementSlice,
     adminSlice
 }

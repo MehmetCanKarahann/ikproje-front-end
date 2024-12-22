@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { IKDispatch } from '../../store'
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { fetchResetPassword } from '../../store/feature/userSlice';
 import swal from 'sweetalert';
+import { fetchResetPassword } from '../../store/feature/authSlice';
 
 function ResetPassword() {
     const navigate = useNavigate();
