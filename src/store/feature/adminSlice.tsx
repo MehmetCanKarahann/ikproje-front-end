@@ -9,14 +9,18 @@ interface IAdminState{
     isAuth: boolean,
     isLoginLoading: boolean,
     unapprovedCompanyList: IUnapprovedCompaniesResponse[]
-    isUnapprovedCompanyListLoading: boolean
+    isUnapprovedCompanyListLoading: boolean,
+    isCompanyAccountApproveLoading: boolean,
+    isCompanyAccountRejectLoading: boolean
 }
 
 const initialAdminState: IAdminState = {
     isAuth: false,
     isLoginLoading: false,
     unapprovedCompanyList: [],
-    isUnapprovedCompanyListLoading: false
+    isUnapprovedCompanyListLoading: false,
+    isCompanyAccountApproveLoading: false,
+    isCompanyAccountRejectLoading: false
 }
 
 export const fetchAdminLogin = createAsyncThunk(
@@ -43,6 +47,36 @@ export const fetchGetUnapprovedCompanies = createAsyncThunk(
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
+            }
+        }).then(data => data.json())
+    }
+)
+
+//şirket hesabını onaylama isteği
+export const fetchApproveAccount = createAsyncThunk(
+    'admin/fetchApproveAccount',
+    async ({ userId, confirmationMessage }: {userId: number, confirmationMessage: string}) => {
+        const token = localStorage.getItem('adminToken');
+        return await fetch(`${apis.adminService}/approveAccount?userId=${userId}&confirmationMessage=${confirmationMessage}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(data => data.json())
+    }
+)
+
+//şirket hesabını reddetme isteği
+export const fetchRejectAccount = createAsyncThunk(
+    'admin/fetchRejectAccount',
+    async ({userId, rejectionMessage}: {userId: number, rejectionMessage: string}) => {
+        const token = localStorage.getItem('adminToken');
+        return await fetch(`${apis.adminService}/rejectAccount?userId=${userId}&confirmationMessage=${rejectionMessage}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         }).then(data => data.json())
     }
@@ -82,6 +116,18 @@ const adminSlice = createSlice({
             if(action.payload.code === 200){
                 state.unapprovedCompanyList = action.payload.data;
             }
+        })
+        build.addCase(fetchApproveAccount.pending, (state) => {
+            state.isCompanyAccountApproveLoading = true;
+        })
+        build.addCase(fetchApproveAccount.fulfilled, (state) => {
+            state.isCompanyAccountApproveLoading = false;
+        })
+        build.addCase(fetchRejectAccount.pending, (state) => {
+            state.isCompanyAccountRejectLoading = true;
+        })
+        build.addCase(fetchRejectAccount.fulfilled, (state) => {
+            state.isCompanyAccountRejectLoading = false;
         })
     }
 })
