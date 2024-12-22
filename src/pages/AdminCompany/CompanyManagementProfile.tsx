@@ -220,7 +220,7 @@ function CompanyManagementProfile() {
                                 </div>
                                 <div className="col-6">
                                     <label className='form-label ms-3'>Departman Türü: </label>
-                                    <select  className="form-select mb-3 p-3" onChange={evt => setDepartmentType(evt.target.value)} value={departmentType} style={{borderRadius: '20px'}} aria-label="Default select example">
+                                    <select disabled={isReadOnly}  className="form-select mb-3 p-3" onChange={evt => setDepartmentType(evt.target.value)} value={departmentType} style={{borderRadius: '20px'}} aria-label="Default select example">
                                         <option value="" disabled>Çalıştığınız Departmanı Seçiniz</option>
                                         <option value="HR">HR</option>
                                         <option value="FINANCE">FINANCE</option>

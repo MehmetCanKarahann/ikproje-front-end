@@ -72,7 +72,7 @@ export const fetchRejectAccount = createAsyncThunk(
     'admin/fetchRejectAccount',
     async ({userId, rejectionMessage}: {userId: number, rejectionMessage: string}) => {
         const token = localStorage.getItem('adminToken');
-        return await fetch(`${apis.adminService}/rejectAccount?userId=${userId}&confirmationMessage=${rejectionMessage}`, {
+        return await fetch(`${apis.adminService}/rejectAccount?userId=${userId}&rejectionMessage=${rejectionMessage}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ import { IKDispatch, IKUseSelector } from '../../store'
 import { fetchApproveAccount, fetchGetUnapprovedCompanies, fetchRejectAccount } from '../../store/feature/adminSlice'
 import swal from 'sweetalert'
 
+
 function UnapprovedCompanyList() {
 
     const dispatch = useDispatch<IKDispatch>();
@@ -15,35 +16,53 @@ function UnapprovedCompanyList() {
     const [confirmationMessage, setConfirmationMessage] = useState('');
     const [rejectionMessage, setRejectionMessage] = useState('');
 
+    const [isConfirmationMessageEmpty, setIsConfirmationMessageEmpty] = useState(false);
+    const [isRejectionMessageEmpty, setIsRejectionMessageEmpty] = useState(false);
+
     useEffect(() => {
         dispatch(fetchGetUnapprovedCompanies());
     }, [])
 
     const handleConfirmAccount = () => {
+        setIsConfirmationMessageEmpty(confirmationMessage === '')
 
-        dispatch(fetchApproveAccount({ userId: userId, confirmationMessage: confirmationMessage })).then(data => {
-            if (data.payload.code === 200) {
-                swal('Başarı!', 'Şirket Hesabı Başarılı Şekilde Onaylanmıştır.', 'success').then(() => {
-                    dispatch(fetchGetUnapprovedCompanies());
-                });
-            }
-            else {
-                swal('Hata!', data.payload.message, 'error');
-            }
-        })
+        if(confirmationMessage !== '') {
+            dispatch(fetchApproveAccount({ userId: userId, confirmationMessage: confirmationMessage })).then(data => {
+                if (data.payload.code === 200) {
+                    swal('Başarı!', 'Şirket Hesabı Başarılı Şekilde Onaylanmıştır.', 'success').then(() => {
+                        dispatch(fetchGetUnapprovedCompanies());
+                        setConfirmationMessage('');
+                        
+                    });
+                }
+                else {
+                    swal('Hata!', data.payload.message, 'error');
+                    setConfirmationMessage('');
+                }
+            })
+        }
+
+       
     }
 
     const handleRejectAccount = () => {
-        dispatch(fetchRejectAccount({ userId: userId, rejectionMessage: rejectionMessage })).then(data => {
-            if (data.payload.code === 200) {
-                swal('Başarı!', 'Şirket Hesabı Başarılı Şekilde Reddedilmiştir.', 'success').then(() => {
-                    dispatch(fetchGetUnapprovedCompanies());
-                });
-            }
-            else {
-                swal('Hata!', data.payload.message, 'error');
-            }
-        })
+        setIsRejectionMessageEmpty(rejectionMessage === '')
+
+        if(rejectionMessage !== ''){
+            dispatch(fetchRejectAccount({ userId: userId, rejectionMessage: rejectionMessage })).then(data => {
+                if (data.payload.code === 200) {
+                    swal('Başarı!', 'Şirket Hesabı Başarılı Şekilde Reddedilmiştir.', 'success').then(() => {
+                        dispatch(fetchGetUnapprovedCompanies());
+                        
+                    });
+                }
+                else {
+                    swal('Hata!', data.payload.message, 'error');
+                }
+            })
+        }
+
+       
     }
 
 
@@ -94,10 +113,10 @@ function UnapprovedCompanyList() {
                                                             <td>{company.email}</td>
                                                             <td>{company.companyName}</td>
                                                             <td>
-                                                                <button className='btn btn-success' data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => { setUserId(companyList[index].id) }}>
+                                                                <button className='btn btn-success' data-bs-toggle="modal" data-bs-target="#exampleModal"  onClick={() => { setUserId(companyList[index].id) }}>
                                                                     <i className="fa-solid fa-check"></i>
                                                                 </button>
-                                                                <button className='btn btn-danger ms-2' data-bs-toggle="modal" data-bs-target="#exampleModal2" onClick={() => { setUserId(companyList[index].id) }}>
+                                                                <button className='btn btn-danger ms-2' data-bs-toggle="modal" data-bs-target="#exampleModal2"  data-bs-dismiss="modal" onClick={() => { setUserId(companyList[index].id) }}>
                                                                     <i className="fa-solid fa-xmark"></i>
 
                                                                 </button>
@@ -130,13 +149,18 @@ function UnapprovedCompanyList() {
                         <hr style={{ border: '1px black solid' }} />
                         <div className="modal-body">
                             <div className="row mt-4 mb-5">
-                                <label className='form-label'>Açıklama:</label>
+                                <label className='form-label'>Açıklama:<span style={{color: 'red'}}> *</span></label>
                                 <textarea className='form-control' onChange={evt => { setConfirmationMessage(evt.target.value) }}></textarea>
                             </div>
+                            {
+                                isConfirmationMessageEmpty 
+                                && <div className='alert alert-warning'>Lütfen *  İle İşaretli Alanları Boş Bırakmayınız...</div>
+
+                            }
                         </div>
                         <hr />
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={handleConfirmAccount} >Kaydet</button>
+                            <button type="button" className="btn btn-primary"   onClick={handleConfirmAccount} >Kaydet</button>
                         </div>
                     </div>
                 </div>
@@ -153,13 +177,18 @@ function UnapprovedCompanyList() {
                         <hr style={{ border: '1px black solid' }} />
                         <div className="modal-body">
                             <div className="row mt-4 mb-5">
-                                <label className='form-label'>Açıklama:</label>
+                                <label className='form-label'>Açıklama: <span style={{color: 'red'}}> *</span></label>
                                 <textarea className='form-control' onChange={evt => { setRejectionMessage(evt.target.value) }}></textarea>
                             </div>
+                            {
+                                isRejectionMessageEmpty 
+                                && <div className='alert alert-warning'>Lütfen *  İle İşaretli Alanları Boş Bırakmayınız...</div>
+
+                            }
                         </div>
                         <hr />
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={handleRejectAccount} >Kaydet</button>
+                            <button type="button" className="btn btn-primary"  onClick={handleRejectAccount} >Kaydet</button>
                         </div>
                     </div>
                 </div>
