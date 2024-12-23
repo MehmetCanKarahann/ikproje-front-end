@@ -1,9 +1,93 @@
 import React from 'react'
-import { IKUseSelector } from '../../store';
+import { IKDispatch, IKUseSelector } from '../../store';
+import { IPersonelUpdateStateRequest } from '../../models/IPersonelUpdateStateRequest';
+import { useDispatch } from 'react-redux';
+import { fetchGetPersonelList, fetchUpdatePersonelState } from '../../store/feature/companyManagerSlice';
+import swal from 'sweetalert';
+import './PersonelStateList.css';
 
 function PersonelStateList() {
 
     const PersonelList = IKUseSelector(state => state.companyManagement.companyPersonelList);
+
+    const dispatch = useDispatch<IKDispatch>();
+
+    const passivePersonelState = (personelId: number) => {
+
+        const token = localStorage.getItem('token') || '';
+
+        const personel: IPersonelUpdateStateRequest = {
+            token: token,
+            personelId: personelId,
+            stateToChange: 'PASSIVE'
+        }
+
+        swal({
+            title: "Personelin Durumunu Pasif Yapmak istiyor Musunuz?",
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: 'Hayır',
+                    value: false,
+                    visible: true,
+                    className: 'swal-button-cancel'
+                },
+                confirm: {
+                    text: 'Evet',
+                    value: true,
+                    visible: true,
+                    className: 'swal-button-confirm'
+                },
+            }
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    dispatch(fetchUpdatePersonelState(personel)).then(() => {
+                        dispatch(fetchGetPersonelList());
+                    });
+                    swal("Personelin Durumu Başarılı Bir Şekilde Pasif Edildi!", { icon: "success" });
+                }
+            });
+    }
+
+    const activePersonelState = (personelId: number) => {
+
+        const token = localStorage.getItem('token') || '';
+
+        const personel: IPersonelUpdateStateRequest = {
+            token: token,
+            personelId: personelId,
+            stateToChange: 'ACTIVE'
+        }
+
+        swal({
+            title: "Personelin Durumunu Aktif Yapmak istiyor Musunuz?",
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: 'Hayır',
+                    value: false,
+                    visible: true,
+                    className: 'swal-button-cancel'
+                },
+                confirm: {
+                    text: 'Evet',
+                    value: true,
+                    visible: true,
+                    className: 'swal-button-confirm'
+                },
+            }
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    dispatch(fetchUpdatePersonelState(personel)).then(() => {
+                        dispatch(fetchGetPersonelList());
+                    });
+                    swal("Personelin Durumu Başarılı Bir Şekilde Aktif Edildi!", { icon: "success" });
+                }
+            });
+
+    }
 
     return (
         <div className='col'>
@@ -21,6 +105,7 @@ function PersonelStateList() {
                                 <th>Doğum Tarihi</th>
                                 <th>İşe Alınma Tarihi</th>
                                 <th>Departman</th>
+                                <th>Durum</th>
                                 <th>İşlemler</th>
                             </tr>
                         </thead>
@@ -35,9 +120,20 @@ function PersonelStateList() {
                                             <td>{personel.birthDate}</td>
                                             <td>{personel.hireDate}</td>
                                             <td>{personel.departmentType}</td>
+                                            <td>{personel.state}</td>
                                             <td>
-                                                <button className='btn btn-success me-2'>Aktif</button>
-                                                <button className='btn btn-danger'>Pasif</button>
+                                                {
+                                                    personel.state === 'ACTIVE' && <button className='btn btn-danger' onClick={() => passivePersonelState(personel.id)}>
+                                                        Pasif
+                                                    </button>
+
+                                                }
+                                                {
+                                                    personel.state === 'PASSIVE' && <button className='btn btn-success me-2' onClick={() => activePersonelState(personel.id)}>
+                                                        Aktif
+                                                    </button>
+                                                }
+
                                             </td>
                                         </tr>
                                     )

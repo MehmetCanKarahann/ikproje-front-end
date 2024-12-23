@@ -1,8 +1,9 @@
-export interface IUnapprovedCompanyPersonelResponse {
+export interface ICompanyPersonelResponse {
     id: number,
     firstName: string,
     lastName: string,
     birthDate: string,
     hireDate: string,
-    departmentType: string
+    departmentType: string,
+    state: string
 }

@@ -1,0 +1,15 @@
+.active-page {
+    background: linear-gradient(90deg, #429879, #4fee9e); 
+    color: white !important;
+    font-weight: bold;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+}
+
+.active-page:hover{
+    background: linear-gradient(90deg, #429879, #4fee9e) !important;
+    color: white !important;
+}
