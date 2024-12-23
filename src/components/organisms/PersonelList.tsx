@@ -1,5 +1,6 @@
 import React from 'react'
 import { IKUseSelector } from '../../store'
+import NewPersonelModal from '../molecules/CompanyAdmin/NewPersonelModal';
 
 function PersonelList() {
 
@@ -15,7 +16,7 @@ function PersonelList() {
 
                         </div>
                         <div className="col-6 text-end">
-                            <button className='btn btn-outline-success'>Yeni Personel Ekle</button>
+                           <NewPersonelModal />
                         </div>
                     </div>
                 </div>

@@ -112,60 +112,60 @@ function CompanyList() {
 
                 </div>
                 <div className="modal fade bd-example-modal-lg" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Şirket Hesabını Onayla</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div className="modal-dialog modal-lg modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">Şirket Hesabını Onayla</h1>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
-                        </div>
-                        <hr style={{ border: '1px black solid' }} />
-                        <div className="modal-body">
-                            <div className="row mt-4 mb-5">
-                                <label className='form-label'>Açıklama:<span style={{color: 'red'}}> *</span></label>
-                                <textarea className='form-control' onChange={evt => { setConfirmationMessage(evt.target.value) }}></textarea>
                             </div>
-                            {
-                                isConfirmationMessageEmpty 
-                                && <div className='alert alert-warning'>Lütfen *  İle İşaretli Alanları Boş Bırakmayınız...</div>
+                            <hr style={{ border: '1px black solid' }} />
+                            <div className="modal-body">
+                                <div className="row mt-4 mb-5">
+                                    <label className='form-label'>Açıklama:<span style={{ color: 'red' }}> *</span></label>
+                                    <textarea className='form-control' onChange={evt => { setConfirmationMessage(evt.target.value) }}></textarea>
+                                </div>
+                                {
+                                    isConfirmationMessageEmpty
+                                    && <div className='alert alert-warning'>Lütfen *  İle İşaretli Alanları Boş Bırakmayınız...</div>
 
-                            }
-                        </div>
-                        <hr />
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-primary"   onClick={handleConfirmAccount} >Kaydet</button>
+                                }
+                            </div>
+                            <hr />
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-primary" onClick={handleConfirmAccount} >Kaydet</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="modal fade bd-example-modal-lg" id="exampleModal2" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Şirket Hesabını Reddet</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div className="modal fade bd-example-modal-lg" id="exampleModal2" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-lg modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">Şirket Hesabını Reddet</h1>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
-                        </div>
-                        <hr style={{ border: '1px black solid' }} />
-                        <div className="modal-body">
-                            <div className="row mt-4 mb-5">
-                                <label className='form-label'>Açıklama: <span style={{color: 'red'}}> *</span></label>
-                                <textarea className='form-control' onChange={evt => { setRejectionMessage(evt.target.value) }}></textarea>
                             </div>
-                            {
-                                isRejectionMessageEmpty 
-                                && <div className='alert alert-warning'>Lütfen *  İle İşaretli Alanları Boş Bırakmayınız...</div>
+                            <hr style={{ border: '1px black solid' }} />
+                            <div className="modal-body">
+                                <div className="row mt-4 mb-5">
+                                    <label className='form-label'>Açıklama: <span style={{ color: 'red' }}> *</span></label>
+                                    <textarea className='form-control' onChange={evt => { setRejectionMessage(evt.target.value) }}></textarea>
+                                </div>
+                                {
+                                    isRejectionMessageEmpty
+                                    && <div className='alert alert-warning'>Lütfen *  İle İşaretli Alanları Boş Bırakmayınız...</div>
 
-                            }
-                        </div>
-                        <hr />
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-primary"  onClick={handleRejectAccount} >Kaydet</button>
+                                }
+                            </div>
+                            <hr />
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-primary" onClick={handleRejectAccount} >Kaydet</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
 

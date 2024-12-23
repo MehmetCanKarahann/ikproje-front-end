@@ -5,6 +5,7 @@ import { IBaseResponse } from "../../models/IBaseResponse";
 import { ICompanyManagerUpdateRequest } from "../../models/ICompanyManagerUpdateRequest";
 import { IUnapprovedCompanyPersonelResponse } from "../../models/IUnapprovedCompanyPersonelResponse";
 import state from "sweetalert/typings/modules/state";
+import { INewPersonelRequest } from "../../models/INewPersonelRequest";
 
 
 interface ICompanyManagerState {
@@ -13,7 +14,8 @@ interface ICompanyManagerState {
     isCompanyLogoLoading: boolean,
     isCompanyManagementUpdateProfileLoading: boolean,
     isCompanyPersonelListLoading: boolean, 
-    companyPersonelList: IUnapprovedCompanyPersonelResponse[]
+    companyPersonelList: IUnapprovedCompanyPersonelResponse[],
+    isNewPersonelLoading: boolean
 }
 
 const initialCompanyManagerState: ICompanyManagerState = {
@@ -22,7 +24,8 @@ const initialCompanyManagerState: ICompanyManagerState = {
     isCompanyLogoLoading: false,
     isCompanyManagementUpdateProfileLoading: false,
     isCompanyPersonelListLoading: false,
-    companyPersonelList: []
+    companyPersonelList: [],
+    isNewPersonelLoading: false
 }
 
 
@@ -71,11 +74,26 @@ export const fetchUpdateCompanyManagerProfile = createAsyncThunk(
     }
 )
 
+//şirkete ait personelleri listeler.
 export const fetchGetPersonelList = createAsyncThunk(
     'companyManagemet/fetchGetPersonelList',
     async () => {
         const token = localStorage.getItem('token');
         return await fetch(apis.companyManagementService + '/get-personel-list?token=' + token).then(data => data.json());
+    }
+)
+
+//şirkete ait personel ekler.
+export const fetchAddNewPersonel = createAsyncThunk(
+    'companyManagemet/fetchAddNewPersonel',
+    async (payload: INewPersonelRequest) => {
+        return await fetch(apis.companyManagementService + '/add-personel', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        }).then(data => data.json())
     }
 )
 
@@ -115,7 +133,13 @@ const companyManagementSlice = createSlice({
             if(action.payload.code === 200) {
                 state.companyPersonelList = action.payload.data;
             }
-        } )
+        })
+        build.addCase(fetchAddNewPersonel.pending, (state) => {
+            state.isNewPersonelLoading = true;
+        })
+        build.addCase(fetchAddNewPersonel.fulfilled, (state) => {
+            state.isNewPersonelLoading = false;
+        })
     }
 })
 
