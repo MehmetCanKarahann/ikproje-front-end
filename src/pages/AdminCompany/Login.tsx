@@ -37,7 +37,7 @@ function Login() {
             dispatch(fetchLogin(loginModel)).then(data => {
                 if (data.payload.code === 200)
                     navigate('/companyadmin');
-                
+
                 else {
                     swal('Hata', data.payload.message, 'error');
                 }
@@ -120,8 +120,13 @@ function Login() {
                                                         </button>
                                                     </div>
                                             }
-                                            <div className="row text-end mb-3 me-2">
-                                                <NavLink to={'/forgotpassword'} style={{ fontSize: '18px', fontWeight: 'bold' }}>Şifremi Unuttum!</NavLink>
+                                            <div className="row mb-3 me-2">
+                                                <div className="col-6">
+
+                                                </div>
+                                                <div className="col-6  text-end ">
+                                                    <NavLink to={'/forgotpassword'} style={{ fontSize: '18px', fontWeight: 'bold' }}>Şifremi Unuttum!</NavLink>
+                                                </div>
                                             </div>
                                             <div className="col">
                                                 <button type="submit" className="btn btn-primary btn-block btn-submit " style={{ width: '550px', fontSize: '17px', marginLeft: '15px' }} onClick={Login}  > Giriş Yap</button>
