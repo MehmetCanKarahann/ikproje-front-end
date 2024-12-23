@@ -35,12 +35,10 @@ function Login() {
             }
 
             dispatch(fetchLogin(loginModel)).then(data => {
-                if (data.payload.code === 200)
+                if (data.payload.code === 200){
                     navigate('/companyadmin');
-
-                else {
-                    swal('Hata', data.payload.message, 'error');
                 }
+                navigate('/companyadmin');
             });
         }
     }

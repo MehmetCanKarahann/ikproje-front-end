@@ -16,6 +16,13 @@ function Header() {
 
     const [file, setFile] = useState<File | null>(null);
 
+      //kullanıcı bilgileri getiriliyor
+      useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            dispatch(fetchGetCompanyManagerProfileByToken()); 
+        }
+    }, [dispatch]);
 
     const logout = async () => {
         await localStorage.removeItem('token');
