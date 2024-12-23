@@ -89,7 +89,7 @@ function UnapprovedCompanyList() {
                                     <h5 className=" mt-4">Onaylanmamış Şirketler Listesi</h5>
                                 </div>
                                 <div className="card-body table-responsive p-0 mb-5">
-                                    <table id="example1" className="table  text-nowrap text-center">
+                                    <table id="example1" className="table text-nowrap text-center">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>

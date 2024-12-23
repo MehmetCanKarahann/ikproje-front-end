@@ -54,7 +54,7 @@ function SideBarMenu() {
                         <li className="nav-item ">
                             <a  className="nav-link">
                                 <i className="fa-solid fa-list fa-sm"></i>
-                                <NavLink to={'/unapproved-compay-list'} className='ms-2' style={{fontSize: '15px'}}>
+                                <NavLink to={'/unapproved-company-list'} className='ms-2' style={{fontSize: '15px'}}>
                                     Şirket Listesi
                                 </NavLink>
                             </a>

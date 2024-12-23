@@ -16,6 +16,8 @@ import ResetPassword from './pages/AdminCompany/ResetPassword'
 import CompanyManagementProfile from './pages/AdminCompany/CompanyManagementProfile'
 import UnapprovedCompanyList from './pages/Admin/UnapprovedCompanyList'
 import { fetchGetCompanyManagerProfileByToken } from './store/feature/companyManagerSlice'
+import CompanyPersonelListPage from './pages/AdminCompany/CompanyPersonelListPage'
+import CompanyPersonelStateListPage from './pages/AdminCompany/CompanyPersonelStateListPage'
 
 function RouterPage() {
 
@@ -44,11 +46,13 @@ function RouterPage() {
            
             <Route path='/companyadmin' element={ isLogin ? <CompanyAdminPage /> : <Login /> } />
             <Route path='/company-management-profile' element={ <CompanyManagementProfile /> } />
+            <Route path='/company-personel-list' element={ <CompanyPersonelListPage /> } />
+            <Route path='/company-personel-state-list' element={ <CompanyPersonelStateListPage /> } />
 
 
             <Route path='/admin' element={ isAdminLogin ? <AdminPage /> : <AdminLogin />   } />
             <Route path='/adminlogin' element={ <AdminLogin /> } />
-            <Route path='/unapproved-compay-list' element={ <UnapprovedCompanyList /> } />
+            <Route path='/unapproved-company-list' element={ <UnapprovedCompanyList /> } />
            
             <Route path='/forgotpassword' element={ <ForgotPassword /> } />
             <Route path='/resetPassword' element={ <ResetPassword /> } />

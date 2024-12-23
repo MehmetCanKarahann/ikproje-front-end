@@ -3,20 +3,26 @@ import { ICompanyManagementProfile } from "../../models/ICompanyManagementProfil
 import apis from "../../constant/RestApis";
 import { IBaseResponse } from "../../models/IBaseResponse";
 import { ICompanyManagerUpdateRequest } from "../../models/ICompanyManagerUpdateRequest";
+import { IUnapprovedCompanyPersonelResponse } from "../../models/IUnapprovedCompanyPersonelResponse";
+import state from "sweetalert/typings/modules/state";
 
 
 interface ICompanyManagerState {
     isCompanyManagementProfileLoading: boolean,
     companyManagementProfile: ICompanyManagementProfile | null,
     isCompanyLogoLoading: boolean,
-    isCompanyManagementUpdateProfileLoading: boolean
+    isCompanyManagementUpdateProfileLoading: boolean,
+    isCompanyPersonelListLoading: boolean, 
+    companyPersonelList: IUnapprovedCompanyPersonelResponse[]
 }
 
 const initialCompanyManagerState: ICompanyManagerState = {
     isCompanyManagementProfileLoading: false,
     companyManagementProfile: null,
     isCompanyLogoLoading: false,
-    isCompanyManagementUpdateProfileLoading: false
+    isCompanyManagementUpdateProfileLoading: false,
+    isCompanyPersonelListLoading: false,
+    companyPersonelList: []
 }
 
 
@@ -53,7 +59,7 @@ export const fetchAddLogoToCompany = createAsyncThunk(
 
 //Şirket Yöneticisi Bilgilerini Güncelleme Metodu
 export const fetchUpdateCompanyManagerProfile = createAsyncThunk(
-    'user/fetchUpdateCompanyManagerProfile',
+    'companyManagement/fetchUpdateCompanyManagerProfile',
     async (payload: ICompanyManagerUpdateRequest) => {
         return await fetch(apis.companyManagementService + "/update-company-manager-profile", {
             method: 'PUT',
@@ -62,6 +68,14 @@ export const fetchUpdateCompanyManagerProfile = createAsyncThunk(
             },
             body: JSON.stringify(payload)
         }).then(data => data.json())
+    }
+)
+
+export const fetchGetPersonelList = createAsyncThunk(
+    'companyManagemet/fetchGetPersonelList',
+    async () => {
+        const token = localStorage.getItem('token');
+        return await fetch(apis.companyManagementService + '/get-personel-list?token=' + token).then(data => data.json());
     }
 )
 
@@ -92,7 +106,16 @@ const companyManagementSlice = createSlice({
         build.addCase(fetchUpdateCompanyManagerProfile.fulfilled, (state, action) => {
             state.isCompanyManagementUpdateProfileLoading = false;
         })
-        
+        build.addCase(fetchGetPersonelList.pending, (state) => {
+            state.isCompanyPersonelListLoading = true;
+        })
+        build.addCase(fetchGetPersonelList.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
+            state.isCompanyPersonelListLoading = false;
+           
+            if(action.payload.code === 200) {
+                state.companyPersonelList = action.payload.data;
+            }
+        } )
     }
 })
 

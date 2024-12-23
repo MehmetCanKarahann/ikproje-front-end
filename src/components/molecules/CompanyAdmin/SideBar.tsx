@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { IKDispatch, IKUseSelector } from '../../../store'
 import { userLogout } from '../../../store/feature/authSlice';
 import state from 'sweetalert/typings/modules/state';
 
 function SideBar() {
-
+    const location = useLocation();
     const profile = IKUseSelector(state => state.companyManagement.companyManagementProfile);
 
+    // Aktif sınıfı belirlemek için bir fonksiyon tanımlıyoruz
+    const getActiveClass = (path: string) => {
+        return location.pathname === path ? 'active' : '';
+    };
 
     return (
         <>
@@ -27,10 +31,10 @@ function SideBar() {
                                     Personel Yönetimi
                                 </li>
                                 <li>
-                                    <a><i className="material-icons-outlined">group</i>Personel Listesi</a>
+                                    <NavLink to={'/company-personel-list'} className="active"><i className="material-icons-outlined">group</i>Personel Listesi</NavLink>
                                 </li>
                                 <li>
-                                    <a><i className="material-icons-outlined">person</i>Personel Durum Güncelle</a>
+                                    <NavLink to={'/company-personel-state-list'} ><i className="material-icons-outlined">person</i>Personel Durum Listesi</NavLink>
                                 </li>
                                 <li>
                                     <a><i className="material-icons">playlist_add_circle</i>Özlük Belgesi Ekle</a>

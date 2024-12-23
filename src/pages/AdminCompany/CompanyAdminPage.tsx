@@ -20,9 +20,7 @@ function CompanyAdminPage() {
           <div className="page-header" >
             <Header />
           </div>
-          <div className="page-content">
-              <div className="row"></div>
-          </div>
+          
         </div>
       </div>
 
