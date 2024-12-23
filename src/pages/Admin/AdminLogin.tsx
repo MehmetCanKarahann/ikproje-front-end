@@ -34,9 +34,7 @@ function AdminLogin() {
     if (email !== '' || password !== '') {
       dispatch(fetchAdminLogin(loginModel)).then(data => {
         if (data.payload.code === 200) {
-          swal('Başarı', 'Giriş işlemi başarılı!', 'success').then(() => {
             navigate('/admin');
-          });
         }
       })
     }
