@@ -13,3 +13,5 @@ npm install react-slick --save
 npm install swiper
 
 npm install react-awesome-reveal @emotion/react --save
+
+npm install jwt-decode
