@@ -5,7 +5,7 @@ import './SideBar.css'
 
 
 function SideBar() {
-    const profile = IKUseSelector(state => state.companyManagement.companyManagementProfile);
+  
 
     return (
         <>
@@ -30,78 +30,50 @@ function SideBar() {
                         </NavLink>
                     </li>
 
-                    {profile?.userRole === 'COMPANY_MANAGER' ? (
-                        <>
-                            <li className="sidebar-title">Personel Yönetimi</li>
-                            <li>
-                                <NavLink
-                                    to="/company-personel-list"
-                                    className={({ isActive }) => isActive ? 'active-page' : ''}
-                                >
-                                    <i className="material-icons-outlined">group</i>Personel Listesi
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/company-personel-state-list" className={({ isActive }) => isActive ? 'active-page' : ''}>
-                                    <i className="material-icons-outlined">person</i>Personel Durum Listesi
-                                </NavLink>
-                            </li>
-                            <li>
-                                <a><i className="material-icons">playlist_add_circle</i>Özlük Belgesi Ekle</a>
-                            </li>
-                            <li>
-                                <a><i className="material-icons-outlined">rule</i>İzin Yönetimi</a>
-                            </li>
-                            <li>
-                                <a><i className="material-icons-outlined">receipt_long</i>Harcama Yönetimi</a>
-                            </li>
-                            <li>
-                                <a><i className="material-icons">view_list</i>Zimmet Listesi</a>
-                            </li>
 
-                            <li className="sidebar-title">
-                                Vardiya Yönetimi
-                            </li>
-                            <li>
-                                <a><i className="material-icons">save</i>Vardiya Yönetimi</a>
-                            </li>
-                            <li>
-                                <a><i className="material-icons">list</i>Personel Vardiya Listesi</a>
-                            </li>
-                            <li>
-                                <a><i className="material-icons">free_breakfast</i>Mola Yönetimi</a>
-                            </li>
-                            <li>
-                                <a><i className="material-icons">fact_check</i>Personel Mola Listesi</a>
-                            </li>
-                        </>
-                    ) : (
-                        <>
-                            <li className="sidebar-title">İzin Yönetimi</li>
-                            <li>
-                                <a >
-                                    <i className="material-icons-outlined">list</i>İzin Listesi
-                                </a>
-                            </li>
-                            <li>
-                                <a >
-                                    <i className="material-icons-outlined">add</i>İzin Talebi
-                                </a>
-                            </li>
-                            <li className="sidebar-title">
-                                Zimmet Yönetimi
-                            </li>
-                            <li>
-                                <a><i className="material-icons-outlined">list</i>Zimmet Listesi</a>
-                            </li>
-                            <li className="sidebar-title">
-                                Harcama Yönetimi
-                            </li>
-                            <li>
-                                <a><i className="material-icons-outlined">list</i>Harcama Listesi</a>
-                            </li>
-                        </>
-                    )}
+                    <li className="sidebar-title">Personel Yönetimi</li>
+                    <li>
+                        <NavLink
+                            to="/company-personel-list"
+                            className={({ isActive }) => isActive ? 'active-page' : ''}
+                        >
+                            <i className="material-icons-outlined">group</i>Personel Listesi
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/company-personel-state-list" className={({ isActive }) => isActive ? 'active-page' : ''}>
+                            <i className="material-icons-outlined">person</i>Personel Durum Listesi
+                        </NavLink>
+                    </li>
+                    <li>
+                        <a><i className="material-icons">playlist_add_circle</i>Özlük Belgesi Ekle</a>
+                    </li>
+                    <li>
+                        <a><i className="material-icons-outlined">rule</i>İzin Yönetimi</a>
+                    </li>
+                    <li>
+                        <a><i className="material-icons-outlined">receipt_long</i>Harcama Yönetimi</a>
+                    </li>
+                    <li>
+                        <a><i className="material-icons">view_list</i>Zimmet Listesi</a>
+                    </li>
+
+                    <li className="sidebar-title">
+                        Vardiya Yönetimi
+                    </li>
+                    <li>
+                        <a><i className="material-icons">save</i>Vardiya Yönetimi</a>
+                    </li>
+                    <li>
+                        <a><i className="material-icons">list</i>Personel Vardiya Listesi</a>
+                    </li>
+                    <li>
+                        <a><i className="material-icons">free_breakfast</i>Mola Yönetimi</a>
+                    </li>
+                    <li>
+                        <a><i className="material-icons">fact_check</i>Personel Mola Listesi</a>
+                    </li>
+
                 </ul>
             </div>
         </>

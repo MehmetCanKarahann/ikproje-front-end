@@ -30,7 +30,7 @@ function PersonelList() {
                                 <th>Doğum Tarihi</th>
                                 <th>İşe Alınma Tarihi</th>
                                 <th>Departman</th>
-                                <th>İşlemler</th>
+                            
                             </tr>
                         </thead>
                         <tbody>
@@ -44,14 +44,7 @@ function PersonelList() {
                                             <td>{personel.birthDate}</td>
                                             <td>{personel.hireDate}</td>
                                             <td>{personel.departmentType}</td>
-                                            <td>
-                                                <button className='btn btn-warning me-2'>
-                                                    <i className="material-icons-outlined mt-1" style={{ fontSize: '18px' }}>edit</i>
-                                                </button>
-                                                <button className='btn btn-danger'>
-                                                    <i className="material-icons-outlined mt-1" style={{ fontSize: '18px' }}>delete</i>
-                                                </button>
-                                            </td>
+                                           
                                         </tr>
                                     )
                                 })

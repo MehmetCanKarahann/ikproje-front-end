@@ -36,7 +36,7 @@ function Login() {
 
             dispatch(fetchLogin(loginModel)).then(data => {
                 if (data.payload.code === 200){
-                    navigate('/companyadmin');
+                    navigate('/personeladmin');
                 }
                   
 
@@ -62,8 +62,8 @@ function Login() {
             </div>
             <div className="connect-container align-content-stretch d-flex flex-wrap">
                 <div className="container-fluid">
-                    <div className="row justify-content-center">
-                        <div className="col-md-8 col-lg-6 col-xl-5">
+                    <div className="row ">
+                        <div className="col-md-8 col-lg-6">
                             <div className="auth-form">
 
                                 <div className="row">

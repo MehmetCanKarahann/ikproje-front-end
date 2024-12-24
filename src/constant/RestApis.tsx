@@ -6,7 +6,7 @@ const server = devUrl;
 const apis = {
     authService: server + '/auth',
     companyManagementService: server + '/companymanager',
-    userService: server + '/user',
+    employeeService: server + '/employee',
     adminService: server + '/admin'
 }
 

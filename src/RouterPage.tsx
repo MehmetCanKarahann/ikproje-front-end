@@ -18,6 +18,7 @@ import UnapprovedCompanyList from './pages/Admin/UnapprovedCompanyList'
 import { fetchGetCompanyManagerProfileByToken } from './store/feature/companyManagerSlice'
 import CompanyPersonelListPage from './pages/AdminCompany/CompanyPersonelListPage'
 import CompanyPersonelStateListPage from './pages/AdminCompany/CompanyPersonelStateListPage'
+import PersonelAdminPage from './pages/personelAdmin/PersonelAdminPage'
 
 function RouterPage() {
 
@@ -48,6 +49,9 @@ function RouterPage() {
             <Route path='/company-management-profile' element={ <CompanyManagementProfile /> } />
             <Route path='/company-personel-list' element={ <CompanyPersonelListPage /> } />
             <Route path='/company-personel-state-list' element={ <CompanyPersonelStateListPage /> } />
+
+            <Route path='/personeladmin' element={ isLogin ? <PersonelAdminPage /> : <Login /> } />
+
 
 
             <Route path='/admin' element={ isAdminLogin ? <AdminPage /> : <AdminLogin />   } />

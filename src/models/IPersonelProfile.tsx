@@ -1,0 +1,21 @@
+export interface IPersonelProfile {
+    id: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    companyName: string,
+    avatarUrl: string,
+    userRole: string,
+    region: string,
+    city: string,
+    district: string,
+    neighbourhood: string,
+    street: string,
+    aptNumber: string,
+    postalCode: string,
+    birthDate: string,
+    hireDate: string,
+    tcNo: string,
+    sgkNo: string,
+    departmentType: string
+}
