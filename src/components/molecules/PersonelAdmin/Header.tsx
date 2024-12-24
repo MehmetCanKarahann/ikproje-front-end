@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { IKDispatch, IKUseSelector } from '../../../store';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { fetcGetPersonelProfileByToken, fetchAddAvatarToUser } from '../../../store/feature/employeeSlice';
+import { fetchGetPersonelProfileByToken, fetchAddAvatarToUser } from '../../../store/feature/employeeSlice';
 import { userLogout } from '../../../store/feature/authSlice';
 import swal from 'sweetalert';
 
@@ -18,7 +18,7 @@ function Header() {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            dispatch(fetcGetPersonelProfileByToken());
+            dispatch(fetchGetPersonelProfileByToken());
         }
     }, [dispatch]);
 
@@ -41,7 +41,7 @@ function Header() {
             dispatch(fetchAddAvatarToUser(file)).then(data => {
                 if(data.payload.code === 200) {
                     swal('Başarı!', 'Profil Resminiz Başarıyla Güncellendi', 'success').then(() => {
-                        navigate('/personeladmin');
+                        dispatch(fetchGetPersonelProfileByToken());
                     });
                 }
                 else{
@@ -65,7 +65,7 @@ function Header() {
                     </li>
                     <li className="nav-item nav-profile dropdown">
                         <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src={profile?.avatarUrl} alt="profile image" style={{ width: 60, height: 60, borderRadius: '50%' }} />
+                            <img src= {profile?.avatarUrl} alt="profile image" style={{ width: 60, height: 60, borderRadius: '50%' }} />
                             <span style={{ color: 'gray' }}> {profile?.firstName} {profile?.lastName} - {profile?.companyName} </span><i className="material-icons dropdown-icon">keyboard_arrow_down</i>
                         </a>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown">

@@ -16,6 +16,7 @@ function NewPersonelModal() {
     const [phone, setPhone] = useState('');
     const [birthDate, setBirthDate] = useState('');
     const [hireDate, setHireDate] = useState('');
+    const [gender, setGender] = useState('');
     const [departmentType, setDepartmentType] = useState('HR');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -35,6 +36,7 @@ function NewPersonelModal() {
             tcNo: tcNo,
             sgkNo: sgkNo,
             phone: phone,
+            gender: gender,
             birthDate: birthDate,
             hireDate: hireDate,
             departmentType: departmentType,
@@ -42,7 +44,6 @@ function NewPersonelModal() {
             password: password,
             rePassword: rePassword
         }
-        console.log(newPersonel);
 
         if (email !== '' || password !== '' || rePassword !== '') {
             dispatch(fetchAddNewPersonel(newPersonel)).then(data => {
@@ -72,7 +73,7 @@ function NewPersonelModal() {
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
-       
+
     };
 
     const toggleRePasswordVisibility = () => {
@@ -109,6 +110,14 @@ function NewPersonelModal() {
                                 <div className="col-6 mb-3 text-start">
                                     <label className='ms-4'>Soyad:</label>
                                     <input type="text" className="form-control" onChange={evt => { setLastName(evt.target.value) }} value={lastName} />
+                                </div>
+                                <div className="col-6 mb-3 text-start">
+                                    <label className='ms-4'>Cinsiyet</label>
+                                    <select className='form-select mb-3 p-3' value={gender} onChange={evt => { setGender(evt.target.value) }} style={{ borderRadius: '30px', color: 'gray', fontWeight: 'bold' }}>
+                                        <option selected>Cinsiyetinizi Seçiniz</option>
+                                        <option value='FEMALE'>Kadın</option>
+                                        <option value='MALE'>Erkek</option>
+                                    </select>
                                 </div>
                                 <div className="col-6 mb-3 text-start">
                                     <label className='ms-4'>TC Kimlik Numarası:</label>
@@ -164,7 +173,7 @@ function NewPersonelModal() {
                                         type={showPassword ? 'text' : 'password'}
                                         className="form-control"
                                         onChange={evt => setPassword(evt.target.value)}
-                                        
+
                                         style={{ paddingRight: '40px', flex: 1, fontSize: '15px' }}
                                     />
                                     <button

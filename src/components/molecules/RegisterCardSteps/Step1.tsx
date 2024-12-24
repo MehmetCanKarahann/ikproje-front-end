@@ -9,12 +9,14 @@ interface IStepOneProps{
     setPhone: (value: string) => void;
     birthDate: string;
     setBirthDate: (value: string) => void;
+    gender: string;
+    setGender: (value: string) => void;
     handleNext: () => void;
 }
 
 function Step1(props: IStepOneProps) {
 
-    const {firstName,lastName,phone,setFirstName, setLastName, setPhone, setBirthDate, handleNext, birthDate} = props;
+    const {firstName,lastName,phone,gender,setFirstName, setLastName, setPhone, setBirthDate, setGender,handleNext, birthDate} = props;
 
     return (
         <>
@@ -25,7 +27,13 @@ function Step1(props: IStepOneProps) {
             <div className="mb-3">
                 <input type="text" className="form-control" value={lastName} onChange={evt => { setLastName(evt.target.value) }} placeholder="Soyadınız" style={{ fontSize: '18px' }} />
             </div>
-           
+            <div className="mb-3">
+                <select className='form-select mb-3 p-3' value={gender} onChange={evt => { setGender(evt.target.value)  }} style={{borderRadius: '30px', fontSize: '17px', color: 'gray', fontWeight: 'bold'}}>
+                    <option selected>Cinsiyetinizi Seçiniz</option>
+                    <option value='FEMALE'>Kadın</option>
+                    <option value='MALE'>Erkek</option>
+                </select>
+            </div>
             <div className="form-group">
                 <input type="text" className="form-control" value={phone} onChange={evt => { setPhone(evt.target.value) }} placeholder="Telefon Numaranız" style={{ fontSize: '18px' }} />
             </div>

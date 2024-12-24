@@ -28,6 +28,7 @@ function Register() {
     const [salary, setSalary] = useState('');
     const [birthDate, setBirthDate] = useState('');
     const [hireDate, setHireDate] = useState('');
+    const [gender, setGender] = useState('');
     const [departmentType, setDepartmentType] = useState('HR');
     const [region, setRegion] = useState('');
     const [city, setCity] = useState('');
@@ -88,6 +89,7 @@ function Register() {
             rePassword: rePassword,
             phone: phone,
             hireDate: hireDate,
+            gender: gender,
             tcNo: tcNo,
             sgkNo: sgkNo,
             salary: parseFloat(salary),
@@ -179,11 +181,13 @@ function Register() {
                                                             firstName={firstName}
                                                             lastName={lastName}
                                                             phone={phone}
+                                                            gender={gender}
                                                                 setFirstName={setFirstName}
                                                                 setLastName={setLastName}
                                                                 birthDate={birthDate}
                                                                 setBirthDate={setBirthDate}
                                                                 setPhone={setPhone}
+                                                                setGender={setGender}
                                                                 handleNext={handleNext} />
                                                         </>
                                                     )}

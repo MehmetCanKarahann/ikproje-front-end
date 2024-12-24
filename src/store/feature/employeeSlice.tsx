@@ -16,7 +16,7 @@ const initialPersonelState: IEmployeeState  = {
 }
 
 
-export const fetcGetPersonelProfileByToken = createAsyncThunk(
+export const fetchGetPersonelProfileByToken = createAsyncThunk(
     'employee/fetcGetPersonelProfileByToken',
     async () => {
         const token = localStorage.getItem('token');
@@ -47,10 +47,10 @@ const employeeSlice = createSlice({
     initialState: initialPersonelState,
     reducers: {},
     extraReducers: (build) =>  {
-        build.addCase(fetcGetPersonelProfileByToken.pending, (state) => {
+        build.addCase(fetchGetPersonelProfileByToken.pending, (state) => {
             state.ispersonelProfileLoading = true;
         })
-        build.addCase(fetcGetPersonelProfileByToken.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
+        build.addCase(fetchGetPersonelProfileByToken.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
             state.ispersonelProfileLoading = false;
             if(action.payload.code === 200){
                 state.personelProfile = action.payload.data;

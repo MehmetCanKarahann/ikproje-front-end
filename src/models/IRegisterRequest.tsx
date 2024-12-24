@@ -9,6 +9,7 @@ export interface IRegisterRequest{
     sgkNo: string,
     salary: number,
     birthDate: string,
+    gender: string,
     departmmentType: string,
     region: string,
     city: string,

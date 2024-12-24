@@ -43,7 +43,7 @@ function Header() {
             dispatch(fetchAddLogoToCompany(file)).then(data => {
                 if(data.payload.code === 200) {
                     swal('Başarı!', 'Profil Resminiz Başarıyla Güncellendi', 'success').then(() => {
-                        navigate('/companyadmin');
+                        dispatch(fetchGetCompanyManagerProfileByToken());
                     });
                 }
                 else{

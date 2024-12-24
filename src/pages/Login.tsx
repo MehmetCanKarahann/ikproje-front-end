@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import img from '../../img/login.png'
+import img from '../img/login.png'
 import { useDispatch } from 'react-redux';
-import { IKDispatch } from '../../store';
+import { IKDispatch } from '../store';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { fetchLogin } from '../../store/feature/authSlice';
-import { ILoginRequest } from '../../models/ILoginRequest';
+import { fetchLogin } from '../store/feature/authSlice';
+import { ILoginRequest } from '../models/ILoginRequest';
 import swal from 'sweetalert';
 import { jwtDecode } from 'jwt-decode';
 
@@ -41,7 +41,7 @@ function Login() {
 
                     const decodedToken:any = jwtDecode(token);
                     const userRole = decodedToken.role;
-
+                    
                     if(userRole == 'COMPANY_MANAGER'){
                         navigate('/companyadmin')
                     }
