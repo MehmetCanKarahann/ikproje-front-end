@@ -6,6 +6,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { fetchLogin } from '../../store/feature/authSlice';
 import { ILoginRequest } from '../../models/ILoginRequest';
 import swal from 'sweetalert';
+import { jwtDecode } from 'jwt-decode';
 
 function Login() {
 
@@ -36,10 +37,20 @@ function Login() {
 
             dispatch(fetchLogin(loginModel)).then(data => {
                 if (data.payload.code === 200){
-                    navigate('/personeladmin');
+                    const token = data.payload.data;
+
+                    const decodedToken:any = jwtDecode(token);
+                    const userRole = decodedToken.role;
+
+                    if(userRole == 'COMPANY_MANAGER'){
+                        navigate('/companyadmin')
+                    }
+                    else if(userRole=='EMPLOYEE'){
+                        navigate('/personeladmin')
+                    }
+                    
                 }
                   
-
                 else {
                     swal('Hata', data.payload.message, 'error');
                 }
