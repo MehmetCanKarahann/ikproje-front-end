@@ -12,11 +12,11 @@ function PersonelList() {
                 <div className="card-header">
                     <div className="row">
                         <div className="col-6">
-                        <h5 className='mt-2'>Personel Listesi </h5>
+                            <h5 className='mt-2'>Personel Listesi </h5>
 
                         </div>
                         <div className="col-6 text-end">
-                           <NewPersonelModal />
+                            <NewPersonelModal />
                         </div>
                     </div>
                 </div>
@@ -46,10 +46,10 @@ function PersonelList() {
                                             <td>{personel.departmentType}</td>
                                             <td>
                                                 <button className='btn btn-warning me-2'>
-                                                    <i className="material-icons-outlined mt-1" style={{fontSize: '18px'}}>edit</i>
+                                                    <i className="material-icons-outlined mt-1" style={{ fontSize: '18px' }}>edit</i>
                                                 </button>
                                                 <button className='btn btn-danger'>
-                                                <i className="material-icons-outlined mt-1" style={{fontSize: '18px'}}>delete</i>  
+                                                    <i className="material-icons-outlined mt-1" style={{ fontSize: '18px' }}>delete</i>
                                                 </button>
                                             </td>
                                         </tr>

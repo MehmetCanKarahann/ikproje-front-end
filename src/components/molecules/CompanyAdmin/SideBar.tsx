@@ -79,14 +79,14 @@ function SideBar() {
                         <>
                             <li className="sidebar-title">İzin Yönetimi</li>
                             <li>
-                                <NavLink to="/izin-listesi">
+                                <a >
                                     <i className="material-icons-outlined">list</i>İzin Listesi
-                                </NavLink>
+                                </a>
                             </li>
                             <li>
-                                <NavLink to="/izin-talebi">
+                                <a >
                                     <i className="material-icons-outlined">add</i>İzin Talebi
-                                </NavLink>
+                                </a>
                             </li>
                             <li className="sidebar-title">
                                 Zimmet Yönetimi

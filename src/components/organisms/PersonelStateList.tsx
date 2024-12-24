@@ -124,13 +124,13 @@ function PersonelStateList() {
                                             <td>
                                                 {
                                                     personel.state === 'ACTIVE' && <button className='btn btn-danger' onClick={() => passivePersonelState(personel.id)}>
-                                                        Pasif
+                                                        Pasif Yap
                                                     </button>
 
                                                 }
                                                 {
                                                     personel.state === 'PASSIVE' && <button className='btn btn-success me-2' onClick={() => activePersonelState(personel.id)}>
-                                                        Aktif
+                                                        Aktif Et
                                                     </button>
                                                 }
 

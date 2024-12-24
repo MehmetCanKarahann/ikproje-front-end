@@ -38,7 +38,11 @@ function Login() {
                 if (data.payload.code === 200){
                     navigate('/companyadmin');
                 }
-                navigate('/companyadmin');
+                  
+
+                else {
+                    swal('Hata', data.payload.message, 'error');
+                }
             });
         }
     }
@@ -50,7 +54,7 @@ function Login() {
 
 
     return (
-        <div className="auth-page sign-in">
+        <div className="auth-page sign-in ">
             <div className='loader'>
                 <div className='spinner-grow text-primary' role='status'>
                     <span className='sr-only'>Loading...</span>
@@ -58,8 +62,8 @@ function Login() {
             </div>
             <div className="connect-container align-content-stretch d-flex flex-wrap">
                 <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-lg-6">
+                    <div className="row justify-content-center">
+                        <div className="col-md-8 col-lg-6 col-xl-5">
                             <div className="auth-form">
 
                                 <div className="row">
@@ -77,37 +81,31 @@ function Login() {
                                             }
                                             {
                                                 isPasswordEmpty
-                                                    ? <div className="form-group mb-5">
-                                                        <input type={showPassword ? 'text' : 'password'} className="form-control" onChange={evt => (setPassword(evt.target.value))} placeholder="Şifreniz" style={{ fontSize: '18px', borderColor: 'red' }} />
+                                                    ? <div className="form-group mb-5" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                                                        <input type={showPassword ? 'text' : 'password'} className="form-control" onChange={evt => (setPassword(evt.target.value))} placeholder="Şifreniz" style={{ paddingRight: '40px', flex: 1, fontSize: '15px', borderColor: 'red' }} />
                                                         <button type="button" onClick={togglePasswordVisibility}
-                                                            style={{
-                                                                position: 'absolute',
-                                                                right: '55px',
-                                                                top: '50%',
-                                                                transform: 'translateY(65%)',
-                                                                background: 'transparent',
-                                                                border: 'none',
-                                                                cursor: 'pointer',
-                                                            }}
+                                                           style={{
+                                                            background: 'transparent',
+                                                            border: 'none',
+                                                            cursor: 'pointer',
+                                                            marginLeft: '-40px'
+                                                        }}
                                                         >
                                                             {showPassword ? (
-                                                                <i className="material-icons">visibility_off</i>
-                                                            ) : (
                                                                 <i className="material-icons">visibility</i>
+                                                            ) : (
+                                                                <i className="material-icons">visibility_off</i>
                                                             )}
                                                         </button>
                                                     </div>
-                                                    : <div className="form-group">
-                                                        <input type={showPassword ? 'text' : 'password'} className="form-control" onChange={evt => (setPassword(evt.target.value))} placeholder="Şifreniz" style={{ fontSize: '18px' }} />
+                                                    : <div className="form-group" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                                                        <input type={showPassword ? 'text' : 'password'} className="form-control" onChange={evt => (setPassword(evt.target.value))} placeholder="Şifreniz"  style={{ paddingRight: '40px', flex: 1, fontSize: '15px' }}/>
                                                         <button type="button" onClick={togglePasswordVisibility}
                                                             style={{
-                                                                position: 'absolute',
-                                                                right: '55px',
-                                                                top: '50%',
-                                                                transform: 'translateY(45%)',
                                                                 background: 'transparent',
                                                                 border: 'none',
                                                                 cursor: 'pointer',
+                                                                marginLeft: '-40px'
                                                             }}
                                                         >
                                                             {showPassword ? (
@@ -134,7 +132,7 @@ function Login() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-6 d-none d-lg-block d-xl-block">
+                        <div className="col-lg-6 d-none d-lg-flex align-items-center justify-content-center">
                             <img src={img} alt="" style={{ width: '750px', marginTop: '15%' }} />
                         </div>
                     </div>

@@ -66,38 +66,32 @@ function AdminLogin() {
           }
           {
             isPasswordEmpty
-              ? <div className="mb-4">
-                <input type={showPassword ? 'text' : 'password'} style={{ borderColor: 'red' }} onChange={evt => setPassword(evt.target.value)} className='form-control input-color' placeholder='Şifrenizi Giriniz...' />
+              ? <div className="mb-4" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                <input type={showPassword ? 'text' : 'password'}  style={{ paddingRight: '50px', flex: 1, fontSize: '15px', borderColor: 'red' }} onChange={evt => setPassword(evt.target.value)} className='form-control input-color' placeholder='Şifrenizi Giriniz...' />
                 <button type="button" onClick={togglePasswordVisibility}
-                  style={{
-                    position: 'absolute',
-                    right: '55px',
-                    top: '50%',
-                    transform: 'translateY(65%)',
-                    background: 'transparent',
-                    border: 'none',
-                    cursor: 'pointer',
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      cursor: 'pointer',
+                      marginLeft: '-40px'
                   }}
                 >
                   {showPassword ? (
-                    <i className="material-icons">visibility_off</i> // Şifre gizliyse
+                    <i className="material-icons">visibility</i> // Şifre gizliyse
                   ) : (
-                    <i className="material-icons">visibility</i> // Şifre gösteriliyorsa
+                    <i className="material-icons">visibility_off</i> // Şifre gösteriliyorsa
                   )}
                 </button>
               </div>
-              : <div className="mb-4">
-                <input type={showPassword ? 'text' : 'password'} onChange={evt => setPassword(evt.target.value)} className='form-control input-color' placeholder='Şifrenizi Giriniz...' />
+              : <div className="mb-4" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                <input type={showPassword ? 'text' : 'password'} onChange={evt => setPassword(evt.target.value)} className='form-control input-color' placeholder='Şifrenizi Giriniz...' style={{ paddingRight: '50px', flex: 1, fontSize: '15px'}}/>
                 <button type="button" onClick={togglePasswordVisibility}
-                  style={{
-                    position: 'absolute',
-                    right: '30px',
-                    top: '50%',
-                    transform: 'translateY(320%)',
+                   style={{
                     background: 'transparent',
                     border: 'none',
                     cursor: 'pointer',
-                  }}
+                    marginLeft: '-40px'
+                }}
                 >
                   {showPassword ? (
                     <i className="material-icons">visibility</i> // Şifre gizliyse

@@ -21,6 +21,9 @@ function NewPersonelModal() {
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
 
+    const [showPassword, setShowPassword] = useState(false);
+    const [showRePassword, setShowRePassword] = useState(false);
+
     const submit = () => {
 
         const token = localStorage.getItem('token') || '';
@@ -40,12 +43,12 @@ function NewPersonelModal() {
             rePassword: rePassword
         }
         console.log(newPersonel);
-        
-        if(email !== '' || password !== '' || rePassword !== ''){
+
+        if (email !== '' || password !== '' || rePassword !== '') {
             dispatch(fetchAddNewPersonel(newPersonel)).then(data => {
-                if(data.payload.code === 200) {
+                if (data.payload.code === 200) {
                     swal('Başarı!', 'Personel Ekleme İşlemi Başarılı', 'success').then(() => {
-                        
+
                         dispatch(fetchGetPersonelList());
                         setFirstName('');
                         setLastName('');
@@ -61,18 +64,27 @@ function NewPersonelModal() {
                     });
                 }
             });
-        
+
         }
-     
+
 
     }
 
-     useEffect(() => {
-            const today = new Date();
-            const formattedDate = today.toISOString().split("T")[0];
-            setBirthDate(formattedDate);
-            setHireDate(formattedDate);
-        }, []);
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+       
+    };
+
+    const toggleRePasswordVisibility = () => {
+        setShowRePassword(!showRePassword);
+    };
+
+    useEffect(() => {
+        const today = new Date();
+        const formattedDate = today.toISOString().split("T")[0];
+        setBirthDate(formattedDate);
+        setHireDate(formattedDate);
+    }, []);
 
     return (
         <>
@@ -92,7 +104,7 @@ function NewPersonelModal() {
                             <div className="row mt-4 mb-5">
                                 <div className="col-6 mb-3 text-start">
                                     <label className='ms-4'  >Ad:</label>
-                                    <input type="text" className="form-control" onChange={evt => { setFirstName(evt.target.value) }} value={firstName}/>
+                                    <input type="text" className="form-control" onChange={evt => { setFirstName(evt.target.value) }} value={firstName} />
                                 </div>
                                 <div className="col-6 mb-3 text-start">
                                     <label className='ms-4'>Soyad:</label>
@@ -100,7 +112,7 @@ function NewPersonelModal() {
                                 </div>
                                 <div className="col-6 mb-3 text-start">
                                     <label className='ms-4'>TC Kimlik Numarası:</label>
-                                    <input type="text" className="form-control" onChange={evt => { setTcNo(evt.target.value) }} value={tcNo}/>
+                                    <input type="text" className="form-control" onChange={evt => { setTcNo(evt.target.value) }} value={tcNo} />
                                 </div>
                                 <div className="col-6 mb-3 text-start">
                                     <label className='ms-4'>Sgk Numarası:</label>
@@ -112,7 +124,7 @@ function NewPersonelModal() {
                                 </div>
                                 <div className="col-6 mb-4 text-start">
                                     <label className='ms-4'>Doğum Tarihi:</label>
-                                    <input type="date" className="form-control" style={{ height: '50px' }} onChange={evt => { setBirthDate(evt.target.value) }} value={birthDate}/>
+                                    <input type="date" className="form-control" style={{ height: '50px' }} onChange={evt => { setBirthDate(evt.target.value) }} value={birthDate} />
                                 </div>
                                 <div className="col-6 mb-4 text-start">
                                     <label className='ms-4'>İşe Giriş Tarihi:</label>
@@ -139,17 +151,66 @@ function NewPersonelModal() {
                                         <option value="SECURITY">SECURITY</option>
                                     </select>
                                 </div>
-                                <div className="col-6 mb-3 text-start">
+                                <div className="col mb-3 text-start">
                                     <label className='ms-4'>Email Adresi:</label>
-                                    <input type="text" className="form-control" onChange={evt => { setEmail(evt.target.value) }} value={email}/>
+                                    <input type="text" className="form-control" onChange={evt => { setEmail(evt.target.value) }} value={email} />
                                 </div>
-                                <div className="col-6 mb-3 text-start">
-                                    <label className='ms-4'>Şifre:</label>
-                                    <input type="password" className="form-control" style={{ fontSize: '18px' }} onChange={evt => { setPassword(evt.target.value) }} value={password} />
+                                <div className="row text-start ms-4">
+                                    <label className='form-label'>Şifre:</label>
                                 </div>
-                                <div className="col-6 text-start">
-                                    <label className='ms-4'>Yeniden Şifre:</label>
-                                    <input type="password" className="form-control" style={{ fontSize: '18px' }} onChange={evt => { setRePassword(evt.target.value) }} value={rePassword}/>
+                                <div className="form-group mb-5" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+
+                                    <input
+                                        type={showPassword ? 'text' : 'password'}
+                                        className="form-control"
+                                        onChange={evt => setPassword(evt.target.value)}
+                                        
+                                        style={{ paddingRight: '40px', flex: 1, fontSize: '15px' }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={togglePasswordVisibility}
+                                        style={{
+                                            background: 'transparent',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                            marginLeft: '-40px'
+                                        }}
+                                    >
+                                        {showPassword ? (
+                                            <i className="material-icons">visibility</i>
+                                        ) : (
+                                            <i className="material-icons">visibility_off</i>
+                                        )}
+                                    </button>
+                                </div>
+                                <div className="row text-start ms-4">
+                                    <label className=''>Yeniden Şifre:</label>
+                                </div>
+                                <div className="form-group mb-5" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+
+                                    <input
+                                        type={showRePassword ? 'text' : 'password'}
+                                        className="form-control"
+                                        onChange={evt => setRePassword(evt.target.value)}
+                                        style={{ paddingRight: '40px', flex: 1, fontSize: '15px' }}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={toggleRePasswordVisibility}
+                                        style={{
+                                            background: 'transparent',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                            marginLeft: '-40px'
+                                        }}
+                                    >
+                                        {showRePassword ? (
+                                            <i className="material-icons">visibility</i>
+                                        ) : (
+                                            <i className="material-icons">visibility_off</i>
+                                        )}
+                                    </button>
                                 </div>
                             </div>
 
