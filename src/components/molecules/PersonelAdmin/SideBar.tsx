@@ -26,12 +26,17 @@ function SideBar() {
                         </NavLink>
                     </li>
                     <li>
-                        <a><i className="material-icons-outlined">list</i>İzin Listesi</a>
+                        <a>
+                            <i className="material-icons-outlined">list</i>İzin Listesi
+                        </a>
                     </li>
                     <li>
-                        <a>
+                        <NavLink
+                            to='/create-leave-personel-list'
+                            className={({ isActive }) => isActive ? 'active-page' : ''}
+                        >
                             <i className="material-icons-outlined">add</i>İzin Talebi
-                        </a>
+                        </NavLink>
                     </li>
                     <li className="sidebar-title">
                         Zimmet Yönetimi

@@ -19,6 +19,7 @@ import { fetchGetCompanyManagerProfileByToken } from './store/feature/companyMan
 import CompanyPersonelListPage from './pages/AdminCompany/CompanyPersonelListPage'
 import CompanyPersonelStateListPage from './pages/AdminCompany/CompanyPersonelStateListPage'
 import PersonelAdminPage from './pages/personelAdmin/PersonelAdminPage'
+import CreateLeavePersonelListPage from './pages/personelAdmin/CreateLeavePersonelListPage'
 
 function RouterPage() {
 
@@ -51,6 +52,7 @@ function RouterPage() {
             <Route path='/company-personel-state-list' element={ <CompanyPersonelStateListPage /> } />
 
             <Route path='/personeladmin' element={ isLogin ? <PersonelAdminPage /> : <Login /> } />
+            <Route path='/create-leave-personel-list' element={ <CreateLeavePersonelListPage /> } />
 
 
 
