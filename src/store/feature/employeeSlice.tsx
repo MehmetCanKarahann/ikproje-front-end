@@ -2,29 +2,47 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IPersonelProfile } from "../../models/IPersonelProfile";
 import apis from "../../constant/RestApis";
 import { IBaseResponse } from "../../models/IBaseResponse";
+import { IUpdatePersonelProfileRequest } from "../../models/IUpdatePersonelProfileRequest";
 
 interface IEmployeeState {
     ispersonelProfileLoading: boolean,
     personelProfile: IPersonelProfile | null,
     isPersonelAvatarUploadLoading: boolean,
+    isPersonelProfileUpdateLoading: boolean
 }
 
-const initialPersonelState: IEmployeeState  = {
+const initialPersonelState: IEmployeeState = {
     ispersonelProfileLoading: false,
     personelProfile: null,
-    isPersonelAvatarUploadLoading: false
+    isPersonelAvatarUploadLoading: false,
+    isPersonelProfileUpdateLoading: false
 }
 
-
+//personel profil bilgilerini getirir.
 export const fetchGetPersonelProfileByToken = createAsyncThunk(
     'employee/fetcGetPersonelProfileByToken',
     async () => {
         const token = localStorage.getItem('token');
         return await fetch(apis.employeeService + '/get-personel-profile?token=' + token)
-        .then(data => data.json());
+            .then(data => data.json());
     }
 )
 
+//personel profil bilgilerini günceller.
+export const fetchUpdatePersonelProfile = createAsyncThunk(
+    'employee/fetchUpdatePersonelProfile',
+    async (payload: IUpdatePersonelProfileRequest) => {
+        return await fetch(apis.employeeService + '/update-personel-profile', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        }).then(data => data.json());
+    }
+)
+
+//personel profil resmini günceller.
 export const fetchAddAvatarToUser = createAsyncThunk(
     'employee/fetchAddAvatarToUser',
     async (file: File) => {
@@ -46,14 +64,15 @@ const employeeSlice = createSlice({
     name: 'employee',
     initialState: initialPersonelState,
     reducers: {},
-    extraReducers: (build) =>  {
+    extraReducers: (build) => {
         build.addCase(fetchGetPersonelProfileByToken.pending, (state) => {
             state.ispersonelProfileLoading = true;
         })
         build.addCase(fetchGetPersonelProfileByToken.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
             state.ispersonelProfileLoading = false;
-            if(action.payload.code === 200){
+            if (action.payload.code === 200) {
                 state.personelProfile = action.payload.data;
+
             }
         })
         build.addCase(fetchAddAvatarToUser.pending, (state) => {
@@ -61,6 +80,12 @@ const employeeSlice = createSlice({
         })
         build.addCase(fetchAddAvatarToUser.fulfilled, (state) => {
             state.isPersonelAvatarUploadLoading = false;
+        })
+        build.addCase(fetchUpdatePersonelProfile.pending, (state) => {
+            state.isPersonelProfileUpdateLoading = true;
+        })
+        build.addCase(fetchUpdatePersonelProfile.fulfilled, (state) => {
+            state.isPersonelProfileUpdateLoading = false;
         })
     }
 })

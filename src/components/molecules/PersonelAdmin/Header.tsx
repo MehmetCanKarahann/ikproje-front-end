@@ -70,7 +70,7 @@ function Header() {
                         </a>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a style={{ cursor: 'pointer' }} className="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal2">Profil Resmi Güncelle</a>
-                            <NavLink to={'/company-management-profile'} className="dropdown-item" style={{ backgroundColor: 'white' }}>Profilim</NavLink>
+                            <NavLink to={'/personel-profile'} className="dropdown-item" style={{ backgroundColor: 'white' }}>Profilim</NavLink>
                             <a style={{ cursor: 'pointer' }} onClick={logout} className="dropdown-item" >Log out</a>
                         </div>
                     </li>

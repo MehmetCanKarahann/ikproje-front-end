@@ -1,0 +1,21 @@
+export interface IUpdatePersonelProfileRequest {
+    id: number,
+    token: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    avatarUrl: string,
+    phone: string,
+    hireDate: string,
+    tcNo: string,
+    sgkNo: string,
+    birthDate: string,
+    departmentType: string,
+    region: string,
+    city: string,
+    district: string
+    neighbourhood: string,
+    street: string,
+    postalCode: string,
+    aptNumber: string,
+}

@@ -4,6 +4,7 @@ export interface IPersonelProfile {
     lastName: string,
     email: string,
     companyName: string,
+    phone: string,
     avatarUrl: string,
     userRole: string,
     region: string,

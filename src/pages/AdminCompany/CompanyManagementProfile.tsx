@@ -136,7 +136,6 @@ function CompanyManagementProfile() {
 
         }
 
-        console.log(updateModel);
 
         dispatch(fetchUpdateCompanyManagerProfile(updateModel)).then(data => {
             if (data.payload.code === 200) {

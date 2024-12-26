@@ -20,6 +20,7 @@ import CompanyPersonelListPage from './pages/AdminCompany/CompanyPersonelListPag
 import CompanyPersonelStateListPage from './pages/AdminCompany/CompanyPersonelStateListPage'
 import PersonelAdminPage from './pages/personelAdmin/PersonelAdminPage'
 import CreateLeavePersonelListPage from './pages/personelAdmin/CreateLeavePersonelListPage'
+import PersonelProfilePage from './pages/personelAdmin/PersonelProfilePage'
 
 function RouterPage() {
 
@@ -53,6 +54,7 @@ function RouterPage() {
 
             <Route path='/personeladmin' element={ isLogin ? <PersonelAdminPage /> : <Login /> } />
             <Route path='/create-leave-personel-list' element={ <CreateLeavePersonelListPage /> } />
+            <Route path='/personel-profile' element={ <PersonelProfilePage /> } />
 
 
 
