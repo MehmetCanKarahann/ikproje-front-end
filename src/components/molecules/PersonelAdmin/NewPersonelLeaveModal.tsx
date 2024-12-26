@@ -49,6 +49,9 @@ function NewPersonelLeaveModal() {
                     setLeaveType('');
                 })
             }
+            else {
+                swal('Hata!', data.payload.message, 'error');
+            }
         })
        
 

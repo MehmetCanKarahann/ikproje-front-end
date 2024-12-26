@@ -4,6 +4,7 @@ export interface INewPersonelRequest {
     lastName: string,
     gender: string,
     email: string,
+    salary: number,
     password: string,
     rePassword: string,
     phone: string,

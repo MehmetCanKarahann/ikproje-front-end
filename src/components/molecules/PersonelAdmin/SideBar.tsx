@@ -25,11 +25,11 @@ function SideBar() {
                             <i className="material-icons-outlined">home</i>Anasayfa
                         </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <a>
                             <i className="material-icons-outlined">list</i>İzin Listesi
                         </a>
-                    </li>
+                    </li> */}
                     <li>
                         <NavLink
                             to='/create-leave-personel-list'

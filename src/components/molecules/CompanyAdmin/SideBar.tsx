@@ -49,7 +49,9 @@ function SideBar() {
                         <a><i className="material-icons">playlist_add_circle</i>Özlük Belgesi Ekle</a>
                     </li>
                     <li>
-                        <a><i className="material-icons-outlined">rule</i>İzin Yönetimi</a>
+                        <NavLink to="/leave-list"  className={({ isActive }) => isActive ? 'active-page' : ''}>
+                            <i className="material-icons-outlined">rule</i>İzin Yönetimi
+                        </NavLink>
                     </li>
                     <li>
                         <a><i className="material-icons-outlined">receipt_long</i>Harcama Yönetimi</a>

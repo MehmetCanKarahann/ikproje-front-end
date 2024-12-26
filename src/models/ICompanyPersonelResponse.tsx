@@ -5,5 +5,6 @@ export interface ICompanyPersonelResponse {
     birthDate: string,
     hireDate: string,
     departmentType: string,
-    state: string
+    state: string,
+    userWorkStatus: string
 }

@@ -36,6 +36,7 @@ function NewPersonelModal() {
             tcNo: tcNo,
             sgkNo: sgkNo,
             phone: phone,
+            salary: 1500,
             gender: gender,
             birthDate: birthDate,
             hireDate: hireDate,
@@ -63,6 +64,9 @@ function NewPersonelModal() {
                         setPassword('');
                         setRePassword('');
                     });
+                }
+                else{
+                    swal('Hata!', data.payload.message, 'error');
                 }
             });
 

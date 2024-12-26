@@ -21,6 +21,7 @@ import CompanyPersonelStateListPage from './pages/AdminCompany/CompanyPersonelSt
 import PersonelAdminPage from './pages/personelAdmin/PersonelAdminPage'
 import CreateLeavePersonelListPage from './pages/personelAdmin/CreateLeavePersonelListPage'
 import PersonelProfilePage from './pages/personelAdmin/PersonelProfilePage'
+import LeaveManagementPage from './pages/AdminCompany/LeaveManagementPage'
 
 function RouterPage() {
 
@@ -51,6 +52,7 @@ function RouterPage() {
             <Route path='/company-management-profile' element={ <CompanyManagementProfile /> } />
             <Route path='/company-personel-list' element={ <CompanyPersonelListPage /> } />
             <Route path='/company-personel-state-list' element={ <CompanyPersonelStateListPage /> } />
+            <Route path='/leave-list' element={ <LeaveManagementPage /> } />
 
             <Route path='/personeladmin' element={ isLogin ? <PersonelAdminPage /> : <Login /> } />
             <Route path='/create-leave-personel-list' element={ <CreateLeavePersonelListPage /> } />

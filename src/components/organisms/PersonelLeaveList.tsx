@@ -29,6 +29,7 @@ function PersonelLeaveList() {
                                 <td>Başlangıç Tarihi</td>
                                 <td>Bitiş Tarihi</td>
                                 <td>Durum</td>
+                                <td>İşlemler</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,6 +43,18 @@ function PersonelLeaveList() {
                                             <td> {leave.startDate} </td>
                                             <td> {leave.endDate} </td>
                                             <td> {leave.leaveStatus} </td>
+                                            <td>
+                                                {leave.leaveStatus === 'PENDING' && (
+                                                    <>
+                                                        <button className='btn btn-warning me-2'>
+                                                            <i className="fa-solid fa-pen"></i>
+                                                        </button>
+                                                        <button className='btn btn-danger'>
+                                                            <i className="fa-solid fa-trash"></i>
+                                                        </button>
+                                                    </>
+                                                )}
+                                            </td>
                                         </tr>
                                     )
                                 })
