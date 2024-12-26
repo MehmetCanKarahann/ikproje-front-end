@@ -60,7 +60,7 @@ function NewPersonelLeaveModal() {
 
     return (
         <>
-            <button className='btn btn-outline-success' data-bs-toggle="modal" data-bs-target="#newPersonelLeaveModal">Yeni İzin Talebi Oluştur</button>
+            <button className='btn btn-success' data-bs-toggle="modal" data-bs-target="#newPersonelLeaveModal">Yeni İzin Talebi Oluştur</button>
             <div className="modal fade bd-example-modal-xl" id="newPersonelLeaveModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-xl modal-dialog-centered">
                     <div className="modal-content">

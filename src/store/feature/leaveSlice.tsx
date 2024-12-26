@@ -5,6 +5,7 @@ import state from "sweetalert/typings/modules/state";
 import { IBaseResponse } from "../../models/IBaseResponse";
 import { IPersonelNewLeaveRequest } from "../../models/IPersonelNewLeaveRequest";
 import { ILeaveListResponse } from "../../models/ILeaveListResponse";
+import {  IUpdatePersonelLeaveRequest } from "../../models/IUpdatePersonelLeaveRequest";
 
 interface ILeaveState {
     isPersonelLeaveListLoading: boolean,
@@ -13,7 +14,9 @@ interface ILeaveState {
     isLeaveListLoading: boolean,
     leaveList: ILeaveListResponse[],
     isApprovedLeaveLoading: boolean,
-    isRejectLeaveLoading: boolean
+    isRejectLeaveLoading: boolean,
+    isPersonelUpdateLeaveLoading: boolean,
+    isPersonelLeaveDeleteLoading: boolean
 }
 
 const initialLeaveState: ILeaveState = {
@@ -23,7 +26,9 @@ const initialLeaveState: ILeaveState = {
     isLeaveListLoading: false,
     leaveList: [],
     isApprovedLeaveLoading: false,
-    isRejectLeaveLoading: false
+    isRejectLeaveLoading: false,
+    isPersonelUpdateLeaveLoading: false,
+    isPersonelLeaveDeleteLoading: false
 }
 
 //fetch işlemleri
@@ -77,7 +82,7 @@ export const fetchApproveLeaveRequest = createAsyncThunk(
     }
 )
 
-//şirket yöneticisinin personelin izin talebini reddettiği endpoind
+//şirket yöneticisinin personelin izin talebini reddettiği fetch isteği
 export const fetchRejectLeaveRequest = createAsyncThunk(
     'leave/fetchRejectLeaveRequest',
     async ({leaveId, rejectionMessage}: {leaveId: number, rejectionMessage: string}) => {
@@ -91,7 +96,34 @@ export const fetchRejectLeaveRequest = createAsyncThunk(
     }
 )
 
+//personelin izin talebini düzenlediği fetch isteği
+export const fetchUpdateLeaveRequest = createAsyncThunk(
+    'leave/fetchUpdateLeaveRequest',
+    async (payload: IUpdatePersonelLeaveRequest) => {
+        const token = localStorage.getItem('token');
+        return await fetch(apis.leaveService + '/update-leave-request', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        }).then(data => data.json())
+    }
+)
 
+//personelin izin talebini sildiği fetch isteği
+export const fetcDeleteLeaveRequest = createAsyncThunk(
+    'leave/fetcDeleteLeaveRequest',
+    async ({leaveId}: {leaveId: number}) => {
+        const token = localStorage.getItem('token');
+        return fetch(`${apis.leaveService}/delete-leave-request?token=${token}&leaveId=${leaveId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(data => data.json());
+    }
+)
 
 const leaveSlice = createSlice({
     name: 'leave',
@@ -133,6 +165,18 @@ const leaveSlice = createSlice({
         })
         build.addCase(fetchRejectLeaveRequest.fulfilled, (state) => {
             state.isRejectLeaveLoading = false;
+        })
+        build.addCase(fetchUpdateLeaveRequest.pending, (state) => {
+            state.isPersonelUpdateLeaveLoading = true;
+        })
+        build.addCase(fetchUpdateLeaveRequest.fulfilled, (state) => {
+            state.isPersonelUpdateLeaveLoading = false;
+        })
+        build.addCase(fetcDeleteLeaveRequest.pending, (state) => {
+            state.isPersonelLeaveDeleteLoading= true;
+        })
+        build.addCase(fetcDeleteLeaveRequest.fulfilled, (state) => {
+            state.isPersonelLeaveDeleteLoading = false;
         })
     }
 })

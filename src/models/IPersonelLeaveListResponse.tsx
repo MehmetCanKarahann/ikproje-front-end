@@ -4,5 +4,8 @@ export interface IPersonelLeaveListResponse {
     description: string,
     startDate: string,
     endDate: string,
-    leaveStatus: string
+    leaveStatus: string,
+    managerName: string,
+    rejectResponse: string,
+    statusDate: string
 }

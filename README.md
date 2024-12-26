@@ -15,3 +15,5 @@ npm install swiper
 npm install react-awesome-reveal @emotion/react --save
 
 npm install jwt-decode
+
+npm install react-toastify
