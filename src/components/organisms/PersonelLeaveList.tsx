@@ -120,6 +120,7 @@ function PersonelLeaveList() {
                     </div>
                 </div>
                 <div className="card-body table-responsive p-0 mb-5">
+                    
                     <table className='table text-nowrap text-center'>
                         <thead>
                             <tr>
@@ -170,7 +171,7 @@ function PersonelLeaveList() {
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <button className='btn btn-primary'>Onaylı</button>
+                                                        <button className='btn btn-outline-primary'>Onaylı</button>
                                                     </>
                                                 )}
                                             </td>
