@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react'
-import Header from '../../components/molecules/PersonelAdmin/Header'
-import SideBar from '../../components/molecules/PersonelAdmin/SideBar'
-import PersonelLeaveList from '../../components/organisms/PersonelAdmin/PersonelLeaveList'
+import SideBar from '../../components/molecules/CompanyAdmin/SideBar'
+import Header from '../../components/molecules/CompanyAdmin/Header'
+import ShiftList from '../../components/organisms/ShiftList'
 import { useDispatch } from 'react-redux'
 import { IKDispatch } from '../../store'
-import { fetchGetPersonelRequestLeaveList } from '../../store/feature/leaveSlice'
+import { fetchGetAllShiftsByCompanyId } from '../../store/feature/shiftSlice'
 
-function CreateLeavePersonelListPage() {
+function ShiftManagementPage() {
 
-  const dispatch = useDispatch<IKDispatch>();
+    const dispatch = useDispatch<IKDispatch>();
 
-   useEffect(() => {
-          dispatch(fetchGetPersonelRequestLeaveList());
-      }, [])
+    useEffect(() => {
+        dispatch(fetchGetAllShiftsByCompanyId());
+    }, []);
 
   return (
     <>
-      <div className='loader'>
+          <div className='loader'>
         <div className='spinner-grow text-primary' role='status'>
           <span className='sr-only'>Loading...</span>
         </div>
@@ -32,7 +32,7 @@ function CreateLeavePersonelListPage() {
           </div>
           <div className="page-content">
             <div className="row">
-              <PersonelLeaveList />
+                <ShiftList />
             </div>
           </div>
         </div>
@@ -42,4 +42,4 @@ function CreateLeavePersonelListPage() {
   )
 }
 
-export default CreateLeavePersonelListPage
+export default ShiftManagementPage

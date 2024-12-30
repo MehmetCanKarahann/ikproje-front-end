@@ -8,6 +8,8 @@ const apis = {
     companyManagementService: server + '/companymanager',
     employeeService: server + '/employee',
     leaveService: server + '/leave',
+    shiftService: server + '/shift',
+    userShiftService: server + '/usershift',
     adminService: server + '/admin'
 }
 

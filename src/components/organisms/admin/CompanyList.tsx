@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { IKDispatch, IKUseSelector } from '../../store';
+import { IKDispatch, IKUseSelector } from '../../../store';
 import { useDispatch } from 'react-redux';
-import { fetchApproveAccount, fetchGetUnapprovedCompanies, fetchRejectAccount } from '../../store/feature/adminSlice';
+import { fetchApproveAccount, fetchGetUnapprovedCompanies, fetchRejectAccount } from '../../../store/feature/adminSlice';
 import swal from 'sweetalert';
 
 function CompanyList() {

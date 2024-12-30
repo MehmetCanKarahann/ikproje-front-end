@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { IKDispatch, IKUseSelector } from '../../store'
-import NewPersonelLeaveModal from '../molecules/PersonelAdmin/NewPersonelLeaveModal';
-import { IUpdatePersonelLeaveRequest } from '../../models/IUpdatePersonelLeaveRequest';
+import { IKDispatch, IKUseSelector } from '../../../store'
+import NewPersonelLeaveModal from '../../molecules/PersonelAdmin/NewPersonelLeaveModal';
+import { IUpdatePersonelLeaveRequest } from '../../../models/IUpdatePersonelLeaveRequest';
 import { useDispatch } from 'react-redux';
-import { fetcDeleteLeaveRequest, fetchGetPersonelRequestLeaveList, fetchUpdateLeaveRequest } from '../../store/feature/leaveSlice';
+import { fetcDeleteLeaveRequest, fetchGetPersonelRequestLeaveList, fetchUpdateLeaveRequest } from '../../../store/feature/leaveSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import swal from 'sweetalert';
@@ -35,8 +35,6 @@ function PersonelLeaveList() {
     }
 
     const submit = () => {
-
-
 
         const token = localStorage.getItem('token') || '';
 

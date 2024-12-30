@@ -4,7 +4,8 @@ import SideBarMenu from '../../components/molecules/Admin/SideBarMenu'
 import { useDispatch } from 'react-redux'
 import { IKDispatch } from '../../store'
 import {  fetchGetUnapprovedCompanies } from '../../store/feature/adminSlice'
-import CompanyList from '../../components/organisms/CompanyList'
+import CompanyList from '../../components/organisms/admin/CompanyList'
+
 
 
 function UnapprovedCompanyList() {

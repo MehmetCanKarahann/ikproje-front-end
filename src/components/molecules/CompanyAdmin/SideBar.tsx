@@ -64,10 +64,14 @@ function SideBar() {
                         Vardiya Yönetimi
                     </li>
                     <li>
-                        <a><i className="material-icons">save</i>Vardiya Yönetimi</a>
+                        <NavLink to="/shift-list" className={({ isActive }) => isActive ? 'active-page' : ''}>
+                            <i className="material-icons">save</i>Vardiya Yönetimi
+                        </NavLink>
                     </li>
                     <li>
-                        <a><i className="material-icons">list</i>Personel Vardiya Listesi</a>
+                        <NavLink to="/personel-shift-list" className={({ isActive }) => isActive ? 'active-page' : ''}>
+                            <i className="material-icons">list</i>Personel Vardiya Listesi
+                        </NavLink>
                     </li>
                     <li>
                         <a><i className="material-icons">free_breakfast</i>Mola Yönetimi</a>
