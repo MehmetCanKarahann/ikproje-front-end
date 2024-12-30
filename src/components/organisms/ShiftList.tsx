@@ -95,7 +95,7 @@ function ShiftList() {
                             <div className="col-6 text-end">
                                 <NewShiftModal />
                             </div>
-                            <ToastContainer />
+                         
 
                         </div>
                     </div>
