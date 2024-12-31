@@ -74,10 +74,9 @@ function SideBar() {
                         </NavLink>
                     </li>
                     <li>
-                        <a><i className="material-icons">free_breakfast</i>Mola Yönetimi</a>
-                    </li>
-                    <li>
-                        <a><i className="material-icons">fact_check</i>Personel Mola Listesi</a>
+                        <NavLink to="/personel-break-list" className={({ isActive }) => isActive ? 'active-page' : ''}>
+                            <i className="material-icons">free_breakfast</i>Mola Yönetimi
+                        </NavLink>
                     </li>
 
                 </ul>

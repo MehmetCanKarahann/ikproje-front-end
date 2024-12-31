@@ -24,6 +24,7 @@ import PersonelProfilePage from './pages/personelAdmin/PersonelProfilePage'
 import LeaveManagementPage from './pages/AdminCompany/LeaveManagementPage'
 import ShiftManagementPage from './pages/AdminCompany/ShiftManagementPage'
 import PersonelAssignShiftListPage from './pages/AdminCompany/PersonelAssignShiftListPage'
+import PersonelBreakManagementPage from './pages/AdminCompany/BreakManagementPage'
 
 function RouterPage() {
 
@@ -57,6 +58,7 @@ function RouterPage() {
             <Route path='/leave-list' element={ <LeaveManagementPage /> } />
             <Route path='/shift-list' element={ <ShiftManagementPage /> } />
             <Route path='/personel-shift-list' element={ <PersonelAssignShiftListPage /> } />
+            <Route path='/personel-break-list' element={ <PersonelBreakManagementPage /> } />
 
             <Route path='/personeladmin' element={ isLogin ? <PersonelAdminPage /> : <Login /> } />
             <Route path='/create-leave-personel-list' element={ <CreateLeavePersonelListPage /> } />

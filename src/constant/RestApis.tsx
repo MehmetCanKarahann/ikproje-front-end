@@ -10,6 +10,7 @@ const apis = {
     leaveService: server + '/leave',
     shiftService: server + '/shift',
     userShiftService: server + '/usershift',
+    breakService: server + '/break',
     adminService: server + '/admin'
 }
 
