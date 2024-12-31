@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import SideBar from '../../components/molecules/CompanyAdmin/SideBar'
 import Header from '../../components/molecules/CompanyAdmin/Header'
-import PersonelShiftList from '../../components/organisms/PersonelShiftList'
 import { useDispatch } from 'react-redux'
 import { IKDispatch } from '../../store'
 import { fetchGetPersonelListByCompanyId, fetchGetPersonelShiftList } from '../../store/feature/userShiftSlice'
+import PersonelShiftList from '../../components/organisms/PersonelShiftList'
 
 function PersonelAssignShiftListPage() {
 
