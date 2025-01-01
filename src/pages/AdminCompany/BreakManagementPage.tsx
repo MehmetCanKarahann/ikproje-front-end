@@ -5,6 +5,7 @@ import BreakList from '../../components/organisms/BreakList'
 import { useDispatch } from 'react-redux'
 import { IKDispatch } from '../../store'
 import { fetchGetAllBreak } from '../../store/feature/breakSlice'
+import { fetchGetAllShiftsByCompanyId } from '../../store/feature/shiftSlice';
 
 function BreakManagementPage() {
 
@@ -12,6 +13,7 @@ function BreakManagementPage() {
 
     useEffect(() => {
         dispatch(fetchGetAllBreak())
+         dispatch(fetchGetAllShiftsByCompanyId())
     }, [])
 
     return (
