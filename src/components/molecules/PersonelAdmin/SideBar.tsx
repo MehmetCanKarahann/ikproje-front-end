@@ -42,7 +42,9 @@ function SideBar() {
                         Zimmet Yönetimi
                     </li>
                     <li>
-                        <a><i className="material-icons-outlined">list</i>Zimmet Listesi</a>
+                        <NavLink to="/asset-list" className={({ isActive }) => isActive ? 'active-page' : ''}>
+                            <i className="material-icons-outlined">list</i>Zimmet Listesi
+                        </NavLink>
                     </li>
                     <li className="sidebar-title">
                         Harcama Yönetimi

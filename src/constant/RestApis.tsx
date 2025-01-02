@@ -11,6 +11,7 @@ const apis = {
     shiftService: server + '/shift',
     userShiftService: server + '/usershift',
     breakService: server + '/break',
+    assetService: server + '/asset',
     adminService: server + '/admin'
 }
 

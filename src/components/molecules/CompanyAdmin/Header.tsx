@@ -67,7 +67,7 @@ function Header() {
                     </li>
                     <li className="nav-item nav-profile dropdown">
                         <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src= {profile?.companyLogoUrl} alt="profile image" style={{width: 60, height: 60, borderRadius: '50%'}}/>
+                            <img src= {profile?.companyLogoUrl || ''} alt="profile image" style={{width: 60, height: 60, borderRadius: '50%'}}/>
                             <span style={{ color: 'gray' }}> {profile?.firstName} {profile?.lastName} - {profile?.companyName} </span><i className="material-icons dropdown-icon">keyboard_arrow_down</i>
                         </a>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown">

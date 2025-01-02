@@ -57,7 +57,9 @@ function SideBar() {
                         <a><i className="material-icons-outlined">receipt_long</i>Harcama Yönetimi</a>
                     </li>
                     <li>
-                        <a><i className="material-icons">view_list</i>Zimmet Listesi</a>
+                        <NavLink to="/personel-asset-list" className={({ isActive }) => isActive ? 'active-page' : ''}>
+                            <i className="material-icons">view_list</i> Zimmet Yönetimi
+                        </NavLink>
                     </li>
 
                     <li className="sidebar-title">
