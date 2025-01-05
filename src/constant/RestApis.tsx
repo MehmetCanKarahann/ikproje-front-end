@@ -12,6 +12,7 @@ const apis = {
     userShiftService: server + '/usershift',
     breakService: server + '/break',
     assetService: server + '/asset',
+    expenseService: server + '/expense',
     adminService: server + '/admin'
 }
 

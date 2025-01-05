@@ -7,6 +7,7 @@ import shiftSlice from './shiftSlice'
 import userShiftSlice from './userShiftSlice'
 import breakSlice from './breakSlice'
 import assetSlice from './assetSlice'
+import expenseSlice from './expenseSlice'
 
 export{
     authSlice,
@@ -17,5 +18,6 @@ export{
     userShiftSlice,
     breakSlice,
     assetSlice,
+    expenseSlice,
     adminSlice
 }

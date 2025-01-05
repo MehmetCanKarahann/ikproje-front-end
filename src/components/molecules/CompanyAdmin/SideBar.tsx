@@ -54,7 +54,9 @@ function SideBar() {
                         </NavLink>
                     </li>
                     <li>
-                        <a><i className="material-icons-outlined">receipt_long</i>Harcama Yönetimi</a>
+                        <NavLink to="/personel-expense-list"  className={({ isActive }) => isActive ? 'active-page' : ''}>
+                            <i className="material-icons-outlined">receipt_long</i>Harcama Yönetimi
+                        </NavLink>
                     </li>
                     <li>
                         <NavLink to="/personel-asset-list" className={({ isActive }) => isActive ? 'active-page' : ''}>

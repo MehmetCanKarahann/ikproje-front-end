@@ -122,13 +122,13 @@ function PersonelLeaveList() {
                     <table className='table text-nowrap text-center'>
                         <thead>
                             <tr>
-                                <td>id</td>
-                                <td>İzin Türü</td>
-                                <td>Açıklama</td>
-                                <td>Başlangıç Tarihi</td>
-                                <td>Bitiş Tarihi</td>
-                                <td>Durum</td>
-                                <td>İşlemler</td>
+                                <th>id</th>
+                                <th>İzin Türü</th>
+                                <th>Açıklama</th>
+                                <th>Başlangıç Tarihi</th>
+                                <th>Bitiş Tarihi</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
                             </tr>
                         </thead>
                         <tbody>

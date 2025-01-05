@@ -50,7 +50,9 @@ function SideBar() {
                         Harcama Yönetimi
                     </li>
                     <li>
-                        <a><i className="material-icons-outlined">list</i>Harcama Listesi</a>
+                        <NavLink to="/expense-list" className={({ isActive }) => isActive ? 'active-page' : ''}>
+                            <i className="material-icons-outlined">list</i>Harcama Listesi
+                        </NavLink>
                     </li>
                 </ul>
             </div>

@@ -76,12 +76,12 @@ function PersonelAssetList() {
                         <table className="table text-nowrap text-center ">
                             <thead>
                                 <tr>
-                                    <td>Id</td>
-                                    <td>Zimmet Adı</td>
-                                    <td>Açıklaması</td>
-                                    <td>Verilme Tarihi</td>
-                                    <td>Durum</td>
-                                    <td>İşlemler</td>
+                                    <th>Id</th>
+                                    <th>Zimmet Adı</th>
+                                    <th>Açıklaması</th>
+                                    <th>Verilme Tarihi</th>
+                                    <th>Durum</th>
+                                    <th>İşlemler</th>
                                 </tr>
                             </thead>
                             <tbody>
