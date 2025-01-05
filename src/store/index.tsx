@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { adminSlice, assetSlice, authSlice, breakSlice, companyManagementSlice, employeeSlice, expenseSlice, leaveSlice, shiftSlice, userShiftSlice } from "./feature";
+import { adminSlice, assetSlice, authSlice, breakSlice, commentSlice, companyManagementSlice, employeeSlice, expenseSlice, leaveSlice, shiftSlice, userShiftSlice } from "./feature";
 import { useSelector } from "react-redux";
 
 
@@ -14,6 +14,7 @@ const store = configureStore({
         breakSlice: breakSlice,
         assetSlice: assetSlice,
         expenseSlice: expenseSlice,
+        commentSlice: commentSlice,
         admin: adminSlice
     }
 })

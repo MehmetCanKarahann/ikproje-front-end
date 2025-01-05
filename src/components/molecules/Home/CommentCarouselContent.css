@@ -1,56 +1,88 @@
-
 .swiper-slide-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    width: 450px;
-    height: 250px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin: 70px;
-    margin-left: 30%;
-  }
-  
-  .swiper-slide-container:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); 
-  }
-  
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  width: 80%;
+  height: auto;
+  background-color: #f9fafc;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin: 70px auto;
+}
 
-  .content-text {
-    font-size: 16px;
-    font-family: 'Arial', sans-serif;
-    color: #555;
-    text-align: center;
-    line-height: 1.6;
-  
-    
-  }
-  
+.swiper-slide-container:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
 
-  .swiper-pagination-bullet {
-    background-color: #088b3a !important;
-    opacity: 0.7;
-    transition: background-color 0.3s ease;
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  gap: 40px;
+  background-color: transparent;
+}
+
+.text-section {
+  flex: 1;
+  width: 100%;
+}
+
+.manager-photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.company-name {
+  font-size: 22px;
+  font-weight: bold;
+  color: #072c80;
+}
+
+.quote {
+  font-size: 18px;
+  color: #333;
+  margin: 20px 0;
+  line-height: 1.6;
+}
+
+.manager-info {
+  font-size: 14px;
+  color: #555;
+}
+
+
+.swiper-pagination-bullet {
+  background-color: #088b3a !important;
+  opacity: 0.7;
+  transition: background-color 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #088b3a !important;
+  opacity: 1;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+  transition: color 0.3s ease;
+  background-color: #088b3a;
+  padding: 25px;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: white;
+}
+
+@media (min-width: 768px) {
+  body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper {
+      transition: margin-left .3s ease-in-out;
+      margin-left: 0;  /* Margin değerini sıfırladık */
   }
-  
-  .swiper-pagination-bullet-active {
-    background-color: #088b3a !important;
-    opacity: 1;
-  }
-  
-  .swiper-button-next, .swiper-button-prev {
-    color: white;
-    transition: color 0.3s ease;
-    background-color: #088b3a;
-    padding: 25px;
-  }
-  
-  .swiper-button-next:hover, .swiper-button-prev:hover {
-    color: white;
-  }
-  
+}

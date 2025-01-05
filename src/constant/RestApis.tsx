@@ -13,6 +13,7 @@ const apis = {
     breakService: server + '/break',
     assetService: server + '/asset',
     expenseService: server + '/expense',
+    commentService: server + '/comment',
     adminService: server + '/admin'
 }
 
