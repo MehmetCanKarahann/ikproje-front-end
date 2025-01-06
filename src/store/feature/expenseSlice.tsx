@@ -75,14 +75,39 @@ export const fetchUpdateExpense = createAsyncThunk(
     'expense/fetchUpdateExpense',
     async (payload: IUpdateExpenseRequest) => {
         const token = localStorage.getItem('token');
+
+        const formData = new FormData();
+        formData.append('token', payload.token);
+        formData.append('expenseId', payload.expenseId.toString());
+        formData.append('amount', payload.amount.toString());
+        formData.append('description', payload.description);
+        
+        if(payload.file){
+            formData.append('file', (payload.file));     
+        }
+      
         return await fetch(apis.expenseService + '/update-expense', {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
+            headers: {  
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(payload)
+            body: formData
+        
         }).then(data => data.json())
+    }
+)
+
+//personel eklediği harcamayı buradan silebilir.
+export const fetchExpenseDelete = createAsyncThunk(
+    'expense/fetchExpenseDelete',
+    async ({expenseId}: {expenseId: number}) => {
+        const token = localStorage.getItem('token');
+        return await fetch(`${apis.expenseService}/delete-expense?token=${token}&expenseId=${expenseId}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(data => data.json());
     }
 )
 

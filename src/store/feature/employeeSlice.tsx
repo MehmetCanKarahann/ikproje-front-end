@@ -23,8 +23,13 @@ export const fetchGetPersonelProfileByToken = createAsyncThunk(
     'employee/fetcGetPersonelProfileByToken',
     async () => {
         const token = localStorage.getItem('token');
-        return await fetch(apis.employeeService + '/get-personel-profile?token=' + token)
-            .then(data => data.json());
+        return await fetch(apis.employeeService + '/get-personel-profile?token=' + token, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(data => data.json());
     }
 )
 

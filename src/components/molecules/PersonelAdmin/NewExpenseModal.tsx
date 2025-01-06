@@ -40,28 +40,29 @@ function NewExpenseModal() {
 
     const submit = () => {
 
-        if (!file) {
-            toast.error("Lütfen bir dosya yükleyin!", { position: "top-right" });
-            return;
-        }
+       const token = localStorage.getItem('token') || '';
 
-        // amount'u sayıya dönüştür
-        const numericAmount = parseFloat(amount.replace(/,/g, ''));
+       const expenseModel: IPersonelNewExpenseRequest = {
+            token: token,
+            amount: parseFloat(amount.replace(/,/g, '')),
+            description: description,
+            file: file
+       }
 
 
-        // dispatch(fetchNewExpenseRequest({ amount: numericAmount, file, description })).then(data => {
-        //     if (data.payload.code === 200) {
-        //         toast.success("Harcama Oluşturma İşleminiz Başarılı!", {
-        //             position: "top-right"
-        //         });
-        //         dispatch(fetchGetPersonelExpenseList());
-        //     }
-        //     else {
-        //         toast.warning(data.payload.message, {
-        //             position: "top-right"
-        //         });
-        //     }
-        // })
+        dispatch(fetchNewExpenseRequest(expenseModel)).then(data => {
+            if (data.payload.code === 200) {
+                toast.success("Harcama Oluşturma İşleminiz Başarılı!", {
+                    position: "top-right"
+                });
+                dispatch(fetchGetPersonelExpenseList());
+            }
+            else {
+                toast.warning(data.payload.message, {
+                    position: "top-right"
+                });
+            }
+        })
     }
 
     return (

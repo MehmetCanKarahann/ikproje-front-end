@@ -2,5 +2,6 @@ export interface IUpdateExpenseRequest {
     token: string,
     expenseId: number,
     amount: number,
-    description: string
+    description: string,
+    file: File | null
 }

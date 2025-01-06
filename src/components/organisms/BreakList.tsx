@@ -93,7 +93,7 @@ function BreakList() {
                 if (willDelete) {
                     dispatch(fetchDeleteBreak({ breakId: Id })).then(data => {
                         if (data.payload.code === 200) {
-                            toast.success("Mola Başarılı Şekilde Silindi. !", {
+                            toast.success("Mola Başarılı Şekilde Silindi!", {
                                 position: "top-right"
                             });
                             dispatch(fetchGetAllBreak());

@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import NewExpenseModal from '../../molecules/PersonelAdmin/NewExpenseModal'
 import { IKDispatch, IKUseSelector } from '../../../store'
 import { useDispatch } from 'react-redux';
-import { fetchGetPersonelExpenseList, fetchUpdateExpense, fetchUploadReceipt } from '../../../store/feature/expenseSlice';
+import { fetchExpenseDelete, fetchGetPersonelExpenseList, fetchUpdateExpense, fetchUploadReceipt } from '../../../store/feature/expenseSlice';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import img from '../../../img/resim-yok.png';
 import { IUpdateExpenseRequest } from '../../../models/IUpdateExpenseRequest';
+import swal from 'sweetalert';
 
 function ExpenseList() {
 
@@ -34,6 +35,23 @@ function ExpenseList() {
         });
     }
 
+    const formatAmount = (value: string) => {
+        const numericValue = value.replace(/[^0-9.]/g, '');
+        const parts = numericValue.split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        if (parts.length > 2) {
+            parts[1] = parts.slice(1).join('');
+        }
+        return parts.join('.');
+    };
+
+     const handleAmountChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+        const value = evt.target.value;
+        const formattedValue = formatAmount(value); // inputu formatlıyoruz
+        const numericValue = parseFloat(formattedValue.replace(/,/g, '')) || 0; // sayısal değere çeviriyoruz
+        setAmount(numericValue); 
+        };
+
     const handleChange = (evt: any) => {
         const selectedFile = evt.target.files?.[0];
         if (selectedFile) {
@@ -52,24 +70,7 @@ function ExpenseList() {
         setSelectedImage(null);
     }
 
-    // const handleSubmit = () => { silinecek
-
-    //     if (file) {
-    //         dispatch(fetchUploadReceipt({ expenseId, file })).then(data => {
-    //             if (data.payload.code === 200) {
-    //                 toast.success("Fatura Yükleme İşleminiz Başarılı!", {
-    //                     position: "top-right"
-    //                 });
-    //                 dispatch(fetchGetPersonelExpenseList());
-    //             }
-    //             else {
-    //                 toast.warning(data.payload.message, {
-    //                     position: "top-right"
-    //                 });
-    //             }
-    //         })
-    //     }
-    // }
+ 
 
     const updateSubmit = () => {
 
@@ -78,18 +79,18 @@ function ExpenseList() {
         const expenseModel: IUpdateExpenseRequest = {
             token: token,
             expenseId: expenseId,
-            amount: amount,
-            description: description
+            amount: parseFloat(amount.toString().replace(/,/g, '')),
+            description: description,
+            file: file
         }
-
-        console.log(expenseModel);
 
 
         dispatch(fetchUpdateExpense(expenseModel)).then(data => {
             if (data.payload.code === 200) {
-                toast.success("Fatura Güncelleme İşleminiz Başarılı! ", {
+                toast.success("Harcama Güncelleme İşleminiz Başarılı! ", {
                     position: 'top-right'
                 });
+                dispatch(fetchGetPersonelExpenseList())
             }
             else {
                 toast.warning(data.payload.warning, {
@@ -98,6 +99,45 @@ function ExpenseList() {
             }
         })
 
+    }
+
+    const deleteExpense = (expenseId: number) => {
+        swal({
+            title: "Harcama İşleminizi Silmek istiyor Musunuz?",
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: 'Hayır',
+                    value: false,
+                    visible: true,
+                    className: 'swal-button-cancel'
+                },
+                confirm: {
+                    text: 'Evet',
+                    value: true,
+                    visible: true,
+                    className: 'swal-button-confirm'
+                },
+            }
+        })
+        .then((willDelete) => {
+                if (willDelete) {
+                    dispatch(fetchExpenseDelete({ expenseId: expenseId })).then(data => {
+                        if (data.payload.code === 200) {
+                            toast.success("Harcama Başarılı Şekilde Silindi!", {
+                                position: "top-right"
+                            });
+                            dispatch(fetchGetPersonelExpenseList());
+                        }
+                        else {
+                            toast.warning(data.payload.message, {
+                                position: "top-right"
+                            });
+                        }
+                    })
+                }
+            });
+        
     }
 
 
@@ -162,18 +202,7 @@ function ExpenseList() {
                                                     )}
                                             </td>
                                             <td>
-                                                {/* { Silinecek
-                                                    !expense.receiptUrl && (
-                                                        <button
-                                                            className='btn btn-info me-2'
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#uploadInvoiceModal"
-                                                            onClick={() => { setExpenseId(expense.id) }}
-                                                        >
-                                                            <i className="fa-solid fa-plus"></i>
-                                                        </button>
-                                                    )
-                                                } */}
+                                               
                                                 {
                                                     expense.status === 'PENDING' && (
                                                         <>
@@ -185,7 +214,7 @@ function ExpenseList() {
                                                             }} >
                                                                 <i className="fa-solid fa-pen"></i>
                                                             </button>
-                                                            <button className='btn btn-danger' >
+                                                            <button className='btn btn-danger' onClick={() => deleteExpense(expenseList[index].id)}>
                                                                 <i className="fa-solid fa-trash"></i>
                                                             </button>
                                                         </>
@@ -229,35 +258,7 @@ function ExpenseList() {
                         )
                     }
                 </div>
-                {/** Fatura yükleme modal   Silinecek  */  } 
-                {/* <div className="modal fade bd-example-modal-lg" id="uploadInvoiceModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-lg modal-dialog-centered">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h1 className="modal-title fs-5" id="exampleModalLabel">Fatura Ekleme</h1>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
-                            </div>
-                            <hr style={{ border: '1px black solid' }} />
-                            <div className="modal-body">
-
-                                <div className="row mt-4">
-                                    <div className="row">
-                                        <label className="form-label ms-3">Belge:</label>
-                                        <input onChange={handleChange} type="file" className="form-control" />
-                                    </div>
-                                    <div className="row mt-4">
-                                        <img src={file ? URL.createObjectURL(file) : ''} style={{ height: 500 }} />
-                                    </div>
-                                </div>
-                            </div>
-                            <hr />
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={handleSubmit}>Kaydet</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
+              
 
                 {/**Harcama Güncelleme Modal */}
                 <div className="modal fade bd-example-modal-xl" id="updateExpenseModal">
@@ -283,7 +284,7 @@ function ExpenseList() {
 
                                 <div className="col mb-4 mt-5 text-start">
                                     <label className='ms-4'>Miktar: </label>
-                                    <input type="text" className='form-control' onChange={evt => { setAmount(Number(evt.target.value)) }} value={amount} />
+                                    <input type="text" className='form-control' onChange={handleAmountChange} value={formatAmount(amount.toString())} />
                                 </div>
                                 <div className="col mb-4  text-start">
                                     <label className='ms-4'>Açıklama: </label>
