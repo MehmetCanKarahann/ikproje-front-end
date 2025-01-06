@@ -30,10 +30,12 @@ const initialAssetState: IAssetState = {
 export const fetchAssignNewAsset = createAsyncThunk(
     'asset/fetchAssignNewAsset',
     async (payload: INewPersonelAssetRequest) => {
+        const token = localStorage.getItem('token');
         return await fetch(apis.assetService + '/assign-new-asset', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         }).then(data => data.json())
@@ -45,7 +47,12 @@ export const fetchGetAssetListOfCompany = createAsyncThunk(
     'asset/fetchGetAssetListOfCompany',
     async () => {
         const token = localStorage.getItem('token');
-        return await fetch(apis.assetService + '/get-assets-of-company?token=' + token)
+        return await fetch(apis.assetService + '/get-assets-of-company?token='+token,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        })
             .then(data => data.json());
     }
 )
@@ -55,7 +62,12 @@ export const fetchGetPersonelAssetList = createAsyncThunk(
     'asset/fetchGetPersonelAssetList',
     async () => {
         const token = localStorage.getItem('token');
-        return await fetch(apis.assetService + '/get-personel-assets?token=' + token)
+        return await fetch(apis.assetService + '/get-personel-assets?token=' + token,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        })
             .then(data => data.json());
     }
 )
@@ -68,7 +80,8 @@ export const fetchApproveAsset = createAsyncThunk(
         return await fetch(`${apis.assetService}/approve-asset?token=${token}&assetId=${assetId}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         }).then(data => data.json());
     }
@@ -81,7 +94,8 @@ export const fetchRejectAsset = createAsyncThunk(
         return await fetch(`${apis.assetService}/reject-asset?token=${token}&assetId=${assetId}&rejectMessage=${rejectMessage}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         }).then(data => data.json());
     }

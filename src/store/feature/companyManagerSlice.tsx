@@ -38,7 +38,12 @@ export const fetchGetCompanyManagerProfileByToken = createAsyncThunk(
     'companyManagement/fetchGetCompanyManagerProfileByToken',
     async () => {
         const token = localStorage.getItem('token');
-        return await fetch(apis.companyManagementService + '/get-company-manager-profile?token=' + token)
+        return await fetch(apis.companyManagementService + '/get-company-manager-profile?token=' + token,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then(data => data.json());
     }
 )
@@ -56,7 +61,10 @@ export const fetchAddLogoToCompany = createAsyncThunk(
 
         const response = await fetch(apis.companyManagementService + '/update-company-logo', {
             method: 'POST',
-            body: formData
+            body: formData,
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         }).then(data => data.json())
         return response;
     }
@@ -66,10 +74,12 @@ export const fetchAddLogoToCompany = createAsyncThunk(
 export const fetchUpdateCompanyManagerProfile = createAsyncThunk(
     'companyManagement/fetchUpdateCompanyManagerProfile',
     async (payload: ICompanyManagerUpdateRequest) => {
+        const token = localStorage.getItem('token');
         return await fetch(apis.companyManagementService + "/update-company-manager-profile", {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         }).then(data => data.json())
@@ -81,7 +91,14 @@ export const fetchGetPersonelList = createAsyncThunk(
     'companyManagemet/fetchGetPersonelList',
     async () => {
         const token = localStorage.getItem('token');
-        return await fetch(apis.companyManagementService + '/get-personel-list?token=' + token).then(data => data.json());
+        return await fetch(apis.companyManagementService + '/get-personel-list?token=' + token,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        
+        .then(data => data.json());
     }
 )
 
@@ -89,10 +106,12 @@ export const fetchGetPersonelList = createAsyncThunk(
 export const fetchAddNewPersonel = createAsyncThunk(
     'companyManagemet/fetchAddNewPersonel',
     async (payload: INewPersonelRequest) => {
+        const  token = localStorage.getItem('token');
         return await fetch(apis.companyManagementService + '/add-personel', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         }).then(data => data.json())
@@ -103,10 +122,12 @@ export const fetchAddNewPersonel = createAsyncThunk(
 export const fetchUpdatePersonelState = createAsyncThunk(
     'companyManagement/fetchUpdatePersonelState',
     async (payload: IPersonelUpdateStateRequest) => {
+        const token = localStorage.getItem('token');
         return await fetch(apis.companyManagementService + '/update-personel-state', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         }).then(data => data.json())

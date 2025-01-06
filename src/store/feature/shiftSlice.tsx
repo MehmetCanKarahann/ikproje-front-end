@@ -26,7 +26,12 @@ export const fetchGetAllShiftsByCompanyId = createAsyncThunk(
     'shift/fetchGetAllShiftsByCompanyId',
     async () => {
         const token = localStorage.getItem('token');
-        return await fetch(apis.shiftService + '/all-shifts-by-company?token=' + token)
+        return await fetch(apis.shiftService + '/all-shifts-by-company?token=' + token,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         .then(data => data.json());
     }
 )
@@ -35,10 +40,12 @@ export const fetchGetAllShiftsByCompanyId = createAsyncThunk(
 export const fetchNewShift = createAsyncThunk(
     'shift/fetchNewShift',
     async (payload: INewShiftRequest) => {
+        const token = localStorage.getItem('token');
         return await fetch(apis.shiftService + '/new-shift-request', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         }).then(data => data.json())
@@ -49,10 +56,12 @@ export const fetchNewShift = createAsyncThunk(
 export const fetchUpdateShift = createAsyncThunk(
     'shift/fetchUpdateShift',
     async (payload: IUpdateShiftRequest) => {
+        const token = localStorage.getItem('token');
         return await fetch(apis.shiftService + '/update-shift', {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         }).then(data => data.json())
@@ -67,7 +76,8 @@ export const fetchDeleteShift = createAsyncThunk(
         return await fetch(`${apis.shiftService}/delete-shift?token=${token}&shiftId=${shiftId}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         }).then(data => data.json())
     }
