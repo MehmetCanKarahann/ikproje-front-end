@@ -30,6 +30,7 @@ import PersonelAssetListPage from './pages/personelAdmin/PersonelAssetListPage'
 import ExpenseListPersonelPage from './pages/personelAdmin/ExpenseListPersonelPage'
 import PersonelExpenseList from './pages/AdminCompany/PersonelExpenseListPage'
 import PersonelExpenseListPage from './pages/AdminCompany/PersonelExpenseListPage'
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 
 function RouterPage() {
 
@@ -80,6 +81,8 @@ function RouterPage() {
            
             <Route path='/forgotpassword' element={ <ForgotPassword /> } />
             <Route path='/resetPassword' element={ <ResetPassword /> } />
+
+            <Route path='*' element={<NotFoundPage />} />
            
 
         </Routes>
