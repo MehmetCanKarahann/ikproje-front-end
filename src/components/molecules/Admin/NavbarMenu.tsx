@@ -10,7 +10,7 @@ function NavbarMenu() {
                     <a className="nav-link" data-widget="pushmenu" href="#" role="button"><i className="fas fa-bars navbar-color"></i></a>
                 </li>
                 <li className="nav-item d-none d-sm-inline-block">
-                    <NavLink to={'/admin'}  className="nav-link navbar-color" >Home</NavLink>
+                    <NavLink to={'/admin'}  className="nav-link navbar-color" >Ana Sayfa</NavLink>
                 </li>
                
             </ul>

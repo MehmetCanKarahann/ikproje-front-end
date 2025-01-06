@@ -3,7 +3,7 @@
 .login-header{
     font-family: "Montserrat", serif;
     font-style: normal;
-     color: rgb(17, 21, 63);
+    color: rgb(17, 21, 63);
 }
 
 .login-body{
@@ -12,9 +12,9 @@
 }
 
 .input-color:focus{
-    outline: none; 
-    border-color: #6C757D; 
-    box-shadow: 0 0 8px rgba(31, 59, 77, 0.3); 
-    font-family: "Montserrat", serif;
-    font-style: normal;
+    outline: none !important; 
+    border-color: #6C757D !important; 
+    box-shadow: 0 0 8px rgba(31, 59, 77, 0.3) !important; 
+    font-family: "Montserrat", serif !important;
+    font-style: normal !important;
 }

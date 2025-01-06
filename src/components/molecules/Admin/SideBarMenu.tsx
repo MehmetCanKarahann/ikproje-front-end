@@ -59,14 +59,14 @@ function SideBarMenu() {
                                 </NavLink>
                             </a>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <a  className="nav-link ">
                                 <i className="fa-solid fa-clipboard-list fa-sm" ></i>
                                 <p className='ms-2' style={{fontSize: '15px'}}>
                                     Tanımlamalar
                                 </p>
                             </a>
-                        </li>
+                        </li> */}
                     </ul>
                 </nav>
 

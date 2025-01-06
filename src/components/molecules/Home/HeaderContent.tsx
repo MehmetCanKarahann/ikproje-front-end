@@ -15,7 +15,7 @@ function HeaderContent() {
                 </div>
                 <div className="col-4">
                     <div className="image-container">
-                        <img src={img} alt="Resim" className="image" />
+                        <img src={img} alt="Resim" className="x-image" />
                     </div>
                 </div>
 

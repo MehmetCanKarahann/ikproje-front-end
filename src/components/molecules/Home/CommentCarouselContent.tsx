@@ -54,7 +54,7 @@ function CommentCarouselContent() {
 
             <SwiperSlide key={index}>
               <div className="swiper-slide-container" >
-                <div className="content-wrapper">
+                <div className="x-content-wrapper">
                   <div className="text-section">
                     <h4 className="company-name">{comment.companyName}</h4>
                     <p className="quote">

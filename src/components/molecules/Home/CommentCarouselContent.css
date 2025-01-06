@@ -17,7 +17,7 @@
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
 
-.content-wrapper {
+.x-content-wrapper {
   display: flex;
   align-items: center;
   margin: 0;
@@ -78,11 +78,4 @@
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
   color: white;
-}
-
-@media (min-width: 768px) {
-  body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper {
-      transition: margin-left .3s ease-in-out;
-      margin-left: 0;  /* Margin değerini sıfırladık */
-  }
 }
