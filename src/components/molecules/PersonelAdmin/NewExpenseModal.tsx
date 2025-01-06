@@ -36,7 +36,8 @@ function NewExpenseModal() {
         const expenseModel: IPersonelNewExpenseRequest = {
             token: token,
             amount: parseFloat(amount.replace(/,/g, '')),
-            description: description
+            description: description,
+            file: null
         }
 
         dispatch(fetchNewExpenseRequest(expenseModel)).then(data => {

@@ -31,7 +31,12 @@ export const fetchGetPersonelShiftList = createAsyncThunk(
     'userShift/fetchGetPersonelShiftList',
     async () => {
         const token = localStorage.getItem('token');
-        return await fetch(apis.userShiftService + '/get-personel-shift-list?token=' + token)
+        return await fetch(apis.userShiftService + '/get-personel-shift-list?token=' + token,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then(data => data.json())
     }
 )
@@ -42,7 +47,12 @@ export const fetchGetPersonelListByCompanyId = createAsyncThunk(
     'userShift/fetchGetPersonelListByCompanyId',
     async () => {
         const token = localStorage.getItem('token');
-        return await fetch(apis.userShiftService + '/get-personel-list-by-companyId?token=' + token)
+        return await fetch(apis.userShiftService + '/get-personel-list-by-companyId?token=' + token,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then(data => data.json())
     }
 )
@@ -51,10 +61,12 @@ export const fetchGetPersonelListByCompanyId = createAsyncThunk(
 export const fetchAssignShiftToUser = createAsyncThunk(
     'userShift/fetchAssignShiftToUser',
     async (payload: IPersonelAssignToShiftRequest) => {
+        const token = localStorage.getItem('token');
         return await fetch(apis.userShiftService + '/assign-shift-to-user', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         }).then(data => data.json())
