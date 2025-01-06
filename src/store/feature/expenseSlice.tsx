@@ -3,6 +3,7 @@ import { IPersonelNewExpenseRequest } from "../../models/IPersonelNewExpenceRequ
 import apis from "../../constant/RestApis"
 import { IExpenseListResponse } from "../../models/IExpenseListResponse"
 import { IBaseResponse } from "../../models/IBaseResponse"
+import { IUpdateExpenseRequest } from "../../models/IUpdateExpenseRequest"
 
 interface IExpenseState {
     isNewExpenseLoading: boolean,
@@ -12,7 +13,8 @@ interface IExpenseState {
     isExpenseListLoading: boolean,
     personelExpenseList: IExpenseListResponse[], //şirket yöneticisinin harcamaları gördüğü liste
     isPersonelExpenseApproveLoading: boolean,
-    isPersonelExpenseRejectLoading: boolean
+    isPersonelExpenseRejectLoading: boolean,
+    isPersonelExpenseUpdateLoading: boolean
 }
 
 const initialExpenseState: IExpenseState = {
@@ -23,7 +25,8 @@ const initialExpenseState: IExpenseState = {
     isExpenseListLoading: false,
     personelExpenseList: [],
     isPersonelExpenseApproveLoading: false,
-    isPersonelExpenseRejectLoading: false
+    isPersonelExpenseRejectLoading: false,
+    isPersonelExpenseUpdateLoading: false
 }
 
 //fetch işlemleri
@@ -49,6 +52,20 @@ export const fetchGetPersonelExpenseList = createAsyncThunk(
         const token = localStorage.getItem('token');
         return await fetch(apis.expenseService + '/get-personel-expenses?token=' + token)
         .then(data => data.json())
+    }
+)
+
+//personelin eklediği harcamayı günceller.
+export const fetchUpdateExpense = createAsyncThunk(
+    'expense/fetchUpdateExpense',
+    async (payload: IUpdateExpenseRequest) => {
+        return await fetch(apis.expenseService + '/update-expense', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        }).then(data => data.json())
     }
 )
 
@@ -110,6 +127,8 @@ export const fetchRejectExpense = createAsyncThunk(
     }
 )
 
+
+
 const expenseSlice = createSlice({
     name: 'expense',
     initialState: initialExpenseState,
@@ -156,6 +175,12 @@ const expenseSlice = createSlice({
         })
         build.addCase(fetchRejectExpense.fulfilled, (state) => {
             state.isPersonelExpenseRejectLoading = false;
+        })
+        build.addCase(fetchUpdateExpense.pending, (state) => {
+            state.isPersonelExpenseUpdateLoading = true;
+        })
+        build.addCase(fetchUpdateExpense.fulfilled, (state) => {
+            state.isPersonelExpenseUpdateLoading = false;
         })
     }
 })

@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import NewExpenseModal from '../../molecules/PersonelAdmin/NewExpenseModal'
 import { IKDispatch, IKUseSelector } from '../../../store'
 import { useDispatch } from 'react-redux';
-import { fetchGetPersonelExpenseList, fetchUploadReceipt } from '../../../store/feature/expenseSlice';
+import { fetchGetPersonelExpenseList, fetchUpdateExpense, fetchUploadReceipt } from '../../../store/feature/expenseSlice';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import img from '../../../img/resim-yok.png';
+import { IUpdateExpenseRequest } from '../../../models/IUpdateExpenseRequest';
 
 function ExpenseList() {
 
@@ -14,6 +15,8 @@ function ExpenseList() {
     const dispatch = useDispatch<IKDispatch>();
 
     const [expenseId, setExpenseId] = useState(0);
+    const [amount, setAmount] = useState<number>(0);
+    const [description, setDescription] = useState('');
 
     const [file, setFile] = useState<File | null>(null);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -64,6 +67,35 @@ function ExpenseList() {
         }
     }
 
+    const updateSubmit = () => {
+
+        const token = localStorage.getItem('token') || '';
+
+        const expenseModel: IUpdateExpenseRequest = {
+            token: token,
+            expenseId: expenseId,
+            amount: amount,
+            description: description
+        }
+
+        console.log(expenseModel);
+
+
+        dispatch(fetchUpdateExpense(expenseModel)).then(data => {
+            if (data.payload.code === 200) {
+                toast.success("Fatura Güncelleme İşleminiz Başarılı! ", {
+                    position: 'top-right'
+                });
+            }
+            else {
+                toast.warning(data.payload.warning, {
+                    position: 'top-right'
+                });
+            }
+        })
+
+    }
+
 
     return (
         <div className='col'>
@@ -76,7 +108,7 @@ function ExpenseList() {
                         <div className="col-6 text-end">
                             <NewExpenseModal />
                         </div>
-                       
+
                     </div>
                 </div>
                 <div className="card-body table-responsive p-0 mb-5">
@@ -101,7 +133,7 @@ function ExpenseList() {
                                             <td>
                                                 <img
                                                     src={expense?.receiptUrl ? String(expense.receiptUrl) : 'https://lh4.googleusercontent.com/proxy/kX0otYkzacbwl936L9VnavuyJ7pX7mzAaJTVGOysJBK1HY2F8PrjfIEb-uXhsi6vwKajxYE3KkPbmrw'}
-                                                    
+
                                                     style={{ width: '60px', height: '60px', objectFit: 'cover' }}
                                                     onClick={() => handleImageClick(expense.receiptUrl)}
                                                 />
@@ -117,11 +149,11 @@ function ExpenseList() {
                                                         </>
                                                     ) : expense.status === 'APPROVED' ? (
                                                         <>
-                                                            <button className='btn btn-success'>Onaylı</button>
+                                                            <button className='btn btn-outline-success'>Onaylı</button>
                                                         </>
                                                     ) : (
                                                         <>
-                                                            <button className='btn btn-danger'>İptal Edildi</button>
+                                                            <button className='btn btn-outline-danger'>İptal Edildi</button>
                                                         </>
                                                     )}
                                             </td>
@@ -129,15 +161,32 @@ function ExpenseList() {
                                                 {
                                                     !expense.receiptUrl && (
                                                         <button
-                                                            className='btn btn-info'
+                                                            className='btn btn-info me-2'
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#uploadInvoiceModal"
                                                             onClick={() => { setExpenseId(expense.id) }}
                                                         >
-                                                            Fatura Ekle
+                                                            <i className="fa-solid fa-plus"></i>
                                                         </button>
                                                     )
                                                 }
+                                                {
+                                                    expense.status === 'PENDING' && (
+                                                        <>
+                                                            <button className='btn btn-warning me-2' data-bs-toggle="modal" data-bs-target="#updateExpenseModal" onClick={() => {
+                                                                setExpenseId(expense.id);
+                                                                setAmount(expense?.amount);
+                                                                setDescription(expense?.description);
+                                                            }} >
+                                                                <i className="fa-solid fa-pen"></i>
+                                                            </button>
+                                                            <button className='btn btn-danger' >
+                                                                <i className="fa-solid fa-trash"></i>
+                                                            </button>
+                                                        </>
+                                                    )
+                                                }
+
                                             </td>
                                         </tr>
                                     )
@@ -175,6 +224,7 @@ function ExpenseList() {
                         )
                     }
                 </div>
+                {/** Fatura yükleme modal */}
                 <div className="modal fade bd-example-modal-lg" id="uploadInvoiceModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-lg modal-dialog-centered">
                         <div className="modal-content">
@@ -199,6 +249,35 @@ function ExpenseList() {
                             <hr />
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={handleSubmit}>Kaydet</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/**Harcama Güncelleme Modal */}
+                <div className="modal fade bd-example-modal-xl" id="updateExpenseModal">
+                    <div className="modal-dialog modal-xl modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">Harcama Güncelle</h1>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                            </div>
+                            <hr style={{ border: '1px black solid' }} />
+                            <div className="modal-body">
+
+                                <div className="col mb-4 mt-5 text-start">
+                                    <label className='ms-4'>Miktar: </label>
+                                    <input type="text" className='form-control' onChange={evt => { setAmount(Number(evt.target.value)) }} value={amount} />
+                                </div>
+                                <div className="col mb-4  text-start">
+                                    <label className='ms-4'>Açıklama: </label>
+                                    <textarea className='form-control' onChange={evt => { setDescription(evt.target.value) }} value={description}></textarea>
+                                </div>
+                            </div>
+                            <hr />
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={updateSubmit}>Kaydet</button>
                             </div>
                         </div>
                     </div>
