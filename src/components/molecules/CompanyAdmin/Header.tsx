@@ -99,9 +99,7 @@ function Header() {
                             <a style={{ cursor: 'pointer' }} onClick={logout} className="dropdown-item" >Log out</a>
                         </div>
                     </li>
-                    <li className="nav-item">
-                        <a style={{ cursor: 'pointer' }} className="nav-link mt-1" id="dark-theme-toggle"><i className="material-icons-outlined" style={{ color: 'gray' }}>brightness_2</i><i className="material-icons">brightness_2</i> </a>
-                    </li>
+                   
 
                 </ul>
                 <div className='collapse navbar-collapse me-3' id='navbarNav'>

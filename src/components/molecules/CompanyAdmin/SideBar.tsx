@@ -45,9 +45,9 @@ function SideBar() {
                             <i className="material-icons-outlined">person</i>Personel Durum Listesi
                         </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <a><i className="material-icons">playlist_add_circle</i>Özlük Belgesi Ekle</a>
-                    </li>
+                    </li> */}
                     <li>
                         <NavLink to="/leave-list"  className={({ isActive }) => isActive ? 'active-page' : ''}>
                             <i className="material-icons-outlined">rule</i>İzin Yönetimi
