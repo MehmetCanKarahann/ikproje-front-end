@@ -15,6 +15,7 @@ function CompanyList() {
     const [showRejectModal, setShowRejectModal] = useState(false);
 
     const [errorMessage, setErrorMessage] = useState('');
+    const [rejectErrorMessage, setRejectErrorMessage] = useState('');
 
 
     const handleConfirmAccount = () => {
@@ -23,6 +24,9 @@ function CompanyList() {
             return;
         }
         setErrorMessage('');  // Hata yoksa mesajı sıfırla
+
+
+
         dispatch(fetchApproveAccount({ userId, confirmationMessage })).then(data => {
             if (data.payload.code === 200) {
                 swal('Başarı!', 'Şirket Hesabı Başarılı Şekilde Onaylanmıştır.', 'success').then(() => {
@@ -37,21 +41,22 @@ function CompanyList() {
     };
 
     const handleRejectAccount = () => {
-        if (rejectionMessage !== '') {
-            dispatch(fetchRejectAccount({ userId, rejectionMessage })).then(data => {
-                if (data.payload.code === 200) {
-                    swal('Başarı!', 'Şirket Hesabı Başarılı Şekilde Reddedilmiştir.', 'success').then(() => {
-                        dispatch(fetchGetUnapprovedCompanies());
-                        setShowRejectModal(false);  // Modal kapat
-                    });
-                } else {
-                    swal('Hata!', data.payload.message, 'error');
-                }
-            });
+        if (rejectionMessage.trim() === '') {
+            setRejectErrorMessage('Açıklama kısmı boş bırakılamaz.');
+            return;
         }
-        else {
-
-        }
+        setRejectErrorMessage('');  // Hata yoksa mesajı sıfırla
+        dispatch(fetchRejectAccount({ userId, rejectionMessage })).then(data => {
+            if (data.payload.code === 200) {
+                swal('Başarı!', 'Şirket Hesabı Başarılı Şekilde Reddedilmiştir.', 'success').then(() => {
+                    dispatch(fetchGetUnapprovedCompanies());
+                    setRejectionMessage('');
+                    setShowRejectModal(false);
+                });
+            } else {
+                swal('Hata!', data.payload.message, 'error');
+            }
+        });
     };
 
     return (
@@ -84,15 +89,15 @@ function CompanyList() {
                                         <td>{company.email}</td>
                                         <td>{company.companyName}</td>
                                         <td>
-                                            <button className='btn btn-success' onClick={() => { 
+                                            <button className='btn btn-success' onClick={() => {
                                                 setUserId(company.id);
-                                                setShowApproveModal(true); 
+                                                setShowApproveModal(true);
                                             }}>
                                                 Onayla
                                             </button>
-                                            <button className='btn btn-danger ms-2' onClick={() => { 
+                                            <button className='btn btn-danger ms-2' onClick={() => {
                                                 setUserId(company.id);
-                                                setShowRejectModal(true); 
+                                                setShowRejectModal(true);
                                             }}>
                                                 Reddet
                                             </button>
@@ -117,13 +122,14 @@ function CompanyList() {
                             </div>
                             <div className="modal-body">
                                 <label>Açıklama:</label>
-                                <textarea   className={`form-control ${errorMessage ? 'is-invalid' : ''}`}   onChange={e => { setConfirmationMessage(e.target.value);  setErrorMessage('');  // Kullanıcı yazdıkça hata mesajını temizle
-        }} value={confirmationMessage}></textarea>
-         {errorMessage && (
-        <div className="invalid-feedback">
-            {errorMessage}
-        </div>
-    )}
+                                <textarea className={`form-control ${errorMessage ? 'is-invalid' : ''}`} onChange={e => {
+                                    setConfirmationMessage(e.target.value); setErrorMessage('');  // Kullanıcı yazdıkça hata mesajını temizle
+                                }} value={confirmationMessage}></textarea>
+                                {errorMessage && (
+                                    <div className="invalid-feedback">
+                                        {errorMessage}
+                                    </div>
+                                )}
                             </div>
                             <div className="modal-footer">
                                 <button className="btn btn-primary" onClick={handleConfirmAccount}>Kaydet</button>
@@ -145,7 +151,19 @@ function CompanyList() {
                             </div>
                             <div className="modal-body">
                                 <label>Açıklama:</label>
-                                <textarea className="form-control" onChange={e => setRejectionMessage(e.target.value)}></textarea>
+                                <textarea
+                                    className={`form-control ${rejectErrorMessage ? 'is-invalid' : ''}`}
+                                    value={rejectionMessage}
+                                    onChange={e => {
+                                        setRejectionMessage(e.target.value);
+                                        setRejectErrorMessage('');  // Kullanıcı yazdıkça hata mesajını temizle
+                                    }}
+                                ></textarea>
+                                {rejectErrorMessage && (
+                                    <div className="invalid-feedback">
+                                        {rejectErrorMessage}
+                                    </div>
+                                )}
                             </div>
                             <div className="modal-footer">
                                 <button className="btn btn-primary" onClick={handleRejectAccount}>Kaydet</button>
