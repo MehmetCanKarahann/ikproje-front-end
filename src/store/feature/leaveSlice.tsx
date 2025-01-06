@@ -38,7 +38,12 @@ export const fetchGetPersonelRequestLeaveList = createAsyncThunk(
     'leave/fetchGetPersonelRequestLeaveList',
     async () => {
         const token = localStorage.getItem('token');
-        return await fetch(apis.leaveService + '/get-personel-request-leave?token=' + token)
+        return await fetch(apis.leaveService + '/get-personel-request-leave?token=' + token,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         .then(data => data.json());
 
     }
@@ -48,10 +53,12 @@ export const fetchGetPersonelRequestLeaveList = createAsyncThunk(
 export const fetchCreateNewLeaveRequest = createAsyncThunk(
     'leave/fetchCreateNewLeaveRequest',
     async (payload: IPersonelNewLeaveRequest) => {
+        const token = localStorage.getItem('token');
         return await fetch(apis.leaveService + '/new-leave-request', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         }).then(data => data.json())
@@ -63,7 +70,12 @@ export const fetchGetLeaveRequest = createAsyncThunk(
     'leave/fetchGetLeaveRequest',
     async () => {
         const token = localStorage.getItem('token');
-        return await fetch(apis.leaveService + '/get-leave-requests?token=' + token)
+        return await fetch(apis.leaveService + '/get-leave-requests?token=' + token,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         .then(data => data.json());
     }
 )
@@ -76,7 +88,8 @@ export const fetchApproveLeaveRequest = createAsyncThunk(
         return await fetch(`${apis.leaveService}/approve-leave-request?token=${token}&leaveId=${leaveId}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         }).then(data => data.json())
     }
@@ -90,7 +103,8 @@ export const fetchRejectLeaveRequest = createAsyncThunk(
         return await fetch(`${apis.leaveService}/reject-leave-request?token=${token}&leaveId=${leaveId}&rejectionMessage=${rejectionMessage}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         }).then(data => data.json())
     }
@@ -104,7 +118,8 @@ export const fetchUpdateLeaveRequest = createAsyncThunk(
         return await fetch(apis.leaveService + '/update-leave-request', {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         }).then(data => data.json())
@@ -119,7 +134,8 @@ export const fetcDeleteLeaveRequest = createAsyncThunk(
         return fetch(`${apis.leaveService}/delete-leave-request?token=${token}&leaveId=${leaveId}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         }).then(data => data.json());
     }

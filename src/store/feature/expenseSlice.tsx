@@ -35,12 +35,22 @@ const initialExpenseState: IExpenseState = {
 export const fetchNewExpenseRequest = createAsyncThunk(
     'expense/fetchNewExpenseRequest',
     async (payload: IPersonelNewExpenseRequest) => {
+        const token = localStorage.getItem('token');
+        const formData = new FormData();
+        formData.append('token', payload.token);
+        formData.append('amount', payload.amount.toString());
+        formData.append('description', payload.description);
+        if(payload.file){
+            formData.append('file', (payload.file));     
+        }
+      
         return await fetch(apis.expenseService + '/create-new-expense-request', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+            headers: {  
+                'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(payload)
+            body: formData
+        
         }).then(data => data.json())
     }
 )
@@ -50,7 +60,12 @@ export const fetchGetPersonelExpenseList = createAsyncThunk(
     'expense/fetchGetPersonelExpenseList',
     async () => {
         const token = localStorage.getItem('token');
-        return await fetch(apis.expenseService + '/get-personel-expenses?token=' + token)
+        return await fetch(apis.expenseService + '/get-personel-expenses?token=' + token,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         .then(data => data.json())
     }
 )
@@ -59,10 +74,12 @@ export const fetchGetPersonelExpenseList = createAsyncThunk(
 export const fetchUpdateExpense = createAsyncThunk(
     'expense/fetchUpdateExpense',
     async (payload: IUpdateExpenseRequest) => {
+        const token = localStorage.getItem('token');
         return await fetch(apis.expenseService + '/update-expense', {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         }).then(data => data.json())
@@ -83,7 +100,10 @@ export const fetchUploadReceipt = createAsyncThunk (
 
         return await fetch(apis.expenseService + '/upload-receipt', {
             method: 'POST',
-            body: formData
+            body: formData,
+            headers: {
+                 'Authorization': `Bearer ${token}`
+            }
         }).then(data => data.json());
 
     }
@@ -94,7 +114,12 @@ export const fetchGetPersonelExpenseRequest = createAsyncThunk(
     'expense/fetchGetPersonelExpenseRequest',
     async () => {
         const token = localStorage.getItem('token');
-        return await fetch(apis.expenseService + '/get-personel-expense-requests?token=' + token)
+        return await fetch(apis.expenseService + '/get-personel-expense-requests?token=' + token,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         .then(data => data.json())
     }
 )
@@ -107,7 +132,8 @@ export const fetchApproveExpense = createAsyncThunk(
         return await fetch(`${apis.expenseService}/approve-expense?token=${token}&expenseId=${expenseId}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         }).then(data => data.json());
     }
@@ -121,7 +147,8 @@ export const fetchRejectExpense = createAsyncThunk(
         return await fetch(`${apis.expenseService}/reject-expense?token=${token}&expenseId=${expenseId}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         }).then(data => data.json())
     }

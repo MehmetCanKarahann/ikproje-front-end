@@ -1,5 +1,6 @@
 export interface IPersonelNewExpenseRequest {
     token: string,
     amount: number,
-    description: string
+    description: string,
+    file: File | null
 }

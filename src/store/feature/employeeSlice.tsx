@@ -32,10 +32,12 @@ export const fetchGetPersonelProfileByToken = createAsyncThunk(
 export const fetchUpdatePersonelProfile = createAsyncThunk(
     'employee/fetchUpdatePersonelProfile',
     async (payload: IUpdatePersonelProfileRequest) => {
+        const token = localStorage.getItem('token');
         return await fetch(apis.employeeService + '/update-personel-profile', {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         }).then(data => data.json());
@@ -54,7 +56,10 @@ export const fetchAddAvatarToUser = createAsyncThunk(
 
         const response = await fetch(apis.authService + '/update-user-avatar', {
             method: 'POST',
-            body: formData
+            body: formData,
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         }).then(data => data.json())
         return response;
     }

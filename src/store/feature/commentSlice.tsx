@@ -26,7 +26,8 @@ export const fetchCreateComment = createAsyncThunk(
         return await fetch(`${apis.commentService}/create-comment?token=${token}&content=${content}`,{
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         }).then(data => data.json());
     }

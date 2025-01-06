@@ -28,7 +28,12 @@ export const fetchGetAllBreak = createAsyncThunk(
     'break/fetchGetAllBreak',
     async () => {
         const token = localStorage.getItem('token');
-        return await fetch(apis.breakService + '/get-all-break?token=' + token)
+        return await fetch(apis.breakService + '/get-all-break?token=' + token,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         .then(data => data.json())
     }
 )
@@ -38,10 +43,12 @@ export const fetchGetAllBreak = createAsyncThunk(
 export const fetchCreateBreak = createAsyncThunk(
     'break/fetchCreateBreak',
     async (payload: INewBreakRequest) => {
+        const token = localStorage.getItem('token');
         return await fetch(apis.breakService + '/add-new-break', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         }).then(data => data.json())
@@ -52,10 +59,12 @@ export const fetchCreateBreak = createAsyncThunk(
 export const fetchUpdateBreak = createAsyncThunk(
     'break/fetchUpdateBreak',
     async (payload: IUpdateBreakRequest) => {
+        const token = localStorage.getItem('token');
         return await fetch(apis.breakService + '/update-break', {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         }).then(data => data.json())
@@ -70,7 +79,8 @@ export const fetchDeleteBreak = createAsyncThunk(
         return await fetch(`${apis.breakService}/delete-break?token=${token}&breakId=${breakId}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         }).then(data => data.json())
     }
