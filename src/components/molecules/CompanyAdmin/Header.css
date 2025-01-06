@@ -1,3 +1,7 @@
 .navbar-bg-color{
     background-color: transparent;
 }
+
+.x-item:focus {
+    background-color: transparent;
+}

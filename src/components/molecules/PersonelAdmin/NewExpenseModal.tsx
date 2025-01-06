@@ -13,6 +13,15 @@ function NewExpenseModal() {
     const [amount, setAmount] = useState('');
     const [description, setDescription] = useState('');
 
+    const [file, setFile] = useState<File | null>(null);
+
+    const handleChange = (evt: any) => {
+        const selectedFile = evt.target.files?.[0];
+        if (selectedFile) {
+            setFile(selectedFile);
+        }
+    };
+
     const formatAmount = (value: string) => {
         const numericValue = value.replace(/[^0-9.]/g, '');
         const parts = numericValue.split('.');
@@ -31,27 +40,28 @@ function NewExpenseModal() {
 
     const submit = () => {
 
-        const token = localStorage.getItem('token') || '';
-
-        const expenseModel: IPersonelNewExpenseRequest = {
-            token: token,
-            amount: parseFloat(amount.replace(/,/g, '')),
-            description: description
+        if (!file) {
+            toast.error("Lütfen bir dosya yükleyin!", { position: "top-right" });
+            return;
         }
 
-        dispatch(fetchNewExpenseRequest(expenseModel)).then(data => {
-            if (data.payload.code === 200) {
-                toast.success("Harcama Oluşturma İşleminiz Başarılı!", {
-                    position: "top-right"
-                });
-                dispatch(fetchGetPersonelExpenseList());
-            }
-            else {
-                toast.warning(data.payload.message, {
-                    position: "top-right"
-                });
-            }
-        })
+        // amount'u sayıya dönüştür
+        const numericAmount = parseFloat(amount.replace(/,/g, ''));
+
+
+        // dispatch(fetchNewExpenseRequest({ amount: numericAmount, file, description })).then(data => {
+        //     if (data.payload.code === 200) {
+        //         toast.success("Harcama Oluşturma İşleminiz Başarılı!", {
+        //             position: "top-right"
+        //         });
+        //         dispatch(fetchGetPersonelExpenseList());
+        //     }
+        //     else {
+        //         toast.warning(data.payload.message, {
+        //             position: "top-right"
+        //         });
+        //     }
+        // })
     }
 
     return (
@@ -68,6 +78,16 @@ function NewExpenseModal() {
                         </div>
                         <hr style={{ border: '1px black solid' }} />
                         <div className="modal-body">
+
+                            <div className="row mt-4">
+                                <div className="row">
+                                    <label className="form-label text-start">Belge:</label>
+                                    <input onChange={handleChange} type="file" className="form-control" />
+                                </div>
+                                <div className="row mt-4">
+                                    <img src={file ? URL.createObjectURL(file) : ''} style={{ height: 500 }} />
+                                </div>
+                            </div>
 
                             <div className="col mb-4 mt-5 text-start">
                                 <label className='ms-4'>Miktar: </label>

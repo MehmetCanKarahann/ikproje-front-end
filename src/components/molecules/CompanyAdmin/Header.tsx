@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { IKDispatch, IKUseSelector } from '../../../store';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -19,6 +19,8 @@ function Header() {
     const [file, setFile] = useState<File | null>(null);
     const [content, setContent] = useState('');
 
+    const dropdownRef = useRef<HTMLLIElement>(null); //açılır menü hatasını çözmek için yazıldı.
+
     //kullanıcı bilgileri getiriliyor
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -33,6 +35,20 @@ function Header() {
         navigate('/login');
     }
 
+    //dropdown menü açmak için yazıldı.
+    const toggleDropdown = () => {
+        if (dropdownRef.current) {
+            const dropdown = new (window as any).bootstrap.Dropdown(dropdownRef.current);
+            dropdown.toggle();
+        }
+    };
+
+    const closeDropdown = () => {
+        if (dropdownRef.current) {
+            const dropdown = new (window as any).bootstrap.Dropdown(dropdownRef.current);
+            dropdown.hide();
+        }
+    };
 
     const handleChange = (evt: any) => {
         const selectedFile = evt.target.files?.[0];
@@ -80,38 +96,53 @@ function Header() {
 
     return (
         <>
-            <nav className="navbar navbar-expand navbar-bg-color" >
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+           <nav className="navbar navbar-expand navbar-bg-color">
                 <ul className="navbar-nav">
-                    <li className="nav-item small-screens-sidebar-link">
-                        <a className="nav-link"><i className="material-icons-outlined">menu</i></a>
-                    </li>
-                    <li className="nav-item nav-profile dropdown">
-                        <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src={profile?.companyLogoUrl || ''} alt="profile image" style={{ width: 60, height: 60, borderRadius: '50%' }} />
-                            <span style={{ color: 'gray' }}> {profile?.firstName} {profile?.lastName} - {profile?.companyName} </span><i className="material-icons dropdown-icon">keyboard_arrow_down</i>
+                    <li className="nav-item nav-profile dropdown" ref={dropdownRef}>
+                        <a 
+                            className="nav-link dropdown-toggle" 
+                            onClick={toggleDropdown} 
+                            role="button"
+                            aria-expanded="false"
+                        >
+                            <img
+                                src={profile?.companyLogoUrl || ''}
+                                alt="profile"
+                                style={{ width: 60, height: 60, borderRadius: '50%' }}
+                            />
+                            <span style={{ color: 'gray' }}>
+                                {profile?.firstName} {profile?.lastName} - {profile?.companyName}
+                            </span>
+                            <i className="material-icons dropdown-icon">keyboard_arrow_down</i>
                         </a>
-                        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a style={{ cursor: 'pointer' }} className="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal2">Profil Resmi Güncelle</a>
-                            <NavLink to={'/company-management-profile'} className="dropdown-item" style={{ backgroundColor: 'white' }}>Profilim</NavLink>
-                            <a style={{ cursor: 'pointer' }} onClick={logout} className="dropdown-item" >Log out</a>
+                        <div className="dropdown-menu">
+                            <a 
+                                style={{ cursor: 'pointer' }} 
+                                className="dropdown-item x-item" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#uploadProfileModal"
+                                onClick={closeDropdown}
+                            >
+                                Profil Resmi Güncelle
+                            </a>
+                            <NavLink 
+                                to={'/company-management-profile'} 
+                                className="dropdown-item"
+                            >
+                                Profilim
+                            </NavLink>
+                            <a 
+                                style={{ cursor: 'pointer' }} 
+                                onClick={logout} 
+                                className="dropdown-item"
+                            >
+                                Log out
+                            </a>
                         </div>
                     </li>
-                   
-
                 </ul>
-                <div className='collapse navbar-collapse me-3' id='navbarNav'>
-                    <ul className="navbar-nav ">
-                        <li className='nav-item ' >
-                            <a href="#" className='btn btn-outline-light p-3' data-bs-toggle="modal" data-bs-target="#commentModal">Görüşlerinizi Bizimle Paylaşın</a>
-                            <ToastContainer />
-                        </li>
-                    </ul>
-                </div>
-
-                <div className="modal fade bd-example-modal-lg" id="exampleModal2" aria-labelledby="exampleModal2" aria-hidden="true">
+            </nav>
+            <div className="modal fade bd-example-modal-lg" id="uploadProfileModal" aria-labelledby="uploadProfileModal" aria-hidden="true">
                     <div className="modal-dialog modal-lg modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -139,8 +170,6 @@ function Header() {
                         </div>
                     </div>
                 </div>
-
-
                 <div className="modal fade bd-example-modal-lg" id="commentModal" aria-labelledby="commentModal" aria-hidden="true">
                     <div className="modal-dialog modal-lg modal-dialog-centered">
                         <div className="modal-content">
@@ -162,8 +191,6 @@ function Header() {
                     </div>
                 </div>
 
-
-            </nav>
         </>
     )
 }

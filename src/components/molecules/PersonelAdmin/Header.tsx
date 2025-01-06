@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { IKDispatch, IKUseSelector } from '../../../store';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -13,6 +13,10 @@ function Header() {
     const navigate = useNavigate();
 
     const [file, setFile] = useState<File | null>(null);
+
+    const dropdownRef = useRef<HTMLLIElement>(null); //açılır menü hatasını çözmek için yazıldı.
+
+
 
     //kullanıcı bilgileri getiriliyor
     useEffect(() => {
@@ -29,6 +33,21 @@ function Header() {
         navigate('/login');
     }
 
+    //dropdown menü açmak için yazıldı.
+    const toggleDropdown = () => {
+        if (dropdownRef.current) {
+            const dropdown = new (window as any).bootstrap.Dropdown(dropdownRef.current);
+            dropdown.toggle();
+        }
+    };
+
+    const closeDropdown = () => {
+        if (dropdownRef.current) {
+            const dropdown = new (window as any).bootstrap.Dropdown(dropdownRef.current);
+            dropdown.hide();
+        }
+    };
+
     const handleChange = (evt: any) => {
         const selectedFile = evt.target.files?.[0];
         if (selectedFile) {
@@ -39,47 +58,69 @@ function Header() {
     const handleSubmit = () => {
         if (file) {
             dispatch(fetchAddAvatarToUser(file)).then(data => {
-                if(data.payload.code === 200) {
+                if (data.payload.code === 200) {
                     swal('Başarı!', 'Profil Resminiz Başarıyla Güncellendi', 'success').then(() => {
                         dispatch(fetchGetPersonelProfileByToken());
                     });
                 }
-                else{
+                else {
                     swal('Hata!', data.payload.message, 'error');
                 }
             });
         } else {
-           swal('Hata!', 'Herhangi bir dosya seçilmedi...', 'error');
+            swal('Hata!', 'Herhangi bir dosya seçilmedi...', 'error');
         }
     }
 
     return (
         <>
-            <nav className="navbar navbar-expand navbar-bg-color" >
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+            <nav className="navbar navbar-expand navbar-bg-color">
                 <ul className="navbar-nav">
-                    <li className="nav-item small-screens-sidebar-link">
-                        <a className="nav-link"><i className="material-icons-outlined">menu</i></a>
-                    </li>
-                    <li className="nav-item nav-profile dropdown">
-                        <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src= {profile?.avatarUrl || ''} alt="profile image" style={{ width: 60, height: 60, borderRadius: '50%' }} />
-                            <span style={{ color: 'gray' }}> {profile?.firstName} {profile?.lastName} - {profile?.companyName} </span><i className="material-icons dropdown-icon">keyboard_arrow_down</i>
+                    <li className="nav-item nav-profile dropdown" ref={dropdownRef}>
+                        <a
+                            className="nav-link dropdown-toggle"
+                            onClick={toggleDropdown}
+                            role="button"
+                            aria-expanded="false"
+                        >
+                            <img
+                                src={profile?.avatarUrl || ''}
+                                alt="profile"
+                                style={{ width: 60, height: 60, borderRadius: '50%' }}
+                            />
+                            <span style={{ color: 'gray' }}>
+                                {profile?.firstName} {profile?.lastName} - {profile?.companyName}
+                            </span>
+                            <i className="material-icons dropdown-icon">keyboard_arrow_down</i>
                         </a>
-                        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a style={{ cursor: 'pointer' }} className="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal2">Profil Resmi Güncelle</a>
-                            <NavLink to={'/personel-profile'} className="dropdown-item" style={{ backgroundColor: 'white' }}>Profilim</NavLink>
-                            <a style={{ cursor: 'pointer' }} onClick={logout} className="dropdown-item" >Log out</a>
+                        <div className="dropdown-menu">
+                            <a
+                                style={{ cursor: 'pointer' }}
+                                className="dropdown-item x-item"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal2"
+                                onClick={closeDropdown}
+                            >
+                                Profil Resmi Güncelle
+                            </a>
+                            <NavLink
+                                to={'/personel-profile'}
+                                className="dropdown-item"
+                            >
+                                Profilim
+                            </NavLink>
+                            <a
+                                style={{ cursor: 'pointer' }}
+                                onClick={logout}
+                                className="dropdown-item"
+                            >
+                                Log out
+                            </a>
                         </div>
                     </li>
-                    <li className="nav-item">
-                        <a style={{ cursor: 'pointer' }} className="nav-link mt-1" id="dark-theme-toggle"><i className="material-icons-outlined" style={{ color: 'gray' }}>brightness_2</i><i className="material-icons">brightness_2</i> </a>
-                    </li>
-
                 </ul>
-                <div className="modal fade bd-example-modal-lg" id="exampleModal2" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            </nav>
+            <div className="modal fade bd-example-modal-lg" id="exampleModal2" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-lg modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -107,9 +148,6 @@ function Header() {
                         </div>
                     </div>
                 </div>
-
-
-            </nav>
         </>
     )
 }

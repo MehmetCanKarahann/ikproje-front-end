@@ -18,8 +18,11 @@ function ExpenseList() {
     const [amount, setAmount] = useState<number>(0);
     const [description, setDescription] = useState('');
 
+    //number içerebilir hatası verdiği için bu şekilde tanımladım.
+    const [receiptUrl, setReceiptUrl] = useState<string | number>(''); 
+
     const [file, setFile] = useState<File | null>(null);
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [selectedImage, setSelectedImage] = useState<string | null>(null); //tablodan seçili olan resim
 
     //timestamp türündeki değeri tarihe çevirir.
     function formatDate(timestamp: number): string {
@@ -44,28 +47,29 @@ function ExpenseList() {
         }
     }
 
+    //modal kapandığında modal içerisini temizler. Tekrar açtığımızda seçtiğimiz resmi görmemize fayda sağlar.
     const closeModal = () => {
         setSelectedImage(null);
     }
 
-    const handleSubmit = () => {
+    // const handleSubmit = () => { silinecek
 
-        if (file) {
-            dispatch(fetchUploadReceipt({ expenseId, file })).then(data => {
-                if (data.payload.code === 200) {
-                    toast.success("Fatura Yükleme İşleminiz Başarılı!", {
-                        position: "top-right"
-                    });
-                    dispatch(fetchGetPersonelExpenseList());
-                }
-                else {
-                    toast.warning(data.payload.message, {
-                        position: "top-right"
-                    });
-                }
-            })
-        }
-    }
+    //     if (file) {
+    //         dispatch(fetchUploadReceipt({ expenseId, file })).then(data => {
+    //             if (data.payload.code === 200) {
+    //                 toast.success("Fatura Yükleme İşleminiz Başarılı!", {
+    //                     position: "top-right"
+    //                 });
+    //                 dispatch(fetchGetPersonelExpenseList());
+    //             }
+    //             else {
+    //                 toast.warning(data.payload.message, {
+    //                     position: "top-right"
+    //                 });
+    //             }
+    //         })
+    //     }
+    // }
 
     const updateSubmit = () => {
 
@@ -158,7 +162,7 @@ function ExpenseList() {
                                                     )}
                                             </td>
                                             <td>
-                                                {
+                                                {/* { Silinecek
                                                     !expense.receiptUrl && (
                                                         <button
                                                             className='btn btn-info me-2'
@@ -169,7 +173,7 @@ function ExpenseList() {
                                                             <i className="fa-solid fa-plus"></i>
                                                         </button>
                                                     )
-                                                }
+                                                } */}
                                                 {
                                                     expense.status === 'PENDING' && (
                                                         <>
@@ -177,6 +181,7 @@ function ExpenseList() {
                                                                 setExpenseId(expense.id);
                                                                 setAmount(expense?.amount);
                                                                 setDescription(expense?.description);
+                                                                setReceiptUrl(expense?.receiptUrl);
                                                             }} >
                                                                 <i className="fa-solid fa-pen"></i>
                                                             </button>
@@ -224,8 +229,8 @@ function ExpenseList() {
                         )
                     }
                 </div>
-                {/** Fatura yükleme modal */}
-                <div className="modal fade bd-example-modal-lg" id="uploadInvoiceModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                {/** Fatura yükleme modal   Silinecek  */  } 
+                {/* <div className="modal fade bd-example-modal-lg" id="uploadInvoiceModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-lg modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -252,7 +257,7 @@ function ExpenseList() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/**Harcama Güncelleme Modal */}
                 <div className="modal fade bd-example-modal-xl" id="updateExpenseModal">
@@ -265,6 +270,16 @@ function ExpenseList() {
                             </div>
                             <hr style={{ border: '1px black solid' }} />
                             <div className="modal-body">
+
+                            <div className="row mt-4">
+                                    <div className="row">
+                                        <label className="form-label ms-3">Belge:</label>
+                                        <input onChange={handleChange} type="file" className="form-control" />
+                                    </div>
+                                    <div className="row mt-4">
+                                        <img src={file ? URL.createObjectURL(file) : String(receiptUrl) }  style={{ height: 500 }} />
+                                    </div>
+                                </div>
 
                                 <div className="col mb-4 mt-5 text-start">
                                     <label className='ms-4'>Miktar: </label>
