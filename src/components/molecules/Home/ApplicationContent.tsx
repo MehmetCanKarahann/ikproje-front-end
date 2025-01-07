@@ -7,39 +7,44 @@ function ApplicationContent() {
     const applicationData = [
         {
             title: 'Personel Yönetimi',
-            description: 'Çalışanların tüm bilgilerini tek uygulamada yönetin',
+            description: 'Çalışanlarınızın tüm bilgilerini kolayca görüntüleyin, düzenleyin ve yönetin. Personel takibini merkezi bir platformda yapın.',
             icon: '👤',
         },
         {
-            title: 'Bordro Yönetimi',
-            description: 'Tüm bordro işlemlerinizi tek ekrandan kolayca yönetin',
-            icon: '💵',
+            title: 'Personel Durum Yönetimi',
+            description: 'Çalışanlarınızın işten ayrılma durumlarını kolayca güncelleyin. Tek tıkla çalışanlarınızı pasif duruma getirerek, personel takibini düzenli ve verimli yapın.',
+            icon: '🔒',
         },
         {
-            title: 'Performans Yönetimi',
-            description: 'Çalışanları online performans değerlendirmeye dahil edin',
-            icon: '📊',
+            title: 'İzin Yönetimi',
+            description: 'Personel izin taleplerini pratik bir şekilde takip edin ve yönetin. Onay süreçlerini hızlandırarak verimliliği artırın.',
+            icon: '🗓️',
         },
         {
-            title: 'İşe Alım ve Aday Takip',
-            description: 'İşe alım süreçlerinizi tek bir platformdan yönetin',
-            icon: '🔍',
+            title: 'Harcama Yönetimi',
+            description: 'Çalışanlarınız harcamalarını faturalarla birlikte sisteme eklesin. Onay veya red işlemlerini zahmetsizce gerçekleştirin.',
+            icon: '💳',
+        },
+        {
+            title: 'Zimmet Yönetimi',
+            description: 'Personelinize ekipman ve demirbaş zimmeti atayın, takibini kolayca yaparak kaynaklarınızı verimli yönetin.',
+            icon: '📦',
         },
         {
             title: 'Vardiya Yönetimi',
-            description: 'Çalışma zamanınızı en verimli şekilde planlayın ve yönetin',
-            icon: '⏰',
+            description: 'Çalışma saatlerini düzenleyin ve vardiya planlarını optimize edin. İş gücü yönetimini daha verimli hale getirin.',
+            icon: '🕒',
         },
-        {
-            title: 'Ücret Yönetimi',
-            description: 'Maaşları güncelleyin, yönetin ve raporlayın',
-            icon: '📋',
-        },
-        {
-            title: 'İK Analitiği',
-            description: 'Anlık İK verilerinizi tek platformda takip edin, veri odaklı kararlar alın',
-            icon: '📈',
-        },
+        // {
+        //     title: 'Ücret Yönetimi',
+        //     description: 'Maaşları güncelleyin, yönetin ve raporlayın',
+        //     icon: '📋',
+        // },
+        // {
+        //     title: 'İK Analitiği',
+        //     description: 'Anlık İK verilerinizi tek platformda takip edin, veri odaklı kararlar alın',
+        //     icon: '📈',
+        // },
     ];
 
     return (

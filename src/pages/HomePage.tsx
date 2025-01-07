@@ -10,10 +10,16 @@ import Footer from '../components/molecules/Home/Footer'
 import { useDispatch } from 'react-redux'
 import { IKDispatch } from '../store'
 import { fetchGetComments } from '../store/feature/commentSlice'
+import { fetchGetCompanyLogos } from '../store/feature/companySlice'
 
 
 function HomePage() {
 
+    const dispatch = useDispatch<IKDispatch>();
+
+    useEffect(() => {
+        dispatch(fetchGetCompanyLogos());
+    }, []);
 
     return (
         <>

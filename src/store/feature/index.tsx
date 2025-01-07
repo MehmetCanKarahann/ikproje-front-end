@@ -9,6 +9,7 @@ import breakSlice from './breakSlice'
 import assetSlice from './assetSlice'
 import expenseSlice from './expenseSlice'
 import commentSlice from './commentSlice'
+import companySlice from './companySlice'
 
 export{
     authSlice,
@@ -21,5 +22,6 @@ export{
     assetSlice,
     expenseSlice,
     commentSlice,
+    companySlice,
     adminSlice
 }

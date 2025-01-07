@@ -11,16 +11,7 @@ function Footer() {
                 
             </div>
 
-            {/* Hızlı Linkler Bölümü */}
-            <div className='col-md-2 mb-3'>
-                <h5 style={{color: 'black'}}> Hızlı Linkler</h5>
-                <ul className='list-unstyled'>
-                    <li><a href='#' className='text-decoration-none' style={{color: 'gray'}}>Ana Sayfa</a></li>
-                    <li><a href='#' className='text-decoration-none' style={{color: 'gray'}}>Hakkımızda</a></li>
-                    <li><a href='#' className='text-decoration-none' style={{color: 'gray'}}>Hizmetler</a></li>
-                    <li><a href='#' className='text-decoration-none' style={{color: 'gray'}}>İletişim</a></li>
-                </ul>
-            </div>
+        
 
             {/* İletişim Bilgileri Bölümü */}
             <div className='col-md-3 mb-3'>
@@ -29,10 +20,10 @@ function Footer() {
                     <i className='fa fa-map-marker-alt me-2'></i> Adres: İstanbul, Türkiye
                 </p>
                 <p>
-                    <i className='fa fa-phone me-2'></i> Telefon: +90 555 555 55 55
+                    <i className='fa fa-phone me-2'></i> Telefon: +90 224 123 45 67
                 </p>
                 <p>
-                    <i className='fa fa-envelope me-2'></i> Email: info@ornek.com
+                    <i className='fa fa-envelope me-2'></i> Email: info@example.com
                 </p>
             </div>
         </div>

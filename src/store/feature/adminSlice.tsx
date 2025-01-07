@@ -4,6 +4,7 @@ import apis from "../../constant/RestApis"
 import { IBaseResponse } from "../../models/IBaseResponse"
 import swal from "sweetalert"
 import { IUnapprovedCompaniesResponse } from "../../models/IUnapprovedCompaniesResponse"
+import { IDashboardCompanyListResponse } from "../../models/IDashboardCompanyListResponse"
 
 interface IAdminState{
     isAuth: boolean,
@@ -11,7 +12,13 @@ interface IAdminState{
     unapprovedCompanyList: IUnapprovedCompaniesResponse[]
     isUnapprovedCompanyListLoading: boolean,
     isCompanyAccountApproveLoading: boolean,
-    isCompanyAccountRejectLoading: boolean
+    isCompanyAccountRejectLoading: boolean,
+    isCompanyCountLoading: boolean,
+    companyCount: number,
+    isEmployeeCountLoading: boolean,
+    employeeCount: number,
+    isDashboardCompanyListLoading: boolean,
+    dashboardCompanyList: IDashboardCompanyListResponse[]
 }
 
 const initialAdminState: IAdminState = {
@@ -20,7 +27,13 @@ const initialAdminState: IAdminState = {
     unapprovedCompanyList: [],
     isUnapprovedCompanyListLoading: false,
     isCompanyAccountApproveLoading: false,
-    isCompanyAccountRejectLoading: false
+    isCompanyAccountRejectLoading: false,
+    isCompanyCountLoading: false,
+    companyCount: 0,
+    isEmployeeCountLoading: false,
+    employeeCount: 0,
+    isDashboardCompanyListLoading: false,
+    dashboardCompanyList: []
 }
 
 export const fetchAdminLogin = createAsyncThunk(
@@ -82,6 +95,48 @@ export const fetchRejectAccount = createAsyncThunk(
     }
 )
 
+//aktif şirket sayısını getirir.
+export const fetchGetCompanyCount = createAsyncThunk(
+    'admin/fetchGetCompanyCount',
+    async () => {
+        const token = localStorage.getItem('adminToken');
+        return await fetch(apis.adminService + '/company-count', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(data => data.json());
+    }
+)
+
+//aktif personel sayısını getirir.
+export const fetchGetEmployeeCount = createAsyncThunk(
+    'admin/fetchGetEmployeeCount',
+    async () => {
+        const token = localStorage.getItem('adminToken');
+        return await fetch(apis.adminService + '/employee-count', {
+            method: 'GET',
+            headers: {
+                 'Authorization': `Bearer ${token}`
+            }
+        }).then(data => data.json());
+    }
+)
+
+//üyeliği bitmek üzere olan şirketler listesini getirir.
+export const fetchGetCompaniesWithExpiringMemberships = createAsyncThunk(
+    'admin/fetchGetCompaniesWithExpiringMemberships',
+    async () => {
+        const token = localStorage.getItem('adminToken');
+        return await fetch(apis.adminService + '/expiring-memberships', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+           }
+        }).then(data => data.json());
+    }
+)
+
 const adminSlice = createSlice({
     name: 'admin',
     initialState: initialAdminState,
@@ -128,6 +183,33 @@ const adminSlice = createSlice({
         })
         build.addCase(fetchRejectAccount.fulfilled, (state) => {
             state.isCompanyAccountRejectLoading = false;
+        })
+        build.addCase(fetchGetCompanyCount.pending, (state) => {
+            state.isCompanyCountLoading = true;
+        })
+        build.addCase(fetchGetCompanyCount.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
+            state.isCompanyCountLoading = false;
+            if(action.payload.code === 200){
+                state.companyCount = action.payload.data;
+            }
+        })
+        build.addCase(fetchGetEmployeeCount.pending, (state) => {
+            state.isEmployeeCountLoading = true;
+        })
+        build.addCase(fetchGetEmployeeCount.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
+            state.isEmployeeCountLoading= false;
+            if(action.payload.code === 200){
+                state.employeeCount = action.payload.data;
+            }
+        })
+        build.addCase(fetchGetCompaniesWithExpiringMemberships.pending, (state) => {
+            state.isDashboardCompanyListLoading = true;
+        })
+        build.addCase(fetchGetCompaniesWithExpiringMemberships.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
+            state.isDashboardCompanyListLoading = false;
+            if(action.payload.code === 200){
+                state.dashboardCompanyList = action.payload.data;
+            }
         })
     }
 })

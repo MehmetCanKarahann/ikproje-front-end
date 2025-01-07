@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavbarMenu from '../../components/molecules/Admin/NavbarMenu'
 import './AdminPage.css'
 import SideBarMenu from '../../components/molecules/Admin/SideBarMenu'
+import DashboardPage from '../../components/organisms/admin/DashboardPage'
+import { useDispatch } from 'react-redux'
+import { IKDispatch } from '../../store'
+import { fetchGetCompaniesWithExpiringMemberships, fetchGetCompanyCount, fetchGetEmployeeCount } from '../../store/feature/adminSlice'
 
 function AdminPage() {
+
+    const dispatch = useDispatch<IKDispatch>();
+
+    useEffect(() => {
+        dispatch(fetchGetCompanyCount())
+        dispatch(fetchGetEmployeeCount())
+        dispatch(fetchGetCompaniesWithExpiringMemberships())
+    }, [])
+
     return (
         <>
             {/** Navbar Start */}
@@ -19,6 +32,13 @@ function AdminPage() {
                 <SideBarMenu />
             </aside>
             {/**Menü Bitiş */}
+
+
+            <div className="content-wrapper">
+                <section className='content'>
+                    <DashboardPage />
+                </section>
+            </div>
 
         </>
     )

@@ -14,6 +14,7 @@ const apis = {
     assetService: server + '/asset',
     expenseService: server + '/expense',
     commentService: server + '/comment',
+    companyService: server + '/company',
     adminService: server + '/admin'
 }
 

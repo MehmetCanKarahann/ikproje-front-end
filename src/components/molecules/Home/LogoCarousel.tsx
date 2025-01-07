@@ -8,17 +8,12 @@ import './LogoCarousel.css'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick'
+import { IKUseSelector } from '../../../store'
 
 function LogoCarousel() {
 
-    const logoData = [
-        { id: 1, src: logo, alt: 'Logo 1' },
-        { id: 2, src: logo2, alt: 'Logo 2' },
-        { id: 3, src: logo3, alt: 'Logo 3' },
-        { id: 4, src: logo4, alt: 'Logo 4' },
-        { id: 5, src: logo5, alt: 'Logo 5' },
-        // Daha fazla logo ekleyebilirsiniz
-    ];
+    const logoList = IKUseSelector(state => state.companySlice.logoList);
+   
     const settings = {
         dots: false,
         infinite: true,
@@ -60,11 +55,11 @@ function LogoCarousel() {
 
     return (
         <div className="logos-carousel-container">
-        <h2 className="carousel-title">ORTAKLARIMIZ</h2>
+        <h2 className="carousel-title mb-3">ORTAKLARIMIZ</h2>
         <Slider {...settings}>
-            {logoData.map(logo => (
-                <div key={logo.id} className="logo-slide">
-                    <img src={logo.src} alt={logo.alt} className="logo-image" />
+            {logoList.map((logo, index) => (
+                <div key={index} className="logo-slide">
+                    <img src={logo}  className="logo-image" />
                 </div>
             ))}
         </Slider>
