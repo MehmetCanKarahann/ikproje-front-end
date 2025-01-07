@@ -31,6 +31,7 @@ import ExpenseListPersonelPage from './pages/personelAdmin/ExpenseListPersonelPa
 import PersonelExpenseList from './pages/AdminCompany/PersonelExpenseListPage'
 import PersonelExpenseListPage from './pages/AdminCompany/PersonelExpenseListPage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
+import CommentManagementPage from './pages/AdminCompany/CommentManagementPage'
 
 function RouterPage() {
 
@@ -67,6 +68,7 @@ function RouterPage() {
             <Route path='/personel-break-list' element={ <PersonelBreakManagementPage /> } />
             <Route path='/personel-asset-list' element={ <AssetListPage /> } />
             <Route path='/personel-expense-list' element={ <PersonelExpenseListPage /> } />
+            <Route path='/comment-list' element={ <CommentManagementPage /> } />
 
             <Route path='/personeladmin' element={ isLogin ? <PersonelAdminPage /> : <Login /> } />
             <Route path='/create-leave-personel-list' element={ <CreateLeavePersonelListPage /> } />

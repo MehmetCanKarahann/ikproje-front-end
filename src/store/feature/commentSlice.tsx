@@ -7,13 +7,21 @@ import { data } from "react-router-dom";
 interface ICommentState {
     isNewCommentLoading: boolean,
     isCommentListLoading: boolean,
-    commentList: ICommentListResponse[]
+    commentList: ICommentListResponse[],
+    isCommentListByCompanyIdLoading: boolean,
+    commentListByCompanyId: ICommentListResponse[],
+    isCommentUpdateLoading: boolean,
+    isCommentDeleteLoading: boolean
 }
 
 const initialCommentState: ICommentState = {
     isNewCommentLoading: false,
     isCommentListLoading: false,
-    commentList: []
+    commentList: [],
+    isCommentListByCompanyIdLoading: false,
+    commentListByCompanyId: [],
+    isCommentUpdateLoading: false,
+    isCommentDeleteLoading: false
 }
 
 //fetch işlemleri
@@ -21,12 +29,57 @@ const initialCommentState: ICommentState = {
 //şirket yönetcisi yeni yorum oluşturur
 export const fetchCreateComment = createAsyncThunk(
     'comment/fetchCreateComment',
-    async({content}: {content: string}) => {
-        const token = localStorage.getItem('token');
-        return await fetch(`${apis.commentService}/create-comment?token=${token}&content=${content}`,{
+    async({content, file}: {content: string, file: File}) => {
+        const token = localStorage.getItem('token') || '';
+
+        const formData = new FormData();
+        formData.append('token', token);
+        formData.append('content', content);
+        formData.append('file', file);
+
+        return await fetch(apis.commentService + '/create-comment',{
             method: 'POST',
+            body: formData,
             headers: {
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(data => data.json());
+    }
+)
+
+//şirket yöneticisi yaptığı yorumu günceller.
+export const fetchUpdateComment = createAsyncThunk(
+    'comment/fetchUpdateComment',
+    async ({content, file}: {content: string, file?: File | null}) => {
+        const token = localStorage.getItem('token') || '';
+
+        const formData = new FormData();
+        formData.append('token', token);
+        formData.append('content', content);
+
+        
+        if (file) {
+            formData.append('file', file);
+        }
+
+        return await fetch(apis.commentService + '/update-comment', {
+            method: 'PUT',
+            body: formData,
+            headers:{
+                 'Authorization': `Bearer ${token}`
+            }
+        }).then(data => data.json());
+    }
+)
+
+//şirket yöneticisi yaptığı yorumu silebilir.
+export const fetchDeleteComment = createAsyncThunk(
+    'comment/fetchDeleteComment',
+    async ({commentId}: {commentId: number}) => {
+        const token = localStorage.getItem('token');
+        return await fetch(`${apis.commentService}/delete-comment?token=${token}&commentId=${commentId}`, {
+            method: 'PUT',
+            headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then(data => data.json());
@@ -37,8 +90,28 @@ export const fetchCreateComment = createAsyncThunk(
 export const fetchGetComments = createAsyncThunk(
     'comment/fetchGetComments',
     async () => {
-        return await fetch(apis.commentService + '/get-comments')
+        const token = localStorage.getItem('token');
+        return await fetch(apis.commentService + '/get-comments', {
+            method: 'GET',
+            headers: {
+                 'Authorization': `Bearer ${token}`
+            }
+        })
         .then(data => data.json())
+    }
+)
+
+//şirket yöneticisine ait yorumları getirir.
+export const fetchGetCommentsByCompanyId = createAsyncThunk(
+    'comment/fetchGetCommentsByCompanyId',
+    async () => {
+        const token = localStorage.getItem('token');
+        return await fetch(apis.commentService + '/get-comments-by-company-id?token=' + token, {
+            method: 'GET',
+            headers: {
+                 'Authorization': `Bearer ${token}`
+            }
+        }).then(data => data.json())
     }
 )
 
@@ -61,6 +134,28 @@ const commentSlice = createSlice({
             if(action.payload.code === 200){
                 state.commentList = action.payload.data;
             }
+        })
+        build.addCase(fetchGetCommentsByCompanyId.pending, (state) => {
+            state.isCommentListByCompanyIdLoading = true;
+        })
+        build.addCase(fetchGetCommentsByCompanyId.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
+            state.isCommentListByCompanyIdLoading = false;
+            
+            if(action.payload.code === 200){
+                state.commentListByCompanyId = action.payload.data;
+            }
+        })
+        build.addCase(fetchUpdateComment.pending, (state) => {
+            state.isCommentUpdateLoading = true;
+        })
+        build.addCase(fetchUpdateComment.fulfilled, (state) => {
+            state.isCommentUpdateLoading = false;
+        })
+        build.addCase(fetchDeleteComment.pending, (state) => {
+            state.isCommentDeleteLoading = true
+        })
+        build.addCase(fetchDeleteComment.fulfilled, (state) => {
+            state.isCommentDeleteLoading = false;
         })
     }
 })

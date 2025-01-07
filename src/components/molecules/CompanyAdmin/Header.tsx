@@ -17,7 +17,6 @@ function Header() {
     const navigate = useNavigate();
 
     const [file, setFile] = useState<File | null>(null);
-    const [content, setContent] = useState('');
 
     const dropdownRef = useRef<HTMLLIElement>(null); //açılır menü hatasını çözmek için yazıldı.
 
@@ -75,24 +74,7 @@ function Header() {
         }
     }
 
-    const submit = () => {
-
-
-        dispatch(fetchCreateComment({ content })).then(data => {
-            if (data.payload.code === 200) {
-                toast.success('Görüşlerinizi Bizimle Paylaştığınız İçin Teşekkür Ederiz!', {
-                    position: 'top-right'
-                });
-            }
-            else {
-                toast.error(data.payload.message, {
-                    position: 'top-right'
-                });
-            }
-        })
-
-
-    }
+  
 
     return (
         <>
@@ -115,7 +97,7 @@ function Header() {
                             </span>
                             <i className="material-icons dropdown-icon">keyboard_arrow_down</i>
                         </a>
-                        <div className="dropdown-menu">
+                        <div className="dropdown-menu" style={{width: 250}}>
                             <a 
                                 style={{ cursor: 'pointer' }} 
                                 className="dropdown-item x-item" 
@@ -131,14 +113,21 @@ function Header() {
                             >
                                 Profilim
                             </NavLink>
+                            
                             <a 
                                 style={{ cursor: 'pointer' }} 
                                 onClick={logout} 
-                                className="dropdown-item"
+                                className=" dropdown-item"
                             >
-                                Log out
+                                Çıkış Yap
                             </a>
+                            
                         </div>
+                    </li>
+                </ul>
+                <ul className='navbar-nav ms-auto' >
+                    <li className='nav-item'>
+                        <NavLink to="/comment-list"  style={{fontFamily: 'Lato'}} > Görüşlerinizi Bizimle Paylaşın</NavLink>
                     </li>
                 </ul>
             </nav>
@@ -170,27 +159,7 @@ function Header() {
                         </div>
                     </div>
                 </div>
-                <div className="modal fade bd-example-modal-lg" id="commentModal" aria-labelledby="commentModal" aria-hidden="true">
-                    <div className="modal-dialog modal-lg modal-dialog-centered">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h1 className="modal-title fs-5" id="commentModal">Görüşleriniz Bizim İçin Önemli</h1>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
-                            </div>
-                            <hr style={{ border: '1px black solid' }} />
-                            <div className="modal-body">
-                                <label className='form-label ms-3'>Yorumunuz: </label>
-                                <textarea className='form-control' onChange={evt => { setContent(evt.target.value) }}></textarea>
-                            </div>
-                            <hr />
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={submit}>Kaydet</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+              
         </>
     )
 }

@@ -39,12 +39,6 @@ function HeaderNavbar() {
                             <a className="nav-link active" aria-current="page" href="#">Anasayfa</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#" >Hakkımızda</a>
-                        </li>
-                        <li className="nav-item me-2">
-                            <a className="nav-link" href="#">İletişim</a>
-                        </li>
-                        <li className="nav-item">
                             <NavLink to={"/register"} className="btn btn-light custom-btn-filled">Kayıt Ol</NavLink>
                         </li>
                         <li className="nav-item ms-2">
