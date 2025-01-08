@@ -43,7 +43,7 @@ function DashboardPage() {
             </div>
             <div className="row mt-5">
                 <div className="col-6">
-                    <h5 className='ms-3'>Resmi Tatiller</h5>
+                    <h5 className='text-center'>Resmi Tatiller</h5>
                     <DashboardCalendar />
                 </div>
                 <div className="col-6">

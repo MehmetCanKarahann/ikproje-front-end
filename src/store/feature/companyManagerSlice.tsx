@@ -6,6 +6,7 @@ import { ICompanyManagerUpdateRequest } from "../../models/ICompanyManagerUpdate
 import { ICompanyPersonelResponse } from "../../models/ICompanyPersonelResponse";
 import { INewPersonelRequest } from "../../models/INewPersonelRequest";
 import { IPersonelUpdateStateRequest } from "../../models/IPersonelUpdateStateRequest";
+import { IPersonelUpcomingBirthdayListResponse } from "../../models/IPersonelUpcomingBirthdayListResponse";
 
 
 interface ICompanyManagerState {
@@ -16,7 +17,9 @@ interface ICompanyManagerState {
     isCompanyPersonelListLoading: boolean, 
     companyPersonelList: ICompanyPersonelResponse[],
     isNewPersonelLoading: boolean,
-    isUpdatePersonelStateLoading: boolean
+    isUpdatePersonelStateLoading: boolean,
+    isPersonelUpcomingBirthdayListLoading: boolean,
+    personelBirthdayList: IPersonelUpcomingBirthdayListResponse[]
 }
 
 const initialCompanyManagerState: ICompanyManagerState = {
@@ -27,7 +30,9 @@ const initialCompanyManagerState: ICompanyManagerState = {
     isCompanyPersonelListLoading: false,
     companyPersonelList: [],
     isNewPersonelLoading: false,
-    isUpdatePersonelStateLoading: false
+    isUpdatePersonelStateLoading: false,
+    isPersonelUpcomingBirthdayListLoading: false,
+    personelBirthdayList: []
 }
 
 
@@ -134,6 +139,20 @@ export const fetchUpdatePersonelState = createAsyncThunk(
     }
 )
 
+//Şirkete ait personellerin yaklaşan doğum günü listesini getirir.
+export const fetchGetUpcomingBirthdays = createAsyncThunk(
+    'companyManagement/fetchGetUpcomingBirthdays',
+    async () => {
+        const token = localStorage.getItem('token');
+        return await fetch(apis.companyManagementService + '/upcoming-birthdays?token=' + token, {
+            method: 'GET',
+            headers: {
+                 'Authorization': `Bearer ${token}`
+            }
+        }).then(data => data.json())
+    }
+)
+
 
 const companyManagementSlice = createSlice({
     name: 'companyManagement',
@@ -182,6 +201,15 @@ const companyManagementSlice = createSlice({
         })
         build.addCase(fetchUpdatePersonelState.fulfilled, (state) => {
             state.isUpdatePersonelStateLoading = false;
+        })
+        build.addCase(fetchGetUpcomingBirthdays.pending, (state) => {
+            state.isPersonelUpcomingBirthdayListLoading = true;
+        })
+        build.addCase(fetchGetUpcomingBirthdays.fulfilled, (state, action) => {
+            state.isPersonelUpcomingBirthdayListLoading = false;
+            if(action.payload.code === 200){
+                state.personelBirthdayList = action.payload.data;
+            }
         })
     }
 })

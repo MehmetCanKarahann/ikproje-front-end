@@ -22,10 +22,24 @@ function DashboardCompanyList() {
                                 <tr>
                                     <th>ID</th>
                                     <th>Şirket Adı</th>
-                                    <th>Üyelik Tarihi</th>
+                                    <th>Kuruluş Tarihi</th>
                                     <th>Telefon</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                {
+                                    companyList.map((company, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td> {company.id} </td>
+                                                <td> {company.name} </td>
+                                                <td> {company.foundationDate} </td>
+                                                <td> {company.phone} </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
                         </table>
                     </div>
                 </div>

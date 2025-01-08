@@ -17,3 +17,7 @@ npm install react-awesome-reveal @emotion/react --save
 npm install jwt-decode
 
 npm install react-toastify
+
+npm install chart.js react-chartjs-2
+
+ npm install recharts

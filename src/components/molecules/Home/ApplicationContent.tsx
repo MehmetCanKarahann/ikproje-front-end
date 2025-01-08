@@ -16,35 +16,26 @@ function ApplicationContent() {
             icon: '🔒',
         },
         {
-            title: 'İzin Yönetimi',
+            title: 'İzin',
             description: 'Personel izin taleplerini pratik bir şekilde takip edin ve yönetin. Onay süreçlerini hızlandırarak verimliliği artırın.',
             icon: '🗓️',
         },
         {
-            title: 'Harcama Yönetimi',
+            title: 'Harcama',
             description: 'Çalışanlarınız harcamalarını faturalarla birlikte sisteme eklesin. Onay veya red işlemlerini zahmetsizce gerçekleştirin.',
             icon: '💳',
         },
         {
-            title: 'Zimmet Yönetimi',
+            title: 'Zimmet',
             description: 'Personelinize ekipman ve demirbaş zimmeti atayın, takibini kolayca yaparak kaynaklarınızı verimli yönetin.',
             icon: '📦',
         },
         {
-            title: 'Vardiya Yönetimi',
+            title: 'Vardiya',
             description: 'Çalışma saatlerini düzenleyin ve vardiya planlarını optimize edin. İş gücü yönetimini daha verimli hale getirin.',
             icon: '🕒',
         },
-        // {
-        //     title: 'Ücret Yönetimi',
-        //     description: 'Maaşları güncelleyin, yönetin ve raporlayın',
-        //     icon: '📋',
-        // },
-        // {
-        //     title: 'İK Analitiği',
-        //     description: 'Anlık İK verilerinizi tek platformda takip edin, veri odaklı kararlar alın',
-        //     icon: '📈',
-        // },
+        
     ];
 
     return (
