@@ -85,7 +85,7 @@ function NewPersonelLeaveModal() {
                             </div>
                             <div className="col mb-4  text-start">
                                 <label className='ms-4'>Başlangıç Tarihi: <span style={{color: 'red'}}> *</span></label>
-                                <input type="date" className='form-control' onChange={evt => { setStartDate(evt.target.value) }} value={startDate} />
+                                <input type="date" className='form-control' onChange={evt => { setStartDate(evt.target.value) }} min={new Date().toISOString().split('T')[0]} value={startDate} />
                             </div>
                             <div className="col mb-4  text-start">
                                 <label className='ms-4'>Bitiş Tarihi: <span style={{color: 'red'}}> *</span></label>

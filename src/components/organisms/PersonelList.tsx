@@ -6,8 +6,6 @@ function PersonelList() {
 
     const PersonelList = IKUseSelector(state => state.companyManagement.companyPersonelList);
 
-    console.log(PersonelList);
-    
 
     return (
         <div className='col'>
