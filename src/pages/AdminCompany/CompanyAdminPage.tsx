@@ -4,17 +4,43 @@ import Header from '../../components/molecules/CompanyAdmin/Header'
 import Dashboard from '../../components/molecules/CompanyAdmin/Dashboard'
 import DashboardCalendar from '../../components/molecules/Admin/DashboardCalendar'
 import PersonelUpcomingBirthdayList from '../../components/organisms/PersonelUpcomingBirthdayList'
-import { useDispatch } from 'react-redux'
-import { IKDispatch } from '../../store'
-import { fetchGetUpcomingBirthdays } from '../../store/feature/companyManagerSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { IKDispatch, IKUseSelector } from '../../store'
+import { fetchGetCharts, fetchGetUpcomingBirthdays } from '../../store/feature/companyManagerSlice'
 
 
 function CompanyAdminPage() {
 
   const dispatch = useDispatch<IKDispatch>();
 
+  const charts = IKUseSelector(state=>state.companyManagement.chartList);
+  /*
+  interface IDashBoard {
+  departments: [string],
+  employeeCounts: [number],
+  genderDistribution:[number]
+}
+  */
+  const departments = charts ?charts.departments.map(department=>{
+    return department[0]; //departman ismi
+  }) : [];
+  const employeeCounts = charts ? charts.departments.map(department=>{
+    return department[1];// departmanda çalışan sayısı
+  }) : [];
+  const erkekKadin = charts ? charts.genderDistribution.map(personel=>{
+    return personel[1];
+  }) : [];
+  console.log("departments: "+departments)
+  console.log("departman çalışan sayısı: "+employeeCounts)
+  console.log("erkek-kadın: "+erkekKadin)
+
+
+  console.log("charts: ",charts);
+
   useEffect(() => {
     dispatch(fetchGetUpcomingBirthdays());
+    dispatch(fetchGetCharts());
+
   }, [])
 
   return (
@@ -42,7 +68,7 @@ function CompanyAdminPage() {
                 <div className='card card-transparent stats-card'>
                   <div className="card-body">
                     <div className='stats-info'>
-                      <h5 className='card-title ms-5'>20</h5>
+                      <h5 className='card-title ms-5'>{charts?.totalPersonelCount}</h5>
                       <br />
                       <p className='stats-text ms-5'>Personel Sayısı</p>
                     </div>
@@ -57,7 +83,7 @@ function CompanyAdminPage() {
                 <div className='card card-transparent stats-card'>
                   <div className="card-body">
                     <div className='stats-info'>
-                      <h5 className='card-title ms-5'>5</h5>
+                      <h5 className='card-title ms-5'>{charts?.personalOnLeaveCount}</h5>
                       <br />
                       <p className='stats-text ms-5'>Yıllık İzine Ayrılmış Personel Sayısı</p>
                     </div>
@@ -72,7 +98,7 @@ function CompanyAdminPage() {
                 <div className='card card-transparent stats-card'>
                   <div className="card-body">
                     <div className='stats-info'>
-                      <h5 className='card-title ms-5'>5</h5>
+                      <h5 className='card-title ms-5'>{charts?.totalShiftCount}</h5>
                       <br />
                       <p className='stats-text ms-5'>Vardiya Sayısı</p>
                     </div>
@@ -86,9 +112,20 @@ function CompanyAdminPage() {
             </div>
 
             {/**İstatistikler */}
+            {
+              charts ?
+           
             <div className="row">
-              <Dashboard />
+              <Dashboard 
+              departments={departments}
+              employeeCounts={employeeCounts}
+              genderDistribution={erkekKadin}
+              />
             </div>
+              :
+              null
+
+            }
 
             <div className="row mt-5">
               <div className="col-6">
