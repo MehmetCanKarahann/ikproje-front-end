@@ -16,7 +16,6 @@ function PersonelUpcomingBirthdayList() {
                         <thead>
                             <tr>
                                 <th>Personel Adı ve Soyadı</th>
-                          
                                 <th>Departman Adı</th>
                                 <th>Doğum Tarihi</th>
                             </tr>
@@ -27,7 +26,6 @@ function PersonelUpcomingBirthdayList() {
                                     return (
                                         <tr key={index}>
                                             <td> {personel.firstName} {personel.lastName} </td>
-                                           
                                             <td> {personel.departmentType} </td>
                                             <td> {personel.birthDate} </td>
                                         </tr>
