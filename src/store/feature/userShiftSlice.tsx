@@ -93,7 +93,6 @@ const userShiftSlice = createSlice({
         build.addCase(fetchGetPersonelListByCompanyId.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
             state.isPersonelListByCompanyId = false;
             if (action.payload.code === 200) {
-                console.log(action.payload.data);
 
                 state.personelListByCompanyId = action.payload.data;
             }

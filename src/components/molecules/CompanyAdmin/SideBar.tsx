@@ -73,15 +73,16 @@ function SideBar() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/personel-shift-list" className={({ isActive }) => isActive ? 'active-page' : ''}>
-                            <i className="material-icons">list</i>Personel Vardiya Listesi
-                        </NavLink>
-                    </li>
-                    <li>
                         <NavLink to="/personel-break-list" className={({ isActive }) => isActive ? 'active-page' : ''}>
                             <i className="material-icons">free_breakfast</i>Mola Yönetimi
                         </NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/personel-shift-list" className={({ isActive }) => isActive ? 'active-page' : ''}>
+                            <i className="material-icons">list</i>Vardiya ve Mola Listesi
+                        </NavLink>
+                    </li>
+                    
 
                 </ul>
             </div>
