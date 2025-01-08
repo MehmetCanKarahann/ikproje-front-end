@@ -2,14 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { PieChart, Pie, Cell } from 'recharts';
 
-const Dashboard = () => {
-  const [employeeData, setEmployeeData] = useState<any>(null);
+interface IDashBoard {
+  departments: string[],
+  employeeCounts: number[],
+  genderDistribution:number[]
+}
+
+const Dashboard = (props: IDashBoard) => {
+  const [employeeData, setEmployeeData] = useState<any>(null);  
 
   useEffect(() => {
     const data = {
-      departments: ['Yazılım', 'Pazarlama', 'İK', 'Muhasebe'],
-      employeeCounts: [30, 20, 10, 15],
-      genderDistribution: [30, 45], // Erkek-Kadın oranı
+      departments: props.departments,
+      employeeCounts: props.employeeCounts,
+      genderDistribution: props.genderDistribution, // Erkek-Kadın oranı
     };
     setEmployeeData(data);
   }, []);
@@ -45,7 +51,7 @@ const Dashboard = () => {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="count" fill="#3b82f6" />
+                  <Bar dataKey="count" name={'Departmanlara göre çalışan sayıları'} fill="#3b82f6" />
                 </BarChart>
               </ResponsiveContainer>
             </div>

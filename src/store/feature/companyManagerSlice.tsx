@@ -7,6 +7,7 @@ import { ICompanyPersonelResponse } from "../../models/ICompanyPersonelResponse"
 import { INewPersonelRequest } from "../../models/INewPersonelRequest";
 import { IPersonelUpdateStateRequest } from "../../models/IPersonelUpdateStateRequest";
 import { IPersonelUpcomingBirthdayListResponse } from "../../models/IPersonelUpcomingBirthdayListResponse";
+import { ICompanyManagerHome } from "../../models/CompanyManagerHome";
 
 
 interface ICompanyManagerState {
@@ -19,7 +20,9 @@ interface ICompanyManagerState {
     isNewPersonelLoading: boolean,
     isUpdatePersonelStateLoading: boolean,
     isPersonelUpcomingBirthdayListLoading: boolean,
-    personelBirthdayList: IPersonelUpcomingBirthdayListResponse[]
+    personelBirthdayList: IPersonelUpcomingBirthdayListResponse[],
+    chartList: ICompanyManagerHome | null,
+    isChartListLoading: boolean
 }
 
 const initialCompanyManagerState: ICompanyManagerState = {
@@ -32,7 +35,9 @@ const initialCompanyManagerState: ICompanyManagerState = {
     isNewPersonelLoading: false,
     isUpdatePersonelStateLoading: false,
     isPersonelUpcomingBirthdayListLoading: false,
-    personelBirthdayList: []
+    personelBirthdayList: [],
+    chartList: null,
+    isChartListLoading: false
 }
 
 
@@ -154,6 +159,20 @@ export const fetchGetUpcomingBirthdays = createAsyncThunk(
 )
 
 
+export const fetchGetCharts = createAsyncThunk(
+    'companyManagement/fetchGetCharts   ',
+    async () => {
+        const token = localStorage.getItem('token');
+        return await fetch(apis.companyManagementService + '/get-charts?token=' + token, {
+            method: 'GET',
+            headers: {
+                 'Authorization': `Bearer ${token}`
+            }
+        }).then(data => data.json())
+    }
+)
+
+
 const companyManagementSlice = createSlice({
     name: 'companyManagement',
     initialState: initialCompanyManagerState,
@@ -209,6 +228,13 @@ const companyManagementSlice = createSlice({
             state.isPersonelUpcomingBirthdayListLoading = false;
             if(action.payload.code === 200){
                 state.personelBirthdayList = action.payload.data;
+            }
+        })
+        build.addCase(fetchGetCharts.pending,state=>{state.isChartListLoading=true})
+        build.addCase(fetchGetCharts.fulfilled,(state,action: PayloadAction<IBaseResponse>)=>{
+            state.isChartListLoading = false;
+            if(action.payload.code===200){
+                state.chartList = action.payload.data;
             }
         })
     }
