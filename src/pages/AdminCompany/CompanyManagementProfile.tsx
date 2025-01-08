@@ -7,7 +7,7 @@ import { ICompanyManagerUpdateRequest } from '../../models/ICompanyManagerUpdate
 import { log } from 'console';
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
-import { fetchGetCompanyManagerProfileByToken, fetchUpdateCompanyManagerProfile } from '../../store/feature/companyManagerSlice';
+import { fetchGetCompanyManagerProfileByToken, fetchSetCompanyPassive, fetchUpdateCompanyManagerProfile } from '../../store/feature/companyManagerSlice';
 import { isAction } from '@reduxjs/toolkit';
 
 function CompanyManagementProfile() {
@@ -156,6 +156,39 @@ function CompanyManagementProfile() {
         setIsReadOnly(false);
     };
 
+    
+
+    const handlePassive = () => {
+        swal({
+            title: "Hesabınızı Pasif Etmek İstiyor Musunuz ?",
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: 'Hayır',
+                    value: false,
+                    visible: true,
+                    className: 'swal-button-cancel'
+                },
+                confirm: {
+                    text: 'Evet',
+                    value: true,
+                    visible: true,
+                    className: 'swal-button-confirm'
+                },
+            }
+        })
+            .then((ok) => {
+                if (ok) {
+                    dispatch(fetchSetCompanyPassive()).then(() => {
+                        swal('Başarı!', 'Hesabınız Başarılı Şekilde Pasif Hale Getirildi.', 'success').then(() => {
+                           navigate('/');
+                        });
+                    })
+
+                }
+            });
+    }
+
     return (
         <>
             <div className='loader'>
@@ -179,6 +212,7 @@ function CompanyManagementProfile() {
                                         <h5 className='ms-3'>Kişisel Bilgileriniz</h5>
                                     </div>
                                     <div className="col-6 text-end mb-2">
+
                                         <button className='btn btn-warning' onClick={handleEditClick}>Güncelle</button>
                                         <button className='btn btn-success ms-2' onClick={submit} >Kaydet</button>
                                     </div>
@@ -219,7 +253,7 @@ function CompanyManagementProfile() {
                                 </div>
                                 <div className="col-6">
                                     <label className='form-label ms-3'>Departman Türü: </label>
-                                    <select disabled={isReadOnly}  className="form-select mb-3 p-3" onChange={evt => setDepartmentType(evt.target.value)} value={departmentType} style={{borderRadius: '20px'}} aria-label="Default select example">
+                                    <select disabled={isReadOnly} className="form-select mb-3 p-3" onChange={evt => setDepartmentType(evt.target.value)} value={departmentType} style={{ borderRadius: '20px' }} aria-label="Default select example">
                                         <option value="" disabled>Çalıştığınız Departmanı Seçiniz</option>
                                         <option value="HR">HR</option>
                                         <option value="FINANCE">FINANCE</option>
@@ -324,6 +358,12 @@ function CompanyManagementProfile() {
                                 <div className="col-6">
                                     <label className="form-label ms-3">Posta Kodu:</label>
                                     <input readOnly={isReadOnly} type="text" className="form-control" onChange={evt => setCompanyPostalCode(evt.target.value)} value={companyPostalCode} />
+                                </div>
+                                <div className="row">
+                                    <div className="col-6"></div>
+                                    <div className="col-6 text-end">
+                                        <button className='btn btn-danger' onClick={handlePassive}>Hesabımı Pasif Yap</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

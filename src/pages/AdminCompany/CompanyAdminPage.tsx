@@ -30,12 +30,8 @@ function CompanyAdminPage() {
   const erkekKadin = charts ? charts.genderDistribution.map(personel=>{
     return personel[1];
   }) : [];
-  console.log("departments: "+departments)
-  console.log("departman çalışan sayısı: "+employeeCounts)
-  console.log("erkek-kadın: "+erkekKadin)
 
 
-  console.log("charts: ",charts);
 
   useEffect(() => {
     dispatch(fetchGetUpcomingBirthdays());

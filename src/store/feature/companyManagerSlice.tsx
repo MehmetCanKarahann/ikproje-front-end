@@ -22,7 +22,8 @@ interface ICompanyManagerState {
     isPersonelUpcomingBirthdayListLoading: boolean,
     personelBirthdayList: IPersonelUpcomingBirthdayListResponse[],
     chartList: ICompanyManagerHome | null,
-    isChartListLoading: boolean
+    isChartListLoading: boolean,
+    isCompanyManagerAccountPassiveLoading: boolean
 }
 
 const initialCompanyManagerState: ICompanyManagerState = {
@@ -37,7 +38,8 @@ const initialCompanyManagerState: ICompanyManagerState = {
     isPersonelUpcomingBirthdayListLoading: false,
     personelBirthdayList: [],
     chartList: null,
-    isChartListLoading: false
+    isChartListLoading: false,
+    isCompanyManagerAccountPassiveLoading: false
 }
 
 
@@ -173,6 +175,19 @@ export const fetchGetCharts = createAsyncThunk(
 )
 
 
+export const fetchSetCompanyPassive = createAsyncThunk(
+    'comapanyManagement/fetchSetCompanyPassive',
+    async () => {
+        const token = localStorage.getItem('token');
+        return await fetch(apis.companyManagementService + '/set-company-passive?token=' + token, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`
+           }
+        }).then(data => data.json());
+    }
+)
+
 const companyManagementSlice = createSlice({
     name: 'companyManagement',
     initialState: initialCompanyManagerState,
@@ -236,6 +251,12 @@ const companyManagementSlice = createSlice({
             if(action.payload.code===200){
                 state.chartList = action.payload.data;
             }
+        })
+        build.addCase(fetchSetCompanyPassive.pending, (state) => {
+            state.isCompanyManagerAccountPassiveLoading = true;
+        })
+        build.addCase(fetchSetCompanyPassive.fulfilled, (state) => {
+            state.isCompanyManagerAccountPassiveLoading = false;
         })
     }
 })

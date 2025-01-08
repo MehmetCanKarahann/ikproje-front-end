@@ -11,6 +11,9 @@ function PersonelExpenseList() {
 
     const [expense, SetExpense] = useState<any>(null);
 
+    const [selectedImage, setSelectedImage] = useState<string | null>(null); //tablodan seçili olan resim
+
+
     const dispatch = useDispatch<IKDispatch>();
 
     //timestamp türündeki değeri tarihe çevirir.
@@ -28,17 +31,29 @@ function PersonelExpenseList() {
         return date.toISOString().split('T')[0]; // YYYY-MM-DD formatında döner
     }
 
+    const handleImageClick = (url: string | number | undefined) => {
+        if (url) {
+            setSelectedImage(String(url));
+        }
+    }
+
+    //modal kapandığında modal içerisini temizler. Tekrar açtığımızda seçtiğimiz resmi görmemize fayda sağlar.
+    const closeModal = () => {
+        setSelectedImage(null);
+    }
+
+
     const submit = (expenseId: number) => {
 
-        if(expenseId !== 0){
-            dispatch(fetchApproveExpense({expenseId})).then(data => {
-                if(data.payload.code === 200){
+        if (expenseId !== 0) {
+            dispatch(fetchApproveExpense({ expenseId })).then(data => {
+                if (data.payload.code === 200) {
                     toast.success("Harcama Onaylama İşleminiz Başarılı!", {
                         position: 'top-right'
                     });
                     dispatch(fetchGetPersonelExpenseRequest())
                 }
-                else{
+                else {
                     toast.error(data.payload.message, {
                         position: 'top-right'
                     });
@@ -74,8 +89,8 @@ function PersonelExpenseList() {
         })
             .then((ok) => {
                 if (ok) {
-                    dispatch(fetchRejectExpense({expenseId})).then(data => {
-                        if(data.payload.code === 200){
+                    dispatch(fetchRejectExpense({ expenseId })).then(data => {
+                        if (data.payload.code === 200) {
                             toast.success("Personele Ait Harcama İşleminiz Başarılı Şekilde Reddedildi.", {
                                 position: 'top-right'
                             });
@@ -90,7 +105,7 @@ function PersonelExpenseList() {
                 }
             });
 
-        
+
     }
 
     return (
@@ -128,16 +143,17 @@ function PersonelExpenseList() {
                                                     <img
                                                         src={expense?.receiptUrl ? String(expense.receiptUrl) : 'https://lh4.googleusercontent.com/proxy/kX0otYkzacbwl936L9VnavuyJ7pX7mzAaJTVGOysJBK1HY2F8PrjfIEb-uXhsi6vwKajxYE3KkPbmrw'}
                                                         style={{ width: '60px', height: '60px', objectFit: 'cover' }}
+                                                        onClick={() => handleImageClick(expense.receiptUrl)}
                                                     />
                                                 </td>
                                                 <td> {expense.amount} </td>
                                                 <td>  {expense.description.length > 5
-                                                        ? expense.description.slice(0, 8) + "..."
-                                                        : expense.description} </td>
+                                                    ? expense.description.slice(0, 8) + "..."
+                                                    : expense.description} </td>
                                                 <td> {formatDate(expense.expenseDate)} </td>
                                                 <td>
                                                     <button className='btn btn-success me-2' data-bs-toggle="modal" data-bs-target="#approvedExpenseInfoModal" onClick={() => { SetExpense(expense) }}>
-                                                        Onayla</button> 
+                                                        Onayla</button>
                                                     <button className='btn btn-danger' onClick={() => { rejectExpense(expense.id) }} >Reddet</button>
                                                 </td>
                                             </tr>
@@ -147,6 +163,77 @@ function PersonelExpenseList() {
                             }
                         </tbody>
                     </table>
+                </div>
+
+                {/* Büyük Resim Modal */}
+                {
+                    selectedImage && (
+                        <div className="modal fade show d-block" tabIndex={-1} role="dialog" onClick={closeModal}
+                            style={{
+                                backgroundColor: 'rgba(0, 0, 0, 0.7)',  // Koyu gölge arkaplan
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                zIndex: 1050  // Modalın üst katmanda olmasını sağlar
+                            }}
+                        >
+                            <div className="modal-dialog modal-lg  modal-dialog-centered" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title">Fatura Görseli</h5>
+                                        <button type="button" className="btn-close" onClick={closeModal}></button>
+                                    </div>
+                                    <div className="modal-body text-center">
+                                        <div className="row">
+                                            <img src={selectedImage} alt="Fatura" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+
+                <div className="modal fade bd-example-modal-xl" id="approvedExpenseInfoModal" aria-labelledby="exampleModalLabel" >
+                    <div className="modal-dialog modal-xl modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5" id="approvedExpenseInfoModal">Harcama Detay Bilgileri</h1>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                            </div>
+                            <hr style={{ border: '1px black solid' }} />
+                            <div className="modal-body m-3">
+                                <div className="row mt-4 mb-4">
+                                    <label className='form-label'>Personel Adı: </label>
+                                    <input readOnly type='text' className='form-control' value={expense?.personalName || ''} ></input>
+                                </div>
+                                <div className="row mb-4">
+                                    <label className='form-label'>Miktar: </label>
+                                    <input readOnly type='text' className='form-control' value={expense?.amount || ''}  ></input>
+                                </div>
+                                <div className="row mb-4">
+                                    <label className='form-label'>Harcama Tarihi: </label>
+                                    <input readOnly type="date" className='form-control' value={expense?.expenseDate ? formatDateForInput(expense.expenseDate) : ''}
+                                    />
+                                </div>
+                                <div className="row mb-4">
+                                    <label className='form-label'>Açıklama: </label>
+                                    <textarea readOnly className='form-control' value={expense?.description || ''}></textarea>
+                                </div>
+                                <div className="row mb-4">
+                                    <label className='form-label'>Fatura Resmi: </label>
+                                    <img className='form-control' src={expense?.receiptUrl || ''} />
+                                </div>
+                            </div>
+                            <hr />
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-primary" onClick={() => { submit(expense?.id) }} data-bs-dismiss="modal">Onayla</button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
                 <div className="modal fade bd-example-modal-xl" id="approvedExpenseInfoModal" aria-labelledby="exampleModalLabel" >
                     <div className="modal-dialog modal-xl modal-dialog-centered">
@@ -168,48 +255,8 @@ function PersonelExpenseList() {
                                 </div>
                                 <div className="row mb-4">
                                     <label className='form-label'>Harcama Tarihi: </label>
-                                    <input readOnly type="date" className='form-control'  value={expense?.expenseDate ? formatDateForInput(expense.expenseDate) : ''} 
- />
-                                </div>
-                                <div className="row mb-4">
-                                    <label className='form-label'>Açıklama: </label>
-                                    <textarea readOnly className='form-control' value={expense?.description || ''}></textarea>
-                                </div>
-                                <div className="row mb-4">
-                                    <label className='form-label'>Fatura Resmi: </label>
-                                    <img className='form-control' src={expense?.receiptUrl || ''} />
-                                </div>
-                            </div>
-                            <hr />
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-primary" onClick={() => { submit(expense?.id) }} data-bs-dismiss="modal">Onayla</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                 <div className="modal fade bd-example-modal-xl" id="approvedExpenseInfoModal" aria-labelledby="exampleModalLabel" >
-                    <div className="modal-dialog modal-xl modal-dialog-centered">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h1 className="modal-title fs-5" id="approvedExpenseInfoModal">Harcama Detay Bilgileri</h1>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
-                            </div>
-                            <hr style={{ border: '1px black solid' }} />
-                            <div className="modal-body m-3">
-                                <div className="row mt-4 mb-4">
-                                    <label className='form-label'>Personel Adı: </label>
-                                    <input readOnly type='text' className='form-control' value={expense?.personalName || ''} ></input>
-                                </div>
-                                <div className="row mb-4">
-                                    <label className='form-label'>Miktar: </label>
-                                    <input readOnly type='text' className='form-control' value={expense?.amount || ''}  ></input>
-                                </div>
-                                <div className="row mb-4">
-                                    <label className='form-label'>Harcama Tarihi: </label>
-                                    <input readOnly type="date" className='form-control'  value={expense?.expenseDate ? formatDateForInput(expense.expenseDate) : ''} 
- />
+                                    <input readOnly type="date" className='form-control' value={expense?.expenseDate ? formatDateForInput(expense.expenseDate) : ''}
+                                    />
                                 </div>
                                 <div className="row mb-4">
                                     <label className='form-label'>Açıklama: </label>

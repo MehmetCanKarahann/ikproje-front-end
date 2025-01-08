@@ -33,6 +33,7 @@ function AssetList() {
                                 <th>Açıklama</th>
                                 <th>Personel Ad Soyad</th>
                                 <th>Verilme Tarihi</th>
+                            
                                 <th>Durum</th>
                             </tr>
                         </thead>
@@ -46,7 +47,7 @@ function AssetList() {
                                             <td> {asset.description} </td>
                                             <td> {asset.assetOwner} </td>
                                             <td> {asset.givenDate} </td>
-                                            <td> {asset.status} </td>
+                                         
                                             <td> {asset.status === 'PENDING' ? (
                                                 <>
                                                     <button className='btn btn-warning'>Beklemede</button>

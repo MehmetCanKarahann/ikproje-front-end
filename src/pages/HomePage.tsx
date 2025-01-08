@@ -19,7 +19,7 @@ function HomePage() {
 
     useEffect(() => {
         dispatch(fetchGetCompanyLogos());
-    }, []);
+    }, [dispatch]);
 
     return (
         <>

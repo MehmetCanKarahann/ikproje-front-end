@@ -13,6 +13,9 @@ import { IKUseSelector } from '../../../store'
 function LogoCarousel() {
 
     const logoList = IKUseSelector(state => state.companySlice.logoList);
+
+    console.log(logoList);
+    
    
     const settings = {
         dots: false,

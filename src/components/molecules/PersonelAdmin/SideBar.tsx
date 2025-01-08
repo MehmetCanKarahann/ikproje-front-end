@@ -15,7 +15,7 @@ function SideBar() {
                     <i className="material-icons compact-sidebar-icon">panorama_fish_eye</i>
                 </a>
             </div>
-            <div className="page-sidebar-inner slimscroll">
+            <div className="page-sidebar-inner ">
                 <ul className="accordion-menu">
                     <li>
                         <NavLink

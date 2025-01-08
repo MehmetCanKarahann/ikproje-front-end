@@ -148,7 +148,7 @@ function Header() {
                                         <input onChange={handleChange} type="file" className="form-control" />
                                     </div>
                                     <div className="col-md-6">
-                                        <img src={file ? URL.createObjectURL(file) : ''} alt="" style={{ width: 150, height: 100 }} />
+                                        <img src={file ? URL.createObjectURL(file) : 'https://lh4.googleusercontent.com/proxy/kX0otYkzacbwl936L9VnavuyJ7pX7mzAaJTVGOysJBK1HY2F8PrjfIEb-uXhsi6vwKajxYE3KkPbmrw'} alt="" style={{ width: 150, height: 100 }} />
                                     </div>
                                 </div>
                             </div>

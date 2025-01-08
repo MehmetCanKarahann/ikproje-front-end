@@ -120,7 +120,13 @@ function PersonelStateList() {
                                             <td>{personel.birthDate}</td>
                                             <td>{personel.hireDate}</td>
                                             <td>{personel.departmentType}</td>
-                                            <td>{personel.userWorkStatus}</td>
+                                            <td>
+                                                {
+                                                    personel.userWorkStatus === 'ON_LEAVE' ? <button className='btn btn-outline-success'>İzinde</button>
+                                                    : <button className='btn btn-outline-warning'>Çalışıyor</button>
+                                                
+                                                }
+                                            </td>
                                             <td>
                                                 {
                                                     personel.state === 'ACTIVE' && <button className='btn btn-danger' onClick={() => passivePersonelState(personel.id)}>

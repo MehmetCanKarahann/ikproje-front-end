@@ -16,7 +16,11 @@ interface ILeaveState {
     isApprovedLeaveLoading: boolean,
     isRejectLeaveLoading: boolean,
     isPersonelUpdateLeaveLoading: boolean,
-    isPersonelLeaveDeleteLoading: boolean
+    isPersonelLeaveDeleteLoading: boolean,
+    isPersonelUsedLeaveDaysLoading: boolean,
+    personelUsedLeaveDays: number,
+    isPersonelRemainingAnnualLeaveDays: boolean,
+    personelLeaveDays: number
 }
 
 const initialLeaveState: ILeaveState = {
@@ -28,7 +32,11 @@ const initialLeaveState: ILeaveState = {
     isApprovedLeaveLoading: false,
     isRejectLeaveLoading: false,
     isPersonelUpdateLeaveLoading: false,
-    isPersonelLeaveDeleteLoading: false
+    isPersonelLeaveDeleteLoading: false,
+    isPersonelUsedLeaveDaysLoading: false,
+    personelUsedLeaveDays: 0,
+    isPersonelRemainingAnnualLeaveDays: false,
+    personelLeaveDays: 0
 }
 
 //fetch işlemleri
@@ -131,13 +139,40 @@ export const fetcDeleteLeaveRequest = createAsyncThunk(
     'leave/fetcDeleteLeaveRequest',
     async ({leaveId}: {leaveId: number}) => {
         const token = localStorage.getItem('token');
-        return fetch(`${apis.leaveService}/delete-leave-request?token=${token}&leaveId=${leaveId}`, {
+        return await fetch(`${apis.leaveService}/delete-leave-request?token=${token}&leaveId=${leaveId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         }).then(data => data.json());
+    }
+)
+
+
+export const fetchUsedLeaveDays = createAsyncThunk(
+    'leave/fetchUsedLeaveDays',
+    async () => {
+        const token = localStorage.getItem('token');
+        return await fetch(apis.leaveService + '/used-leave-days?token=' + token, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(data => data.json());
+    }
+)
+
+export const fecthGetRemainingAnnualLeaveDays = createAsyncThunk(
+    'leave/fecthGetRemainingAnnualLeaveDays',
+    async () => {
+        const token = localStorage.getItem('token');
+        return await fetch(apis.leaveService + '/remaining-leave-days?token=' + token, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(data => data.json())
     }
 )
 
@@ -193,6 +228,24 @@ const leaveSlice = createSlice({
         })
         build.addCase(fetcDeleteLeaveRequest.fulfilled, (state) => {
             state.isPersonelLeaveDeleteLoading = false;
+        })
+        build.addCase(fetchUsedLeaveDays.pending, (state) => {
+            state.isPersonelUsedLeaveDaysLoading = true;
+        })
+        build.addCase(fetchUsedLeaveDays.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
+            state.isPersonelUsedLeaveDaysLoading = false;
+            if(action.payload.code === 200) {
+                state.personelUsedLeaveDays = action.payload.data;
+            }
+        })
+        build.addCase(fecthGetRemainingAnnualLeaveDays.pending, (state) => {
+            state.isPersonelRemainingAnnualLeaveDays = true;
+        })
+        build.addCase(fecthGetRemainingAnnualLeaveDays.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
+            state.isPersonelRemainingAnnualLeaveDays = false;
+            if(action.payload.code === 200){
+                state.personelLeaveDays = action.payload.data;
+            }
         })
     }
 })

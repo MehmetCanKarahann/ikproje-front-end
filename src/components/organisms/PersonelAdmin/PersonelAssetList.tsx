@@ -10,7 +10,7 @@ function PersonelAssetList() {
     const personelAssetList = IKUseSelector(state => state.assetSlice.personelAssetList);
 
     const [asset1, setAsset] = useState<any>(null);
-    
+
 
     const [rejectMessage, setRejectionMessage] = useState('');
     const [isRejectionMessageEmpty, setIsRejectionMessageEmpty] = useState(false);
@@ -20,7 +20,7 @@ function PersonelAssetList() {
 
 
     const handleOpenModal = (selectedAsset: any) => {
-   
+
         setAsset(selectedAsset);
     }
 
@@ -44,9 +44,9 @@ function PersonelAssetList() {
     const rejectAsset = () => {
         setIsRejectionMessageEmpty(rejectMessage === '');
 
-        if(rejectMessage !== '' && assetId){
-            dispatch(fetchRejectAsset({assetId, rejectMessage})).then(data => {
-                if(data.payload.code === 200){
+        if (rejectMessage !== '' && assetId) {
+            dispatch(fetchRejectAsset({ assetId, rejectMessage })).then(data => {
+                if (data.payload.code === 200) {
                     toast.success("Zimmet Reddetme İşleminiz Başarılı!", {
                         position: "top-right"
                     });
@@ -97,18 +97,18 @@ function PersonelAssetList() {
                                                         : asset.description}
                                                 </td>
                                                 <td> {asset.givenDate} </td>
-                                                <td> {asset.status} </td>
                                                 <td>
-                                                    {asset.status === 'PENDING' ? (
+                                                    {asset.status === 'CONFIRMED' && <button className="btn btn-outline-success">Onaylandı</button>}
+                                                    {asset.status === 'REJECTED' && <button className="btn btn-outline-danger">İptal Edildi</button>}
+                                                    {asset.status === 'PENDING' && <button className="btn btn-outline-info">Beklemede</button>}
+                                                </td>
+                                                <td>
+                                                    {asset.status === 'PENDING' && (
                                                         <>
                                                             <button className='btn btn-success me-2' data-bs-toggle="modal" data-bs-target="#approveAssetInfoModal" onClick={() => { handleOpenModal(asset) }}>
                                                                 Onayla
                                                             </button>
-                                                            <button className='btn btn-danger'  data-bs-toggle="modal" data-bs-target="#rejectAssetModal" onClick={() => { setAssetId(asset.id) }}>Reddet</button>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <button className='btn btn-info'>Onaylı</button>
+                                                            <button className='btn btn-danger' data-bs-toggle="modal" data-bs-target="#rejectAssetModal" onClick={() => { setAssetId(asset.id) }}>Reddet</button>
                                                         </>
                                                     )}
 
@@ -163,32 +163,32 @@ function PersonelAssetList() {
                 </div>
 
                 <div className="modal fade bd-example-modal-lg" id="rejectAssetModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="rejectAssetModal">Zimmet Reddet</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div className="modal-dialog modal-lg modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5" id="rejectAssetModal">Zimmet Reddet</h1>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
-                        </div>
-                        <hr style={{ border: '1px black solid' }} />
-                        <div className="modal-body">
-                            <div className="row mt-4 mb-5">
-                                <label className='form-label'>Açıklama: <span style={{ color: 'red' }}> *</span></label>
-                                <textarea className='form-control' onChange={evt => { setRejectionMessage(evt.target.value) }}></textarea>
                             </div>
-                            {
-                                isRejectionMessageEmpty
-                                && <div className='alert alert-warning'>Lütfen *  İle İşaretli Alanları Boş Bırakmayınız...</div>
+                            <hr style={{ border: '1px black solid' }} />
+                            <div className="modal-body">
+                                <div className="row mt-4 mb-5">
+                                    <label className='form-label'>Açıklama: <span style={{ color: 'red' }}> *</span></label>
+                                    <textarea className='form-control' onChange={evt => { setRejectionMessage(evt.target.value) }}></textarea>
+                                </div>
+                                {
+                                    isRejectionMessageEmpty
+                                    && <div className='alert alert-warning'>Lütfen *  İle İşaretli Alanları Boş Bırakmayınız...</div>
 
-                            }
-                        </div>
-                        <hr />
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-primary" onClick={rejectAsset}>Kaydet</button>
+                                }
+                            </div>
+                            <hr />
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-primary" onClick={rejectAsset}>Kaydet</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         </>
     )

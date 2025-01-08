@@ -16,22 +16,22 @@ function ApplicationContent() {
             icon: '🔒',
         },
         {
-            title: 'İzin',
+            title: 'İzin Yönetimi',
             description: 'Personel izin taleplerini pratik bir şekilde takip edin ve yönetin. Onay süreçlerini hızlandırarak verimliliği artırın.',
             icon: '🗓️',
         },
         {
-            title: 'Harcama',
+            title: 'Harcama Yönetimi',
             description: 'Çalışanlarınız harcamalarını faturalarla birlikte sisteme eklesin. Onay veya red işlemlerini zahmetsizce gerçekleştirin.',
             icon: '💳',
         },
         {
-            title: 'Zimmet',
+            title: 'Zimmet Yönetimi',
             description: 'Personelinize ekipman ve demirbaş zimmeti atayın, takibini kolayca yaparak kaynaklarınızı verimli yönetin.',
             icon: '📦',
         },
         {
-            title: 'Vardiya',
+            title: 'Vardiya Yönetimi',
             description: 'Çalışma saatlerini düzenleyin ve vardiya planlarını optimize edin. İş gücü yönetimini daha verimli hale getirin.',
             icon: '🕒',
         },

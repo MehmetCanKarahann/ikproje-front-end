@@ -5,6 +5,7 @@ import { IBaseResponse } from "../../models/IBaseResponse";
 import { IPersonelListResponse } from "../../models/IPersonelListResponse";
 import { IPersonelAssignToShiftRequest } from "../../models/IPersonelAssignToShiftRequest";
 import { IUserShiftResponse } from "../../models/IUserShiftResponse";
+import { IPersonelShiftAndBreakListResponse } from "../../models/IPersonelShiftAndBreakListResponse";
 
 
 interface IUserShiftState {
@@ -12,7 +13,9 @@ interface IUserShiftState {
     personelListByCompanyId: IPersonelListResponse[],
     isPersonelAssignToShiftLoading: boolean,
     isPersonelAssignToShiftListLoading: boolean, 
-    personelShiftList: IUserShiftResponse[] //personellere atanmış vardiya listesi
+    personelShiftList: IUserShiftResponse[] //personellere atanmış vardiya listesi,
+    isPersonelShiftAndBreakListLoading: boolean,
+    personelShiftAndBreakList: IPersonelShiftAndBreakListResponse[]
 }
 
 const initialUserShiftState: IUserShiftState = {
@@ -20,7 +23,9 @@ const initialUserShiftState: IUserShiftState = {
     personelListByCompanyId: [],
     isPersonelAssignToShiftLoading: false,
     isPersonelAssignToShiftListLoading: false,
-    personelShiftList: []
+    personelShiftList: [],
+    isPersonelShiftAndBreakListLoading: false,
+    personelShiftAndBreakList: []
 }
 
 
@@ -73,6 +78,21 @@ export const fetchAssignShiftToUser = createAsyncThunk(
     }
 )
 
+
+//personelin vardiya ve mola listesini getirir.
+export const fetchGetActiveShiftDetails = createAsyncThunk(
+    'userShift/fetchGetActiveShiftDetails',
+    async () => {
+        const token = localStorage.getItem('token');
+        return await fetch(apis.userShiftService + '/get-active-shift-details?token=' + token, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(data => data.json())
+    }
+)
+
 const userShiftSlice = createSlice({
     name: 'userShift',
     initialState: initialUserShiftState,
@@ -102,6 +122,16 @@ const userShiftSlice = createSlice({
         })
         build.addCase(fetchAssignShiftToUser.fulfilled, (state) => {
             state.isPersonelAssignToShiftLoading = false;
+        })
+        build.addCase(fetchGetActiveShiftDetails.pending, (state) => {
+            state.isPersonelShiftAndBreakListLoading = true;
+        })
+        build.addCase(fetchGetActiveShiftDetails.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
+            state.isPersonelShiftAndBreakListLoading = false;
+            if(action.payload.code === 200){
+                state.personelShiftAndBreakList = action.payload.data;
+                
+            }
         })
     }
 })

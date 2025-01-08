@@ -6,6 +6,9 @@ function PersonelList() {
 
     const PersonelList = IKUseSelector(state => state.companyManagement.companyPersonelList);
 
+    console.log(PersonelList);
+    
+
     return (
         <div className='col'>
             <div className="card">
@@ -28,6 +31,7 @@ function PersonelList() {
                                 <th>Ad</th>
                                 <th>Soyad</th>
                                 <th>Doğum Tarihi</th>
+                                <th>Email</th>
                                 <th>İşe Alınma Tarihi</th>
                                 <th>Departman</th>
                             
@@ -41,7 +45,9 @@ function PersonelList() {
                                             <td>{personel.id}</td>
                                             <td>{personel.firstName}</td>
                                             <td>{personel.lastName}</td>
+                                            
                                             <td>{personel.birthDate}</td>
+                                            <td> {personel.email} </td>
                                             <td>{personel.hireDate}</td>
                                             <td>{personel.departmentType}</td>
                                            

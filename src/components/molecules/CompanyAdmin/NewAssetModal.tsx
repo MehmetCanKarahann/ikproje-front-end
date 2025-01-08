@@ -39,6 +39,9 @@ function NewAssetModal() {
                     position: "top-right"
                 });
                 dispatch(fetchGetAssetListOfCompany());
+                setPersonelId(0);
+                setAssetType('');
+                setDescription('');
             }
             else {
                 toast.warning(data.payload.message ,{

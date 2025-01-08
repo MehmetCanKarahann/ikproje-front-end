@@ -1,6 +1,7 @@
 import React from 'react'
 import img from '../../../img/human-resources1.png'
 import './HeaderContent.css'
+import dashboard from '../../../img/dashboard.png'
 
 function HeaderContent() {
     return (
@@ -20,7 +21,7 @@ function HeaderContent() {
                 </div>
 
             </div>
-
+        
         </div>
     )
 }
