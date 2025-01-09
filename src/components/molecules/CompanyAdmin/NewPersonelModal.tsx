@@ -17,6 +17,7 @@ function NewPersonelModal() {
     const [birthDate, setBirthDate] = useState('');
     const [hireDate, setHireDate] = useState('');
     const [gender, setGender] = useState('');
+    const [salary, setSalary] = useState(0);
     const [departmentType, setDepartmentType] = useState('HR');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -36,7 +37,7 @@ function NewPersonelModal() {
             tcNo: tcNo,
             sgkNo: sgkNo,
             phone: phone,
-            salary: 1500,
+            salary: salary,
             gender: gender,
             birthDate: birthDate,
             hireDate: hireDate,
@@ -164,6 +165,10 @@ function NewPersonelModal() {
                                         <option value="SECURITY">SECURITY</option>
                                     </select>
                                 </div>
+                                <div className="col-6 mb-3 text-start">
+                                    <label className='ms-4'>Maaş:</label>
+                                    <input type="text" className="form-control" onChange={evt => { setSalary(Number(evt.target.value)) }} value={salary} />
+                                </div>
                                 <div className="col mb-3 text-start">
                                     <label className='ms-4'>Email Adresi:</label>
                                     <input type="text" className="form-control" onChange={evt => { setEmail(evt.target.value) }} value={email} />
@@ -200,7 +205,7 @@ function NewPersonelModal() {
                                 <div className="row text-start ms-4">
                                     <label className=''>Yeniden Şifre:</label>
                                 </div>
-                                <div className="form-group mb-5" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                                <div className="form-group mb-3" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
 
                                     <input
                                         type={showRePassword ? 'text' : 'password'}
